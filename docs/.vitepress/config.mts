@@ -15,6 +15,12 @@ export default defineConfig({
           { text: 'flink部署', link: '/bigdata/flink-deploy.md' },
         ]
       },
+      {
+        text: '操作系统',
+        items: [
+          { text: '概述', link: '/cs/system/index.md' },
+        ]
+      }
     ],
 
     sidebar: [

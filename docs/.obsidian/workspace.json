@@ -11,12 +11,8 @@
             "id": "51cd9cdbadf3ef4a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "bigdata/flink.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "bigdata/flink.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "bigdata/flink.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "bigdata/flink.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -148,8 +140,10 @@
   },
   "active": "51cd9cdbadf3ef4a",
   "lastOpenFiles": [
-    "bigdata/flink-deploy.md",
+    "algorithm/sort/assets/sort_algo_complexity.png",
+    "algorithm/sort/assets",
     "bigdata/flink.md",
+    "bigdata/flink-deploy.md",
     "algorithm/sort.md",
     "algorithm",
     "bigdata/Flink部署.md",

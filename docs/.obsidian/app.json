@@ -1,5 +1,6 @@
 {
   "alwaysUpdateLinks": true,
   "newFileLocation": "current",
-  "attachmentFolderPath": "./assets"
+  "attachmentFolderPath": "./assets",
+  "readableLineLength": true
 }
