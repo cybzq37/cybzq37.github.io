@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "智能网联/知识图谱.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 299.5
+    "width": 293.5
   },
   "right": {
     "id": "b0e3f95ccaffd471",
@@ -182,7 +182,13 @@
   },
   "active": "15dbc37a9c92bb64",
   "lastOpenFiles": [
+    "assets/Pasted image 20250508220857.png",
+    "assets/Pasted image 20250508220704.png",
+    "智能网联/Drawing 2025-05-08 21.55.45.excalidraw.md",
     "智能网联/知识图谱.md",
+    "Excalidraw",
+    "Excalidraw/Drawing 2025-05-08 21.54.28.excalidraw.md",
+    "markdown-examples.md",
     "智能网联",
     "01最近工作.md.baiduyun.uploading.cfg",
     "A最近工作.md.baiduyun.uploading.cfg",

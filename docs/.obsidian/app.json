@@ -4,5 +4,6 @@
   "newFileLocation": "current",
   "attachmentFolderPath": "assets",
   "newLinkFormat": "absolute",
-  "spellcheck": false
+  "spellcheck": false,
+  "promptDelete": false
 }
