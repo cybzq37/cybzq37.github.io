@@ -1,0 +1,14 @@
+{
+  "markdown:toggle-preview": [
+    {
+      "modifiers": [],
+      "key": "F9"
+    }
+  ],
+  "outline:open": [
+    {
+      "modifiers": [],
+      "key": "F10"
+    }
+  ]
+}

@@ -1,18 +1,24 @@
 {
   "main": {
-    "id": "c86d4010e57d74a3",
+    "id": "280126c3e8c103d8",
     "type": "split",
     "children": [
       {
-        "id": "f6acf3d48809653b",
+        "id": "57f3d1e055795c8b",
         "type": "tabs",
         "children": [
           {
-            "id": "51cd9cdbadf3ef4a",
+            "id": "15dbc37a9c92bb64",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "智能网联/知识图谱.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "知识图谱"
             }
           }
         ]
@@ -21,25 +27,28 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "9561a59e87e8128e",
+    "id": "2da5fc6c41596fe3",
     "type": "split",
     "children": [
       {
-        "id": "8948ea8a9fc16df2",
+        "id": "3fbf5677ff5c68ab",
         "type": "tabs",
         "children": [
           {
-            "id": "d6867f07ba696907",
+            "id": "fd7724c6da7af02a",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
-              }
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
             }
           },
           {
-            "id": "895970e730c99330",
+            "id": "58730a4bcf07c5d8",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -50,37 +59,42 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
             }
           },
           {
-            "id": "bcdc7260c2172733",
+            "id": "8f3b8f4ffb6cab95",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 299.5
   },
   "right": {
-    "id": "4695e9ee74e067e6",
+    "id": "b0e3f95ccaffd471",
     "type": "split",
     "children": [
       {
-        "id": "3a6e768ca25e9c95",
+        "id": "08a56e45e66541d7",
         "type": "tabs",
         "children": [
           {
-            "id": "12c342460c3762d3",
+            "id": "77c8b97b3b3e2c1b",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "前端/pnpm教程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,45 +102,71 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "pnpm教程 的反向链接列表"
             }
           },
           {
-            "id": "944a4a8a2b0ab7be",
+            "id": "9a367a4ea4d606ed",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "前端/pnpm教程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "pnpm教程 的出链列表"
             }
           },
           {
-            "id": "ea419a138d955e9c",
+            "id": "eceab70cb3edadf5",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
-              }
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
-            "id": "1feedceca81112e6",
+            "id": "2146b51d020dbacd",
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "智能网联/知识图谱.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "知识图谱 的大纲"
+            }
+          },
+          {
+            "id": "f55ac23df70e476a",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -135,22 +175,40 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "command-palette:打开命令面板": false,
+      "obsidian-git:Open Git source control": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "51cd9cdbadf3ef4a",
+  "active": "15dbc37a9c92bb64",
   "lastOpenFiles": [
-    "algorithm/sort/assets/sort_algo_complexity.png",
-    "algorithm/sort/assets",
-    "bigdata/flink.md",
-    "bigdata/flink-deploy.md",
-    "algorithm/sort.md",
-    "algorithm",
-    "bigdata/Flink部署.md",
-    "bigdata/flink",
-    "系统",
-    "编程语言",
-    "bigdata",
-    "markdown-examples.md"
+    "智能网联/知识图谱.md",
+    "智能网联",
+    "01最近工作.md.baiduyun.uploading.cfg",
+    "A最近工作.md.baiduyun.uploading.cfg",
+    "部署工作/未命名",
+    "b平台部署",
+    "vpn/镇江vpn.md",
+    "vpn/01最近工作.md.baiduyun.uploading.cfg",
+    "vpn/南京港vpn.md",
+    "vpn",
+    "a最近工作.md",
+    "镇江vpn.md.baiduyun.uploading.cfg",
+    "南京港vpn.md.baiduyun.uploading.cfg",
+    "assets/image-20250429153146284.png",
+    "大数据/flink-deploy.md",
+    "大数据/spark.md",
+    "大数据/flink.md",
+    "音视频/（存储）图像中的位深.md",
+    "assets/image_6kjHjXgpJ--20230904153428-ca6rcy5.png.md",
+    "音视频/mrcpv2语音控制协议.md",
+    "音视频/（存储）常见图像格式总结.md",
+    "音视频/（编解码）H264编码.md",
+    "assets/image-20231215095438.png",
+    "assets/Pasted image 20231215095452.png",
+    "前端/pnpm教程.md",
+    "前端/Puppeteer 教程.md",
+    "前端/javascript事件监控.md",
+    "前端/Javascript Info.md"
   ]
 }

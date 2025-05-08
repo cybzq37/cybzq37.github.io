@@ -23,7 +23,7 @@ IE 浏览器在事件这方面与标准还有一些其他的差异，我们会�
 
 如果使用原生的方式实现事件代理，需要注意过滤非目标节点，可以通过 id、class 或者 tagname 等等，例如：
 
-```
+```js
 element.addEventListener('click', function(event) {
     // 判断是否是 a 节点
     if ( event.target.tagName == 'A' ) {
@@ -38,7 +38,7 @@ element.addEventListener('click', function(event) {
 
 停止事件冒泡需要使用事件对象的 stopPropagation​​ 方法，具体代码如下：
 
-```
+```js
 element.addEventListener('click', function(event) {
     event.stopPropagation();
 }, false);

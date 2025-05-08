@@ -1,7 +1,8 @@
 {
-  "textFontFamily": "微软雅黑",
-  "interfaceFontFamily": "微软雅黑",
+  "cssTheme": "Minimal",
+  "interfaceFontFamily": "",
+  "textFontFamily": "",
   "monospaceFontFamily": "DejaVu Sans Mono",
-  "baseFontSizeAction": true,
-  "baseFontSize": 20
+  "baseFontSize": 16,
+  "baseFontSizeAction": true
 }

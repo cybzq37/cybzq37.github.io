@@ -1,6 +1,8 @@
 {
+  "trashOption": "local",
   "alwaysUpdateLinks": true,
   "newFileLocation": "current",
-  "attachmentFolderPath": "./assets",
-  "readableLineLength": true
+  "attachmentFolderPath": "assets",
+  "newLinkFormat": "absolute",
+  "spellcheck": false
 }
