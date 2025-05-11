@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "智能网联/知识图谱.md",
-                "mode": "source",
-                "source": false
+                "file": "运维/系统初始化.md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "知识图谱"
+              "title": "系统初始化"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 293.5
+    "width": 413.5
   },
   "right": {
     "id": "b0e3f95ccaffd471",
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "智能网联/知识图谱.md",
+                "file": "运维/系统初始化.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "知识图谱 的大纲"
+              "title": "系统初始化 的大纲"
             }
           },
           {
@@ -182,10 +182,21 @@
   },
   "active": "15dbc37a9c92bb64",
   "lastOpenFiles": [
+    "运维/脚本/ssh_key_push.sh",
+    "运维/脚本",
+    "运维",
+    "大数据/学习指南.md",
+    "运维/系统初始化.md",
+    "大数据/未命名.md",
+    "大数据/flink/flink-deploy.md",
+    "大数据/flink/flink.md",
+    "智能网联/知识图谱.md",
+    "大数据/flink",
+    "大数据/spark.md",
+    "大数据/spark",
+    "智能网联/Drawing 2025-05-08 21.55.45.excalidraw.md",
     "assets/Pasted image 20250508220857.png",
     "assets/Pasted image 20250508220704.png",
-    "智能网联/Drawing 2025-05-08 21.55.45.excalidraw.md",
-    "智能网联/知识图谱.md",
     "Excalidraw",
     "Excalidraw/Drawing 2025-05-08 21.54.28.excalidraw.md",
     "markdown-examples.md",
@@ -195,16 +206,9 @@
     "部署工作/未命名",
     "b平台部署",
     "vpn/镇江vpn.md",
-    "vpn/01最近工作.md.baiduyun.uploading.cfg",
     "vpn/南京港vpn.md",
-    "vpn",
     "a最近工作.md",
-    "镇江vpn.md.baiduyun.uploading.cfg",
-    "南京港vpn.md.baiduyun.uploading.cfg",
     "assets/image-20250429153146284.png",
-    "大数据/flink-deploy.md",
-    "大数据/spark.md",
-    "大数据/flink.md",
     "音视频/（存储）图像中的位深.md",
     "assets/image_6kjHjXgpJ--20230904153428-ca6rcy5.png.md",
     "音视频/mrcpv2语音控制协议.md",

@@ -5,5 +5,7 @@
   "attachmentFolderPath": "assets",
   "newLinkFormat": "absolute",
   "spellcheck": false,
-  "promptDelete": false
+  "promptDelete": false,
+  "strictLineBreaks": true,
+  "showUnsupportedFiles": true
 }
