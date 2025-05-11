@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "运维/系统初始化.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
@@ -182,6 +182,7 @@
   },
   "active": "15dbc37a9c92bb64",
   "lastOpenFiles": [
+    "assets/etc_ntp_conf.png",
     "运维/脚本/ssh_key_push.sh",
     "运维/脚本",
     "运维",
@@ -204,7 +205,6 @@
     "01最近工作.md.baiduyun.uploading.cfg",
     "A最近工作.md.baiduyun.uploading.cfg",
     "部署工作/未命名",
-    "b平台部署",
     "vpn/镇江vpn.md",
     "vpn/南京港vpn.md",
     "a最近工作.md",
