@@ -13,12 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "运维/系统初始化.md",
+                "file": "运维/vscode全栈配置.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "系统初始化"
+              "title": "vscode全栈配置"
+            }
+          },
+          {
+            "id": "30df0b9275d38ec1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "大数据/学习指南.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "学习指南"
             }
           }
         ]
@@ -142,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "运维/系统初始化.md",
+                "file": "运维/vscode全栈配置.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "系统初始化 的大纲"
+              "title": "vscode全栈配置 的大纲"
             }
           },
           {
@@ -182,12 +196,19 @@
   },
   "active": "15dbc37a9c92bb64",
   "lastOpenFiles": [
+    "运维/系统初始化.md",
+    "运维/vscode全栈配置.md",
+    "timescaledb.md",
+    "markdown-examples.md",
+    "大数据/学习指南.md",
+    "未命名",
+    "hanoi.md",
+    "物联网/规则引擎.md",
+    "物联网",
     "assets/etc_ntp_conf.png",
     "运维/脚本/ssh_key_push.sh",
     "运维/脚本",
     "运维",
-    "大数据/学习指南.md",
-    "运维/系统初始化.md",
     "大数据/未命名.md",
     "大数据/flink/flink-deploy.md",
     "大数据/flink/flink.md",
@@ -200,11 +221,8 @@
     "assets/Pasted image 20250508220704.png",
     "Excalidraw",
     "Excalidraw/Drawing 2025-05-08 21.54.28.excalidraw.md",
-    "markdown-examples.md",
     "智能网联",
     "01最近工作.md.baiduyun.uploading.cfg",
-    "A最近工作.md.baiduyun.uploading.cfg",
-    "部署工作/未命名",
     "vpn/镇江vpn.md",
     "vpn/南京港vpn.md",
     "a最近工作.md",
