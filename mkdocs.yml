@@ -1,0 +1,56 @@
+site_name: My Docs
+theme:
+  name: material
+  features:
+    - content.tooltips
+
+markdown_extensions:
+  - pymdownx.superfences
+  # 警告
+  - admonition
+  - pymdownx.details
+  # 注释
+  - attr_list
+  - md_in_html
+  # 代码块高亮
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  # 数据公式
+  - pymdownx.arithmatex:
+      generic: true
+  # tab页
+  - pymdownx.tabbed:
+      alternate_style: true
+  # 表格
+  - tables
+  # 流程图
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - footnotes
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  # 图片
+  - pymdownx.blocks.caption
+  # 列表
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  # 表情
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+      
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

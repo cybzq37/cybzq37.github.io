@@ -2,10 +2,12 @@
   "trashOption": "local",
   "alwaysUpdateLinks": true,
   "newFileLocation": "current",
-  "attachmentFolderPath": "assets",
+  "attachmentFolderPath": "./assets",
   "newLinkFormat": "absolute",
   "spellcheck": false,
   "promptDelete": false,
   "strictLineBreaks": true,
-  "showUnsupportedFiles": true
+  "showUnsupportedFiles": true,
+  "readableLineLength": true,
+  "showInlineTitle": false
 }

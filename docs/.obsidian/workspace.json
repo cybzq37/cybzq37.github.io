@@ -4,38 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "57f3d1e055795c8b",
+        "id": "6d683bdc0d473eab",
         "type": "tabs",
         "children": [
           {
-            "id": "15dbc37a9c92bb64",
+            "id": "0b4b00605aef6e2b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "运维/vscode全栈配置.md",
-                "mode": "source",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "vscode全栈配置"
-            }
-          },
-          {
-            "id": "30df0b9275d38ec1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "大数据/学习指南.md",
+                "file": "notebook/Machine-Learning-Andrew-Ng-2022/0监督学习.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "学习指南"
+              "title": "0监督学习"
+            }
+          },
+          {
+            "id": "2a303ec951a602a9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notebook/Andrew-Ng-Machine-Learning-notes/docs/week3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "week3"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -92,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 413.5
+    "width": 285.5
   },
   "right": {
     "id": "b0e3f95ccaffd471",
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "运维/vscode全栈配置.md",
+                "file": "notebook/Andrew-Ng-Machine-Learning-notes/docs/week3.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "vscode全栈配置 的大纲"
+              "title": "week3 的大纲"
             }
           },
           {
@@ -191,52 +192,57 @@
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
       "obsidian-git:Open Git source control": false,
-      "obsidian-excalidraw-plugin:新建绘图文件": false
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
+      "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "15dbc37a9c92bb64",
+  "active": "2a303ec951a602a9",
   "lastOpenFiles": [
-    "运维/系统初始化.md",
-    "运维/vscode全栈配置.md",
-    "timescaledb.md",
-    "markdown-examples.md",
-    "大数据/学习指南.md",
-    "未命名",
-    "hanoi.md",
-    "物联网/规则引擎.md",
-    "物联网",
-    "assets/etc_ntp_conf.png",
-    "运维/脚本/ssh_key_push.sh",
-    "运维/脚本",
-    "运维",
-    "大数据/未命名.md",
-    "大数据/flink/flink-deploy.md",
-    "大数据/flink/flink.md",
-    "智能网联/知识图谱.md",
-    "大数据/flink",
-    "大数据/spark.md",
-    "大数据/spark",
-    "智能网联/Drawing 2025-05-08 21.55.45.excalidraw.md",
-    "assets/Pasted image 20250508220857.png",
-    "assets/Pasted image 20250508220704.png",
-    "Excalidraw",
-    "Excalidraw/Drawing 2025-05-08 21.54.28.excalidraw.md",
-    "智能网联",
-    "01最近工作.md.baiduyun.uploading.cfg",
-    "vpn/镇江vpn.md",
-    "vpn/南京港vpn.md",
-    "a最近工作.md",
-    "assets/image-20250429153146284.png",
-    "音视频/（存储）图像中的位深.md",
-    "assets/image_6kjHjXgpJ--20230904153428-ca6rcy5.png.md",
-    "音视频/mrcpv2语音控制协议.md",
-    "音视频/（存储）常见图像格式总结.md",
-    "音视频/（编解码）H264编码.md",
-    "assets/image-20231215095438.png",
-    "assets/Pasted image 20231215095452.png",
-    "前端/pnpm教程.md",
-    "前端/Puppeteer 教程.md",
-    "前端/javascript事件监控.md",
-    "前端/Javascript Info.md"
+    "notebook/Machine-Learning-Andrew-Ng-2022/1神经网络.md",
+    "notebook/机器学习/3 多元限行回归模型.md",
+    "notebook/机器学习/2 线性回归模型.md",
+    "notebook/Machine-Learning-Andrew-Ng-2022/0监督学习.md",
+    "notebook/Machine-Learning-Andrew-Ng-2022/assets/Pasted image 20250601230633.png",
+    "notebook/机器学习/assets/Pasted image 20250601230117.png",
+    "notebook/机器学习/assets/Pasted image 20250601230048.png",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.6 运行梯度下降.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.5 线性回归中的梯度下降.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.4 学习率.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.3 梯度下降的直观理解.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.2 梯度下降实现.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.1 梯度下降.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.6 可视化的例子.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.5 可视化代价函数.ppt",
+    "notebook/Machine-Learning-Andrew-Ng-2022/如何最简单、通俗地理解代价函数？.md",
+    "notebook/机器学习/assets/Pasted image 20250601224458.png",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.4 代价函数的直观理解.ppt",
+    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.3 代价函数.ppt",
+    "notebook/机器学习/1 监督学习与非监督学习.md",
+    "notebook/机器学习/assets/Pasted image 20250601223421.png",
+    "notebook/Andrew-Ng-Machine-Learning-notes/README.md",
+    "notebook/Andrew-Ng-Machine-Learning-notes/docs/week2.md",
+    "notebook/Andrew-Ng-Machine-Learning-notes/docs/week1.md",
+    "notebook/机器学习/assets/Pasted image 20250601223001.png",
+    "notebook/机器学习/assets/Pasted image 20250601222938.png",
+    "notebook/机器学习/assets/Pasted image 20250601222534.png",
+    "notebook/机器学习/assets/Pasted image 20250601222253.png",
+    "notebook/机器学习/assets/Pasted image 20250601222149.png",
+    "notebook/Machine-Learning-Andrew-Ng-2022/机器学习常见模型.md",
+    "notebook/Machine-Learning-Andrew-Ng-2022/关于大模型的一些思考.md",
+    "notebook/Machine-Learning-Andrew-Ng-2022/代价函数不是凸函数吗，为什么还会有局部最优的情况.md",
+    "notebook/Machine-Learning-Andrew-Ng-2022/代价函数、优化函数-Bing.md",
+    "jupyter配置说明.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/4.Practice quiz Decision tree learning/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/6.Practice quiz Tree ensembles/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/3.Decision tree learning/README.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/5.Tree ensembles/README.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/2.Practice quiz Decision trees/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/1.Decision trees/README.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/8.Neural network implementation in Python/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/6.Practice quiz TensorFlow implementation/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/4.Practice quiz Neural network model/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/2.Practice quiz Neural networks intuition/quiz.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/7.Skewed datasets (optional)/README.md",
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/1.Neural networks intuition/阅读材料[IMPORTANT] Have questions, issues or ideas Join our community on Discourse!.md"
   ]
 }
