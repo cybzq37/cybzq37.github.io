@@ -11,10 +11,14 @@
             "id": "0b4b00605aef6e2b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "AI/机器学习/6 过拟合与正则化.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "6 过拟合与正则化"
             }
           }
         ]
@@ -74,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 285.5
+    "width": 400.5
   },
   "right": {
     "id": "b0e3f95ccaffd471",
@@ -138,12 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "AI/机器学习/6 过拟合与正则化.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "6 过拟合与正则化 的大纲"
             }
           },
           {
@@ -178,51 +183,51 @@
   },
   "active": "0b4b00605aef6e2b",
   "lastOpenFiles": [
-    "statics/img/favicon.svg",
-    "statics/img/logo copy.svg",
-    "statics/img/logo.svg",
-    "statics/img/z.svg",
-    "statics/css/extra.css",
-    "statics/js/katex.js",
-    "statics/js/copyright.js",
-    "statics/js/mathjax.js",
-    "statics/js",
-    "statics/javascripts/mathjax.js",
-    "statics/javascripts/copyright.js",
-    "statics/javascripts/katex.js",
-    "statics/javascripts",
-    "statics/css",
-    "statics/img/logo.png",
-    "statics/img/favicon.png",
-    "statics/logo.png",
-    "statics/zend-white.png",
-    "statics/alpha-z-box-white.png",
-    "statics/logo-8.png",
-    "statics/favicon.png",
+    "index.md",
+    "Home/about.md",
+    "Home/index.md",
+    "Home",
+    "home/about.md",
+    "home/index copy.md",
+    "home/index.md",
+    "home",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/逻辑回归的简化版代价函数.ppt",
+    "AI/index.md",
+    "AI/机器学习/5 逻辑回归.md",
+    "AI/机器学习/6 过拟合与正则化.md",
+    "AI/机器学习/assets/Pasted image 20250603002621.png",
+    "AI/机器学习/assets/Pasted image 20250603002614.png",
+    "AI/机器学习/assets/Pasted image 20250603002600.png",
+    "AI/机器学习/assets/Pasted image 20250603002108.png",
+    "AI/机器学习/assets/Pasted image 20250603002057.png",
+    "AI/机器学习/assets/Pasted image 20250603002009.png",
+    "AI/机器学习/assets/Pasted image 20250603002003.png",
+    "AI/机器学习/assets/Pasted image 20250603001953.png",
+    "AI/机器学习/assets/Pasted image 20250602235806.png",
+    "AI/机器学习/assets/Pasted image 20250602235746.png",
+    "AI/机器学习/4 特征缩放与学习率.md",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/8.1 逻辑回归的代价函数.ppt",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/7.4 逻辑回归的代价函数.ppt",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/7.3 决策边界.ppt",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/7.2 逻辑(logistic)回归.ppt",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/7.1 Motivation.ppt",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/正则化线性回归.ppt",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/正则化代价函数.ppt",
+    "AI/Machine-Learning-Andrew-Ng-2022/0监督学习.md",
+    "AI/机器学习/3 多元线性回归模型.md",
+    "AI/机器学习/2 线性回归模型.md",
+    "AI/机器学习/1 监督学习与非监督学习.md",
+    "blog/posts/mkdocs.md",
+    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/README.md",
+    "AI/Andrew-Ng-Machine-Learning-notes/docs/week2.md",
+    "AI/Andrew-Ng-Machine-Learning-notes/docs/week3.md",
+    "AI/机器学习/assets/week2.md",
+    "AI/Andrew-Ng-Machine-Learning-notes/docs/week1.md",
+    "内存管理子系统.md",
     "notebook/机器学习/3 多元限行回归模型.md",
     "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/6.Practice quiz Machine learning development process/quiz.md",
     "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/7.Skewed datasets (optional)/README.md",
     "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/4.Practice quiz Bias and variance/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/5.Machine learning development process/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/3.Bias and variance/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/2.Practice quiz Advice for applying machine learning/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/1.Advice for applying machine learning/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/6.Practice quiz Tree ensembles/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/4.Practice quiz Decision tree learning/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/1.Decision trees/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/5.Tree ensembles/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/2.Practice quiz Decision trees/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/3.Decision tree learning/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week2/6.Practice quiz Multiclass Classification/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week2/8.Practice quiz Additional Neural Network Concepts/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week2/4.Practice quiz Activation Functions/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week2/7.Additional Neural Network Concepts/README.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week2/2.Practice quiz Neural Network Training/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week2/1.Neural Network Training/README.md",
-    "AI/2022-Machine-Learning-Specialization/2 Unsupervised learning recommenders reinforcement learning/week3/Quiz-Continuous state spaces/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/2 Unsupervised learning recommenders reinforcement learning/week3/Quiz-State-action value function/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/8.Neural network implementation in Python/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/6.Practice quiz TensorFlow implementation/quiz.md",
-    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/1.Neural networks intuition/阅读材料[IMPORTANT] Have questions, issues or ideas Join our community on Discourse!.md"
+    "AI/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/5.Machine learning development process/README.md"
   ]
 }

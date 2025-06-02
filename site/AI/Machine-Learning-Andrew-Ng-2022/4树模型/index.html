@@ -1,0 +1,828 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/AI/Machine-Learning-Andrew-Ng-2022/4%E6%A0%91%E6%A8%A1%E5%9E%8B/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>分类决策树 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              分类决策树
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    欢迎来到左丘的博客
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI 总览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">分类决策树</h1>
+<p><img alt="" src="../assets/Pasted%20image%2020230715193726.png" /></p>
+<ol>
+<li>在每个节点上如何选择特征进行拆分？</li>
+<li>选择要拆分的特征以尝试最大化纯度
+<img alt="" src="../assets/Pasted%20image%2020230715170822.png" /></li>
+<li>何时停止分支？
+<img alt="" src="../assets/Pasted%20image%2020230715171547.png" /></li>
+<li>分出类别</li>
+<li>达到最大深度</li>
+<li>当纯度低于阈值</li>
+<li>节点的示例数量低于阈值</li>
+</ol>
+<h1 id="_2">纯度</h1>
+<p>熵（entropy）的定义，它是衡量一组数据不纯度（混乱程度）的指标。
+熵越小，纯度越高</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230715172451.png" /></p>
+<p>熵函数
+<img alt="" src="../assets/Pasted%20image%2020230715172601.png" />
+在决策树构建的过程中，我们希望通过选择特征使得熵最小化，即寻找能够最大程度减少数据集的纯度。通过计算每个特征的熵，并对其进行比较，我们可以选择最佳的划分特征来构建决策树的节点。</p>
+<h1 id="_3">选择拆分信息增益</h1>
+<p>在决策树中，熵的减少称为信息增益（information gain）
+信息增益是决策树算法中用于选择最佳划分特征的指标之一。它表示通过使用某个特征对数据集进行划分所能获得的整体熵减少量。</p>
+<p>在计算信息增益时，首先需要计算划分前的数据集的熵（也称为初始熵）。然后，对于每个候选划分特征，并计算每个划分子集的熵。最后，通过计算划分前的熵与所有划分子集熵的加权平均来计算信息增益。</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230715183454.png" />
+其中，初始熵是对整个数据集进行计算得到的熵，子集熵是对每个划分子集进行计算得到的熵，子集样本数是每个划分子集中的样本数量，总样本数是整个数据集的样本总数。</p>
+<p>未分支前有5个猫，5个狗，因此初始熵熵 <span class="arithmatex">\(H(0.5)=1\)</span> 。
+分支后加权平均的熵为上图红色方框，未分支前的熵减去分支后加权平均的熵即为信息增益。</p>
+<p>具体计算公式如下：</p>
+<p>信息增益 = 初始熵 - ∑(子集熵 * 子集样本数 / 总样本数)
+<img alt="" src="../assets/Pasted%20image%2020230715191714.png" /></p>
+<p>信息增益表示通过使用某个特征划分数据集，分支后，<strong>整体熵相对于初始熵的减少量</strong>。我们希望选择具有<strong>最大</strong>信息增益的特征作为划分依据，因为它能够最大程度地<strong>减少数据集的不确定性（混乱程度）</strong>，提供更多有用的信息。</p>
+<p>==总结：==熵代表混乱程度，熵越高，混乱程度越高；信息增益越大，熵减少的越大，说明从高熵减低到低熵，进而说明从高混乱程度到低混乱程度的变化。</p>
+<h1 id="_4">决策树步骤</h1>
+<p><img alt="" src="../assets/Pasted%20image%2020230715193336.png" />
+从根节点开始，将所有的示例放置在根节点上。 
+计算所有可能特征的信息增益，并选择具有最高信息增益的特征。 根据所选特征划分数据集，并创建决策树的左右分支。 
+不断重复划分过程，直到满足停止准则为止： 
+- 当一个节点是100%属于某一类别时 
+- 当划分一个节点会导致树超过最大深度时 
+- 额外划分带来的信息增益低于阈值时。</p>
+<h1 id="_5">如何处理连续值特征</h1>
+<p>在决策树中处理连续性数值的特征通常有两种方法：二元切分和多元切分。</p>
+<ol>
+<li>
+<p>二元切分（Binary Splitting）：通过选择一个阈值来将连续性数值特征进行二元切分。对于给定的连续性特征，可以选择一个合适的阈值将数据集划分为两个子集。例如，如果特征是年龄，可以选择一个年龄阈值，将数据分为小于等于阈值和大于阈值的两个子集。然后，根据这个划分继续构建决策树。</p>
+</li>
+<li>
+<p>多元切分（Multi-way Splitting）：与二元切分不同，多元切分将连续性数值特征划分为多个范围或区间。通过指定多个阈值或范围，将连续性特征划分为多个子集。例如，对于年龄特征，可以指定年龄范围(0-10岁, 11-20岁, 21-30岁, 等等)作为划分依据。然后，根据这个划分继续构建决策树。</p>
+</li>
+</ol>
+<p>无论是二元切分还是多元切分，决策树都会根据划分结果计算信息增益或其他评估指标，选择最佳的划分。</p>
+<p>在示例中增加一列体重特征：
+<img alt="" src="../assets/Pasted%20image%2020230715195850.png" />
+对于体重，我们选取不同的阈值来分割，然后计算对应的信息增益
+<img alt="" src="../assets/Pasted%20image%2020230715200031.png" />
+当选择9时，信息增益最大，因此我们用是否大于9磅进行分支。</p>
+<h1 id="_6">回归决策树</h1>
+<p>预测体重：
+<img alt="" src="../assets/Pasted%20image%2020230715201645.png" /></p>
+<p><img alt="" src="../assets/Pasted%20image%2020230715201734.png" /></p>
+<p><img alt="" src="../assets/Pasted%20image%2020230715201805.png" />
+方差 方差减小最大</p>
+<h1 id="_7">有放回抽样样本</h1>
+<p>共十个样本，五个猫 五个狗，有放回的抽取10次，组成一个新的训练集。
+<img alt="" src="../assets/Pasted%20image%2020230715212515.png" /></p>
+<h1 id="_8">装袋决策树</h1>
+<p>有一个大小为m的训练集。</p>
+<p>b等于1到B，我们将训练集放入袋子中，利用有放回抽样选出B次大小为m的新的训练集，我们在这些新的训练集中训练一个个决策树。
+<img alt="" src="../assets/Pasted%20image%2020230715222743.png" />
+选出一个新的训练集，训练一个决策树；选出另外一个新的训练集，在训练一个决策树，就这样选出B个训练集，训练出B个决策树。
+B则代表决策树的数量， 已经构建了一个包含B棵不同树的集合，然后让这些树对预测的结果进行投票。</p>
+<p>当B远大于100时，算法的性能并不会有显著的增加，只会降低计算速度。</p>
+<p>这种从袋子中选出新的训练集创建的决策树称为装袋决策时，所以B代表的是bag。</p>
+<p>弊端是，这种抽取训练集的方法，会使许多树在根节点或者根节点附近的某些节点使用相同的特征进行分支。因此对算法进行改进，尝试随机化每个节点的特征选择，使数之间变得更加不同这就是随机森林。</p>
+<h1 id="_9">随机森林</h1>
+<p>在每个节点上，在选择用于划分的特征时，如果有n个可用特征，则从中随机选择一个大小为k（k &lt; n）的特征子集，并只允许算法从该特征子集中进行选择，从中选择出具有最高信息增益的特征进行分支。
+当n很大时，K值的典型选择是它的平方根 <span class="arithmatex">\({\mathrm{k=\sqrt{n}}}\)</span> 。</p>
+<p>因此，这意味着训练集的任何微小变化都不太可能对整个随机森林算法的整体输出产生巨大影响。</p>
+<h1 id="xgboost">XGBoost</h1>
+<p>依然使用有放回的抽样方式，创建一个大小为m的新训练集。但不是以相等的（1/m）概率从所有示例中抽取，而是更有可能抽取那些先前训练树分类错误的示例。</p>
+<p><strong>优势：</strong>
+助推树的开源实现 
+快速高效的实现 
+可选择良好的默认拆分标准和何时停止拆分的标准 
+内置正则化，防止过拟合 
+机器学习竞赛（如Kaggle竞赛）中极具竞争力的算法</p>
+<h1 id="vs">决策树VS神经网络</h1>
+<p><img alt="" src="../assets/Pasted%20image%2020230716093526.png" /></p>
+<ol>
+<li>
+<p>数据集的特征：决策树在处理具有离散特征和类别特征的数据集时表现较好，而神经网络在处理具有连续特征和大量样本的数据集时通常更有效。</p>
+</li>
+<li>
+<p>数据集的大小：如果数据集非常大，神经网络通常能够通过深层次的学习来发现复杂的模式和关联，因此神经网络可能更适合用于大规模数据集。</p>
+</li>
+<li>
+<p>解释性要求：决策树提供了较好的可解释性，可以根据节点分裂规则和特征重要性进行解释。而神经网络通常被认为是“黑盒”模型，其内部权重和参数难以解释。</p>
+</li>
+<li>
+<p>预测性能需求：神经网络在某些高度复杂的问题上可能具有更强的预测性能，尤其是当数据集具有深层次的非线性关系时。集成树模型如随机森林和梯度提升树则在处理噪声和异常值方面表现较好。</p>
+</li>
+<li>
+<p>训练效率：决策树通常更容易训练和调优，而神经网络需要更多的计算资源和时间来训练和优化。</p>
+</li>
+<li>
+<p>预测速度：决策树是一种基于规则的模型，可以快速进行预测。相比之下，神经网络需要通过多层次的计算才能进行预测，因此在实时性要求较高的场景中可能不太适用。</p>
+</li>
+</ol>
+<p>最终的选择应该根据具体问题的需求和数据集特征来决定。在某些情况下，使用决策树和集成树（如随机森林、梯度提升树）能够提供较好的性能和解释性；而在其他情况下，神经网络可能会更适合。还可以尝试将两种算法结合起来，如使用神经网络进行特征提取，然后使用决策树进行分类或回归。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.tooltips", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

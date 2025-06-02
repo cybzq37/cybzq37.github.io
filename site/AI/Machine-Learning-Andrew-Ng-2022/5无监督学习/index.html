@@ -1,0 +1,906 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/AI/Machine-Learning-Andrew-Ng-2022/5%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>聚类（Clustering） - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#clustering" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              聚类（Clustering）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    欢迎来到左丘的博客
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI 总览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means算法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means的成本函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何初始化簇质心
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择聚类数量K
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="clustering">聚类（Clustering）</h1>
+<p>聚类算法查看大量数据点并自动找到彼此相关或相似的数据点。</p>
+<h2 id="k-means">K-means</h2>
+<p>首先做的是随机初始化集群中心的位置，集群中心称为簇质心（Cluster centroids）。
+<img alt="" src="../assets/Pasted%20image%2020230716102103.png" /></p>
+<p>接着，重复做两件事，第一个是将点分配给簇质心，第二个是移动簇质心</p>
+<p>第一步：遍历这些点中的每一个，并查看它是更接近红十字还是更接近蓝十字。然后把这些点分配给它更接近的簇质心。
+<img alt="" src="../assets/Pasted%20image%2020230716102808.png" /></p>
+<p>第二步：查看所有的红点并取它们的平均值。并将红十字移动到红点的平均位置，称为新的簇质心位置。蓝色同理。
+<img alt="" src="../assets/Pasted%20image%2020230716102923.png" /></p>
+<p>重复第一步：遍历每一个点并分配。
+<img alt="" src="../assets/Pasted%20image%2020230716103250.png" /></p>
+<p>接着重复第二步：移动簇质心。
+<img alt="" src="../assets/Pasted%20image%2020230716103433.png" /></p>
+<p>一直重复这两个步骤，直到簇质心的位置没有变化，此时K均值聚类算法已经收敛。
+<img alt="" src="../assets/Pasted%20image%2020230716103559.png" /></p>
+<h2 id="k-means_1">K-means算法</h2>
+<p><strong>第一步：将点分配给簇质心</strong>
+<img alt="" src="../assets/Pasted%20image%2020230716123812.png" />
+K:共K个聚类中心 <span class="arithmatex">\(\mu_{1},\mu_{2},\ldots,\mu_{K}\)</span>
+<span class="arithmatex">\(c^{(i)}\)</span> = 最接近<span class="arithmatex">\(x^{(i)}\)</span>的聚类中心点的索引(从1到K)
+例如：点<span class="arithmatex">\(x^{(1)}\)</span> 离聚类中心  <span class="arithmatex">\(\mu_{1}\)</span> 最近，则<span class="arithmatex">\(c^{(i)}\)</span> = 1</p>
+<p><strong>第二步：移动簇质心</strong>
+<img alt="" src="../assets/Pasted%20image%2020230716124031.png" /></p>
+<p><span class="arithmatex">\(\mu_k\)</span> = 分配给群组k的点的平均值</p>
+<h2 id="k-means_2">K-means的成本函数</h2>
+<p><span class="arithmatex">\(\mu_{C^{(i)}}\)</span> = 示例<span class="arithmatex">\(x^{(i)}\)</span>所在群组的聚类中心点
+<span class="arithmatex">\(<span class="arithmatex">\(J\big(c^{(1)},...,c^{(m)},\mu_1,...,\mu_K\big)=\frac{1}{m}\sum_{i=1}^{m}\big\Vert x^{(i)}-\mu_{c^{(i)}}\big\Vert^2\)</span>\)</span>
+m表示训练样本的数量。</p>
+<p><strong><span class="arithmatex">\(\mu_k\)</span> 和<span class="arithmatex">\(\mu_{C^{(i)}}\)</span> 区别：</strong>
+<span class="arithmatex">\(\mu_k\)</span>表示第k个群组的聚类中心点，即将该群组中所有分配给该群组的点<span class="arithmatex">\(x^{(i)}\)</span>的平均值作为新的聚类中心点。<span class="arithmatex">\(\mu_k\)</span>的计算方式是通过对属于第k个群组的所有数据点的均值来获得。</p>
+<p>而<span class="arithmatex">\(\mu_{C^{(i)}}\)</span>表示示例<span class="arithmatex">\(x^{(i)}\)</span>所在群组的聚类中心点，是通过将<span class="arithmatex">\(x^{(i)}\)</span>分配给最近的聚类中心点得到的。<span class="arithmatex">\(\mu_{C^{(i)}}\)</span>和<span class="arithmatex">\(\mu_k\)</span>具有相同的含义，只是对应于不同的数据点。<span class="arithmatex">\(\mu_{C^{(i)}}\)</span>是根据每个数据点<span class="arithmatex">\(x^{(i)}\)</span>的分配结果得到的，而<span class="arithmatex">\(\mu_k\)</span>是根据整个群组的数据点求取均值得到的。</p>
+<p>因此，<span class="arithmatex">\(\mu_{C^{(i)}}\)</span>和<span class="arithmatex">\(\mu_k\)</span>在K-means算法中都用于表示聚类中心点，只是对应于不同的数据点和群组。<span class="arithmatex">\(\mu_{C^{(i)}}\)</span>表示一个特定的数据点的聚类中心点，而<span class="arithmatex">\(\mu_k\)</span>表示整个群组的聚类中心点。</p>
+<h2 id="_1">如何初始化簇质心</h2>
+<p>随机选择样本点作为初始簇质心
+<img alt="" src="../assets/Pasted%20image%2020230716165659.png" /></p>
+<p>只选择一次的话容易陷入局部最优
+<img alt="" src="../assets/Pasted%20image%2020230716165753.png" /></p>
+<p>多次选择样本点作
+为簇质心，最终选择出成本函数最小的那一个
+<img alt="" src="../assets/Pasted%20image%2020230716170122.png" /></p>
+<h2 id="k">选择聚类数量K</h2>
+<p>Elbow method:
+<img alt="" src="../assets/Pasted%20image%2020230716171545.png" /></p>
+<p>对于将T恤分成三个尺码，还是五个尺码，需要考虑成本和利润之间的关系，五个尺码可能挣得更多，但是成本更大。
+<img alt="" src="../assets/Pasted%20image%2020230716171828.png" /></p>
+<h1 id="anomaly-detection">异常检测（Anomaly detection）</h1>
+<p>异常检测（Anomaly Detection）是一种用于识别和监测数据中异常、异常行为或异常模式的技术。它可以帮助我们在大量数据中自动发现那些与正常行为或模式不同的数据点。</p>
+<p>检测制造的飞机发动机是否存在问题，为了简化问题，我们以发动机运行的温度、震动频率作为特征。当新引擎的参数落在中间一堆时，发动机正常，当落在外围时有很大概率存在问题。
+<img alt="" src="../assets/Pasted%20image%2020230716173246.png" /></p>
+<p>执行异常检测的最常见方法是通过密度估计的技术。
+<img alt="" src="../assets/Pasted%20image%2020230716174016.png" /></p>
+<h2 id="_2">高斯分布</h2>
+<p><img alt="" src="../assets/Pasted%20image%2020230716174647.png" /></p>
+<p>对于只有一个特征时，将其应用于异常检测，就是要找到参数 <span class="arithmatex">\(\mu\)</span> 和 <span class="arithmatex">\(\sigma^2\)</span> 的合适取值
+<img alt="" src="../assets/Pasted%20image%2020230716175138.png" /></p>
+<h2 id="_3">异常检测算法</h2>
+<p><img alt="" src="../assets/Pasted%20image%2020230716193942.png" /></p>
+<p>共有m个样本，n个特征，对每一个特征求平均值 <span class="arithmatex">\(\mu\)</span> 和方差 <span class="arithmatex">\(\sigma^2\)</span> 。  </p>
+<p><span class="arithmatex">\(\mu_j\)</span> : 第j个特征的平均值
+<span class="arithmatex">\(\sigma_j^2\)</span> : 第j个特征的方差
+<span class="arithmatex">\(p(x)\)</span> : 假定每一个特征 <span class="arithmatex">\(x_{1}\)</span>  到 <span class="arithmatex">\(x_{n}\)</span> 均服从正态分布，则其模型的概率为：
+<span class="arithmatex">\(<span class="arithmatex">\(\begin{aligned}
+p(x)&amp; =p(x_{1};\mu_{1},\sigma_{1}^{2})p(x_{2};\mu_{2},\sigma_{2}^{2})\cdotp\cdotp\cdotp p(x_{n};\mu_{n},\sigma_{n}^{2})  \\
+&amp;=\prod_{j=1}^{n}p(x_{j};\mu_{j},\sigma_{j}^{2}) \\
+&amp;=\prod_{j=1}^{n}\frac{1}{\sqrt{2\pi}\sigma_{j}}exp(-\frac{(x_{j}-\mu_{j})^{2}}{2\sigma_{j}^{2}})
+\end{aligned}\)</span>\)</span></p>
+<p>举例：
+假定我们有两个特征，它们都服从于高斯分布，并且通过参数估计，我们知道了分布参数：
+<img alt="" src="../assets/Pasted%20image%2020230716202208.png" />
+将 <span class="arithmatex">\(p(x_1;\mu_1,\sigma_1^2)\)</span> 和 <span class="arithmatex">\(p(x_2;\mu_2,\sigma_2^2)\)</span> 相乘后会得到上图左下角的三维曲面图 <span class="arithmatex">\(p(x)\)</span>。当 <span class="arithmatex">\(p\left(x_{test}^{(1)}\right)\)</span> 小于 <span class="arithmatex">\(\mathbf{\varepsilon}\)</span> 时，有异常。</p>
+<h2 id="_4">算法评估</h2>
+<h3 id="_5">实数计算</h3>
+<p><img alt="" src="../assets/Pasted%20image%2020230716221302.png" /></p>
+<p>飞机发动机监测实例：
+根据以往的数据，我们选择10000个正常的样本，20个异常样本。
+<img alt="" src="../assets/Pasted%20image%2020230716220237.png" /></p>
+<p>在训练集中用6000个正常样本训练模型；
+交叉验证集中有2000个正常数据和10个异常数据，并把它们标记为0和1。在交叉验证集中评估模型准确率。</p>
+<p>接着，改变超参数，训练集中训练模型，交叉验证集中评估模型。</p>
+<p>最后选出一个最好的模型用在预测集中评估最终模型。</p>
+<h3 id="_6">算法评估</h3>
+<p>如果负面样本非常少，也可以不用预测集，只用训练集和交叉验证集。但这样的弊端是，模型可能在未知的数据上效果并不好。</p>
+<p>由于异常样本是非常少的，所以整个数据集是非常偏斜的，我们不能单纯的用预测准确率来评估算法优劣，所以用我们之前的查准率（Precision）和召回率（Recall）计算出 F 值进行衡量异常检测算法了。</p>
+<ul>
+<li>真阳性、假阳性、真阴性、假阴性</li>
+<li>查准率（Precision）与 召回率（Recall）</li>
+<li>F1 Score</li>
+</ul>
+<h2 id="vs">异常检测VS监督学习</h2>
+<p><img alt="" src="../assets/Pasted%20image%2020230716224601.png" /></p>
+<p>异常检测，任何偏离正常的情况都被标记为异常，包括这在您的数据集中从未见过的一种全新的飞机发动机故障方式。</p>
+<p>无监督适用于可能会出现从来没见过的例子的事情，而监督学习就适用于不会出现和以前完全不一样的例子的数据集</p>
+<p>异常检测试图找到全新的正面示例，这些示例可能与您以前见过的任何东西都不一样。监督学习会查看您的正面示例并尝试确定未来示例是否与您已经看到的正面示例相似，</p>
+<p>例子
+<img alt="" src="../assets/Pasted%20image%2020230716224929.png" /></p>
+<h2 id="_7">选择特征</h2>
+<ol>
+<li>将不符合高斯分布的特征转换成符合高斯分布的特征
+   <img alt="" src="../assets/Pasted%20image%2020230716230532.png" /></li>
+<li>查看未能检测出来的异常，然后看看能否寻找出新的特征
+   <img alt="" src="../assets/Pasted%20image%2020230716230651.png" /></li>
+</ol>
+<h1 id="pca">主成分分析(PCA)算法</h1>
+<h2 id="_8">降低特征数量</h2>
+<p>PCA是一种降维算法，用于获取具有大量特征、大量维度或高维度的数据，并将其简化为两个或三个特征，变成二维或三维数据，以便可以对其进行绘图和可视化，并更好地理解数据中有什么。</p>
+<h3 id="_9">示例</h3>
+<p>如果你有来自汽车的数据，并且汽车可以有很多特征。例如汽车的长度，汽车的宽度，汽车的高度，车轮的直径，以及其他特征。如果想要减少特征的数量以便将其可视化，如何使用PCA来做到这一点？</p>
+<p><strong>示例1：</strong>
+假设您有一个具有两个特征的数据集。特征 <span class="arithmatex">\(x_1\)</span> 是汽车的长度，特征<span class="arithmatex">\(x_2\)</span> 是汽车的宽度。
+在大多数国家/地区，由于对汽车行驶道路宽度的限制，汽车宽度往往变化不大。你会发现数据集 <span class="arithmatex">\(x_1\)</span> 变化很大，而 <span class="arithmatex">\(x_2\)</span> 变化相对较小。
+<img alt="" src="../assets/Pasted%20image%2020230721114957.png" />
+如果你想减少特征的数量，那么，你可以做的一件事就是只取 <span class="arithmatex">\(x_1\)</span> ，忽略 <span class="arithmatex">\(x_2\)</span> 。</p>
+<p><strong>示例2：</strong>
+假设我们有两个特征，即汽车的长度 <span class="arithmatex">\(x_1\)</span> 和高度 <span class="arithmatex">\(x_2\)</span>。这两个特征的变化范围都比较大。如果我们绘制这些数据点，可能会得到一个这样散点图。
+<img alt="" src="../assets/Pasted%20image%2020230721120204.png" /></p>
+<p>现在，如果我们想要减少特征的数量，我们应该选择什么呢？</p>
+<p>我们不希望只选择长度 <span class="arithmatex">\(x_1\)</span> 而忽略高度 <span class="arithmatex">\(x_2\)</span>，也不希望只选择高度 <span class="arithmatex">\(x_2\)</span> 而忽略长度 <span class="arithmatex">\(x_1\)</span>。为了解决这个问题，PCA算法提出了一个思想：寻找一个新的轴，我们可以将其称为Z轴。请注意，这里的Z轴并不是在三维空间中突出显示的Z轴，而是长度和高度的组合，也是在这个二维平面中的。
+<img alt="" src="../assets/Pasted%20image%2020230721120803.png" /></p>
+<p>Z轴能够获得关于长度和高度的信息。Z轴上的值可以映射到 <span class="arithmatex">\(x_1\)</span> 轴和 <span class="arithmatex">\(x_2\)</span> 轴， <span class="arithmatex">\(x_1\)</span> 轴上的这个距离是多少，可以告诉我们汽车的长度是多少；<span class="arithmatex">\(x_2\)</span> 轴上的这个距离是多少，告诉我们汽车的高度是多少。</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230721121015.png" /></p>
+<p>现在，我们只需要一个数字即可反映出汽车的长度和高度的特征。
+重建可以知道原来的特征数据（近似的）是多少。这些新轴即为主成分。</p>
+<p>通过PCA算法，我们能够将原始高维数据映射到低维空间，将数据的维度减少到我们所选择的新轴上，同时保留了关键的信息。这样做有助于简化问题、减少计算复杂性，并且仍然能够提供有关汽车尺寸的重要特征。</p>
+<h2 id="pcascikit-learn">PCA代码实现(scikit-learn)</h2>
+<p>2D to 1D
+<img alt="" src="../assets/Pasted%20image%2020230721131231.png" /></p>
+<p>2D to 2D
+<img alt="" src="../assets/Pasted%20image%2020230721131323.png" /></p>
+<h2 id="pca_1">线性回归和PCA区别</h2>
+<p>线性回归是求绿色线最小值
+PCA求黄色线最小值
+<img alt="" src="../assets/Pasted%20image%2020230721123113.png" /></p>
+<h2 id="pca_2">应用PCA的建议</h2>
+<p><img alt="" src="../assets/Pasted%20image%2020230721131635.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.tooltips", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

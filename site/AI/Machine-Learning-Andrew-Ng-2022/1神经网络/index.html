@@ -1,0 +1,906 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/AI/Machine-Learning-Andrew-Ng-2022/1%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>神经网路 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              神经网路
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    欢迎来到左丘的博客
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI 总览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络如何工作的？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="神经网络如何工作的？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例一
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例二
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tensorflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      tensorflow中的数据形式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码实现向前传播
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">神经网路</h1>
+<p>什么是神经网络（Neural Networks）？最开始科学家想用算法去模拟大脑达到人工智能。通过一系列的实验发现，大脑是通过神经元进行工作的，神经元之间通过电信号传递信息。于是他们就开始模拟神经元的工作过程，用算法去模拟神经元，这就形成了神经网络。神经网络可以用来学习复杂的<strong>非线性假设模型</strong>。</p>
+<p>为了构建神经网络模型，我们需要首先思考大脑中的神经网络是怎样的？</p>
+<p>大脑中的神经元接受许多输入的信息，并进行一些计算和处理，计算后通过电脉冲发送给其他的神经元。上层神经元的输出又成为下层神经元的输入，下层神经元再次聚合来自其他神经元的输出作为该神经元的输入，然后将自己的输出发到其他神经元。这便是大脑中神经网络的工作原理。</p>
+<p><img alt="" src="../assets/Neurons_big1.jpg" /></p>
+<p>我们将神经元简化如下：</p>
+<p><img alt="" src="../assets/Snipaste_2023-06-29_10-54-00.png" />
+每一个生物神经元都可以被认为是一个处理单元/神经核（<strong>processing unit</strong>/<strong>Nucleus</strong>），它含有许多输入/树突（<strong>input</strong>/<strong>Dendrite</strong>），并且有一个输出/轴突（<strong>output</strong>/<strong>Axon</strong>）。生物神经元会发送电脉冲，成为另一个神经元的输入。神经网络是大量神经元相互链接并通过电脉冲来交流的一个网络。</p>
+<p>所有<strong>人工神经网络</strong>使用的是非常简化的生物神经元的数学模型。</p>
+<p>我们用圆圈表示一个神经元，神经元所做的就是接受一个或多个输入，这些输入为数字，它进行一些计算后，输出一些数字，这些数字又作为下一层神经元的输入。我们构建人工神经网路时，通常同时模拟多个这样的神经元，而不是构建一个。
+<img alt="" src="../assets/Pasted%20image%2020230708182836.png" /></p>
+<h2 id="_2">神经网络如何工作的？</h2>
+<h3 id="_3">案例一</h3>
+<p>我们用需求案例来了解神经网路时如何工作的，这个案例中目标是想知道那些短袖可能成为畅销品，以来规划更好的库存水平和营销活动。收集的数据有：不同短袖的价格，以及是否是畅销品。</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230709190636.png" />
+在此示例中，输入特征X是短袖的价格，如果应用逻辑回归sigmoid函数来拟合这些数据，那么预测输出则为<span class="arithmatex">\(\frac1{1+e^{-(wx+b)}}\)</span>
+<img alt="" src="../assets/Pasted%20image%2020230709192135.png" /></p>
+<p>在神经网络中，我们用a来表示算法的输出，a代表激活（activation），来源于神经科学的一个术语，指的是一个神经元向下游其他神经元发送多少高输出。</p>
+<p>这个逻辑回归单元可看作大脑中单个神经元非常简化的数学模型。这个人工神经元所要做的就是，将价格X输入，然后利用sigmoid函数公式 <span class="arithmatex">\(\frac1{1+e^{-(wx+b)}}\)</span> 计算出输出值a，输出的则为这件短袖可能成为畅销品的概率。
+<img alt="" src="../assets/Pasted%20image%2020230709193702.png" />
+鉴于对单个神经元的描述，构建神经网络只需要将这些神经元并在一起，并将他们连接起来。</p>
+<h3 id="_4">案例二</h3>
+<p>接下来我们看一个更复杂的需求预测案例，在该案例中我们用四个特征来预测短袖是否为畅销品。四个特征为价格（price）、运费（shipping cost）、营销手段（marketing）、材料质量（material）。我们假设短袖是否能成为畅销品取决于以下几个因素：
+1. affordability - 对这件短袖人们是否<strong>可负担</strong>的起?支付能力
+2. awareness    - 潜在买家对这件短袖的<strong>认识程度</strong>如何？短袖是否知名
+3. perceived quality - <strong>感知质量</strong>，人们是否有偏见或潜在偏见说这是一件高质量的短袖？
+<img alt="" src="../assets/Pasted%20image%2020230709200233.png" /></p>
+<p><strong>首先</strong>，我们要创建一个人工神经元来估计这件短袖被人们认为是可负担的起的概率。支付能力主要是价格和运费的函数，因为一件短袖的支付总额是价格加上运费。所以在这里我们使用一个神经元，一个逻辑回归单元来输入价格和运费，并预测人们是否负担的起。
+<img alt="" src="../assets/Pasted%20image%2020230709212521.png" /></p>
+<p><strong>接着</strong>，创建一个人工神经元来预测潜在买家对这件T恤衫的认识程度。短袖知名程度归因于营销手段。<strong>最后</strong>，要创建另一个神经元来估计人们是否认为这是高质量的短袖。这可能是短袖价格和材料质量的函数。
+<img alt="" src="../assets/Pasted%20image%2020230709213442.png" /></p>
+<p>鉴于对可负担性（affordability）、认识程度（awareness）、感知质量（perceived quality）的预测，我们将这三个神经元的输出连接到右侧另一个神经元，然后该神经元输入这三个数字并输出可能成为畅销品的概率。
+<img alt="" src="../assets/Pasted%20image%2020230709213627.png" />
+<mark>神经网络可看作逻辑回归，但是这个逻辑回归可以学习自身更好的特征，不需要手动设计，从而进行更准确的预测（神经网络=自动化特征工程+逻辑/线性回归）</mark></p>
+<p>在神经网络术语中我们把，我们将把这三个神经元组合在一起，形成谓的<strong>层（layer）</strong>，层是一组神经元，它们将相同或相似的特征作为输入，然后一起输出一些数字，右边神经元也为层，所以层可以有一个或多个神经元。
+<img alt="" src="../assets/Pasted%20image%2020230709215546.png" />
+右边这一层也叫做<strong>输出层</strong>（output layer），因为最后一层输出的是整个神经网络的预测值。最左边输入的四个特征也叫<strong>输入层</strong>（input layer）。在输入层和输出层中间的所有层都叫<strong>隐藏层</strong>，在神经网络中输入层和输出层都有明确的数值，而中间的层并没有告诉确切的数值，是未知的。</p>
+<p>我们还将 affordability、awareness、perceived quality 叫做激活（activations）。激活源于生物神经元，它指的是生物神经元向下游其他神经元发送的高输出值或发送许多电脉冲的程度。这些关于affordability、awareness和perceived quality的数字是该层中这三个神经元的激活。同样输出概率是右侧这个神经元的激活。
+<img alt="" src="../assets/Pasted%20image%2020230709220948.png" /></p>
+<p>至此，我们手动选择了那个神经元需要那几个特征作为输入，但神经网络在实践中层中的每一个神经元都可以访问上一层的每一个特征，从输入层访问每个值。
+<img alt="" src="../assets/Pasted%20image%2020230709222537.png" /></p>
+<p>你可以想象，如果试图预测短袖的可负担性，并且它知道价格、运费、营销和材料，你可能会忽略营销和材料，只注重于价格和运费。我们就可以通过适当地设置参数来找出那些特征与负担能力最相关，比如价格和运费权重较大，而营销和材料的权重较小。</p>
+<h2 id="tensorflow">tensorflow中的数据形式</h2>
+<p>tensorflow输入的是<strong>二维向量</strong>，计算效率更高。
+<img alt="" src="../assets/Pasted%20image%2020230710173140.png" /></p>
+<p>numpy输入 - tensorflow转换成自己内部的数据形式tensor - tensforflow输出的数据形式也为tensor
+<img alt="" src="../assets/Pasted%20image%2020230710173827.png" /></p>
+<h2 id="_5">伪代码实现向前传播</h2>
+<p>dense函数的作用是输入上一层的激活，并给定当前层的参数，返回下一层的激活，大写字母M代表矩阵，小写w代表向量和标量：
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">dense</span><span class="p">(</span><span class="n">a_in</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">g</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">units</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">a_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">units</span><span class="p">):</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">w</span> <span class="o">=</span> <span class="n">W</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">a_in</span><span class="p">)</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">a_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="n">a_out</span>
+</span></code></pre></div></p>
+<p>sequential函数将几个dense层串在一起，以便在神经网络中实现前向传播，三层神经网路：
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">sequenttial</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">a1</span> <span class="o">=</span> <span class="n">dense</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">W1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">a2</span> <span class="o">=</span> <span class="n">dense</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">W2</span><span class="p">,</span><span class="n">b2</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">a3</span> <span class="o">=</span> <span class="n">dense</span><span class="p">(</span><span class="n">a2</span><span class="p">,</span><span class="n">W3</span><span class="p">,</span><span class="n">b3</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">f_x</span> <span class="o">=</span> <span class="n">a3</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">feturn</span> <span class="n">f_x</span>
+</span></code></pre></div></p>
+<p>矢量化（代码有误），matmul用于矩阵乘法：
+<img alt="" src="../assets/Pasted%20image%2020230710185019.png" /></p>
+<h1 id="_6">激活函数</h1>
+<h2 id="_7">常见的激活函数</h2>
+<p><img alt="" src="../assets/Pasted%20image%2020230712105743.png" /></p>
+<p>注：使用线性激活函数等于没事使用激活函数。</p>
+<h2 id="_8">如何选择激活函数</h2>
+<h3 id="_9">输出层</h3>
+<ul>
+<li>如果处理的是二元分类问题，在输出层选用sigmod函数。</li>
+<li>处理的是回归问题，例如股票的涨跌，有正有负，输出层用线性激活函数。</li>
+<li>如果只能取非负，例如房价问题，输出层则用ReLU激活函数。</li>
+</ul>
+<h3 id="_10">隐藏层</h3>
+<p>最常用ReLU激活函数。</p>
+<p>ReLU激活函数相对于sigmod函数计算更快。如果你使用梯度下降来训练神经网络，那么当有一个函数在很多地方都很平缓时，梯度下降会非常慢。 我们知道梯度下降优化了W,B的成本函数J，而不是优化激活函数，但是激活函数是计算的一部分，这导致W,B的成本函数J有更多的地方也是平坦的，并且梯度很小，这会减慢学习速度，所以计算会变慢。 </p>
+<h4 id="_11">隐藏层为什么不使用线性函数作为激活函数？（为什么模型需要激活函数）</h4>
+<p>对隐藏层和输出层都使用线性激活函数的效果等于使用线性回归模型。线性函数的线性函数依然为线性函数。
+<img alt="" src="../assets/Pasted%20image%2020230712114257.png" /></p>
+<p>对隐藏层使用线性激活函数，对输出层使用sigmod激活函数的效果等于使用逻辑回归模型。
+<img alt="" src="../assets/Pasted%20image%2020230712114951.png" /></p>
+<p>中间如果都用线性回归激活函数，最后得出来得结果和中间得隐藏层没有关系，只和输入的X有关系，相当于这个模型什么都没有做，逻辑回归也是同理。</p>
+<h1 id="_12">多分类问题</h1>
+<h3 id="softmax">Softmax回归</h3>
+<p>当有四种分类时：
+<img alt="" src="../assets/Pasted%20image%2020230712183238.png" /></p>
+<p>普试：
+<img alt="" src="../assets/Pasted%20image%2020230712183725.png" />
+<span class="arithmatex">\(a_{j}\)</span>被解释为给定输入特征x时模型对y等于j的概率。</p>
+<h3 id="softmax_1">Softmax回归的损失函数</h3>
+<p><img alt="" src="../assets/Pasted%20image%2020230712185008.png" />
+损失函数衡量的是在一个训练样例上的表现如何，所以对于一个特定的训练样本，y只能取一个值。因此最终只能针对 <span class="arithmatex">\({a}_j\)</span> 的一个值计算 <span class="arithmatex">\({a}_j\)</span> 的负对数，即在该特定训练样本中y的实际值等于j的任何值。例如，当y等于2时，损失函数只计算 <span class="arithmatex">\(-\log a_{2}\)</span> </p>
+<h3 id="softmax_2">神经网络的Softmax输出</h3>
+<p><img alt="" src="../assets/Pasted%20image%2020230712191305.png" />
+sigmod激活函数，激活值 <span class="arithmatex">\({a}_1\)</span> 仅是 <span class="arithmatex">\({z}_1\)</span> 的函数 ，<span class="arithmatex">\({a}_2\)</span> 也只是 <span class="arithmatex">\({z}_2\)</span> 的函数。但是对于softmax函数，每一个激活值都取决于Z的所有值。</p>
+<h3 id="tensorflow_1">Tensorflow实现</h3>
+<p>基本实现：
+<img alt="" src="../assets/Pasted%20image%2020230712192259.png" /></p>
+<p>更好的实现：（P68）
+<img alt="" src="../assets/Pasted%20image%2020230712194825.png" /></p>
+<p>目的在于减小计算误差。计算机是将数字转换为二进制计算数值的，会有误差。原来是先计算出a，再将a带入到损失函数中计算损失函数，这种利用中间值计算的损失函数具有误差。</p>
+<p>现在softmax不再单独计算，在计算cost时将a嵌入损失韩素内部一起算了。并且输出层为 liner，这样输出层只会直接输出Z的值，不再带入softmax计算了。
+完整代码：
+<img alt="多分类优化代码" src="../assets/Pasted%20image%2020230712195606.png" /></p>
+<p>逻辑回归优化代码：
+<img alt="逻辑回归优化代码" src="../assets/Pasted%20image%2020230712195739.png" /></p>
+<p>epochs 迭代次数。</p>
+<h1 id="_13">多标签分类问题</h1>
+<p><img alt="" src="../assets/Pasted%20image%2020230712203304.png" />
+多标签分类问题是指对一个样本进行多个类别的分类，而不是将样本分到唯一的类别中。在多标签分类问题中，每个样本可以属于多个类别，类别之间是相互独立的。</p>
+<p>举个例子，假设我们有一个图像识别任务，需要对图像进行多个标签的分类，比如识别图像中的汽车、公交车、行人。一张图像可能同时包含多个标签，比如既有人又有汽车。</p>
+<p>训练三个单独的模型，分别识别有没有汽车、公交车、行人。
+训练一个模型一次识别完。输出层有三个sigmod神经元，因此我们解决的是三个二分类问题。</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230712204335.png" /></p>
+<h1 id="adam">高级优化算法 Adam算法</h1>
+<p>梯度下降是一种广泛用于机器学习的优化算法，是线性回归和逻辑回归等许多算法以及神经网络早期实现的基础。</p>
+<p><strong>Adam算法</strong>可以比梯度下降更快的训练神经网络。该算法可以自动调整学习率。</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230712212601.png" />
+并且对模型的每个参数使用不同的学习率。</p>
+<p><img alt="" src="../assets/Pasted%20image%2020230712212751.png" /></p>
+<p>对于左图，如果它朝着大致相同的方向移动，Adam算法会自动增加该参数的学习率，加快计算。相反对于右图，如果参数不断来回摆动，我们不要让它继续来回摆动弹跳，Adam算法会稍微减少该参数的学习率。</p>
+<p>代码实现：
+<img alt="" src="../assets/Pasted%20image%2020230712213315.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.tooltips", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

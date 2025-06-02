@@ -1,0 +1,821 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/GIS/GIS%E7%9F%A5%E8%AF%86%E7%82%B9/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>GIS知识点 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GIS知识点
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    欢迎来到左丘的博客
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI 总览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>GIS知识点</h1>
+
+<p><strong>GIS地理信息系统</strong>可以理解为基于地图来做管理和分析的软件系统，GIS的地图数据是带有位置、坐标等信息的数据库。
+GIS技术分两层，一是后台服务（例如Geoserver、arcgis server），提供地图数据访问服务，支持不同组织提供的多种数据规范包括WMS、WMTS、WCS、TMS等。二是渲染服务，即将后台数据进行可视化。
+<img alt="" src="assets/gis_arch_layer.png" /></p>
+<p><strong>GIS数据类型</strong>包括图片、矢量和栅格数据，其中：</p>
+<ul>
+<li>
+<p>矢量数据是由点、线、多边形（区域）组成，用空间坐标x，y表示地理实体的位置和形状的数据，例如矢量点表示经纬度，河流、道路、管线显示为矢量线，多边形则表示区域边界，如建筑占地面积；</p>
+</li>
+<li>
+<p><a href="https://www.zhihu.com/search?q=%E6%A0%85%E6%A0%BC%E7%BD%91%E6%A0%BC%E6%A0%BC%E5%BC%8F&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">栅格网格格式</a>是卫星数据和其他遥感数据的数据模型，栅格数据由像素（也称为网格单元）来表示连续的空间实体，例如海拔表面、温度变化、铅污染等。栅格中的每个像素都有自己的值或类别。</p>
+</li>
+</ul>
+<p><strong>3D引擎</strong>是一套帮助开发者去构建和呈现3D图形和场景的工具。3D引擎通常包括一个图形渲染器，用于创建逼真的3D图像，以及一个物理引擎，用于处理物理交互和碰撞检测。它们还可以提供脚本语言和场景编辑器，用于导入和管理游戏资源并且创建和编辑场景、对象、动画和特效等。3D引擎作为一种底层工具支持着高层的图形软件的开发，可以将其理解为对一些图形通用算法、底层工具和3D API的封装、利用它可以让用户专注于游戏逻辑的实现。
+![[assets/Pasted image 20250602094934.png]]早期的工业可视化软件基本都使用OpenGL自己开发，OpenGL和DirectX是图形API（应用程序接口），它与GPU来对接，是通往CPU和GPU的桥梁； 后来出现的开源显示引擎，常用的比如Osg，Ogre，VTK等，底层也是调用OpenGL； <strong>老牌图形厂家</strong>一般使用Ogre、Osg、OsgEarth、VTK、Unigine等图形引擎，架构相对较老，只支持C/S应用，大部分此类公司还会再开辟一条B/S引擎线。</p>
+<ul>
+<li>
+<p>OGRE多用于游戏开发、<strong>OSG</strong>多用于仿真开发，在GIS领域应用较多，但场景细节相较<a href="https://www.zhihu.com/search?q=%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">游戏引擎</a>渲染效果较差；</p>
+</li>
+<li>
+<p><strong>OSGEarth</strong>是在OSG的基础上封装的三维GIS引擎，能够加载常见的GIS数据以及OGC服务，OSGEarth普及程度非常高，国内也有很多公司基于OSGEarth，推出所谓的自研引擎，例如：<a href="https://www.zhihu.com/search?q=%E6%81%92%E6%AD%8C%E7%A7%91%E6%8A%80&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">恒歌科技</a>-FreeXGIS Desktop 战场态势仿真系统。</p>
+</li>
+</ul>
+<p><strong>游戏和仿真跨界的厂家</strong>一般使用UE4、Unity等游戏引擎，如今的游戏引擎已经发展为一套由多个子系统共同构成的复杂系统，从建模、动画到光影、粒子特效，从物理系统、碰撞检测到文件管理、网络特性，还有专业的编辑工具和插件，几乎涵盖了游戏开发过程中的所有重要环节。</p>
+<ul>
+<li>
+<p><strong>UE4</strong>是3A游戏首选，侧重于PC端，擅长小场景的细节效果展示，引擎大部分业务层代码开源，支持蓝图、C++，学习成本较高。代表作有腾讯的“和平精英”，UE4目前可通过Cesium for Unreal、SupeMap Scense SDKs 组件，实现了游戏引擎和GIS引擎的跨界融合；</p>
+</li>
+<li>
+<p><strong>Unity</strong>侧重轻量级的开发，偏向于移动端，Unity支持C#，学习成本更低，但其引擎源码不公开，启动需要联网。代表作有“王者荣耀”、“纪念碑谷”、“原神”，Unity也可通过插件的形式实现与GIS的融合。</p>
+</li>
+<li>
+<p>为了提高GIS数据的真实还原度，目前GIS与游戏引擎的结合也是一大技术融合趋势。三维GIS通过融合游戏引擎，实现实时加载真实<a href="https://www.zhihu.com/search?q=%E5%9C%B0%E7%90%86%E5%9D%90%E6%A0%87%E7%B3%BB&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">地理坐标系</a>下的地形、影像、倾斜摄影模型、激光点云、手工建模数据、BIM模型等多源异构的<a href="https://www.zhihu.com/search?q=%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">地理空间数据</a>，打通三维GIS与游戏引擎的跨界融合，将具有真实地理坐标的室外地理环境、室内BIM模型、实时的IoT（物联网）数据等融合到游戏引擎，构建一个室内/室外一体化、宏观/微观一体化、空天/地表/地下一体化的.</p>
+</li>
+<li>
+<p><strong>B端图形厂家</strong>一般使用Cesium.js，Three.js，这也是一些老牌图形厂家支持B/S技术的引擎选择，GIS的开发和应用未来多倾向于WebGIS。</p>
+</li>
+<li>
+<p><strong>WebGIS</strong>是Web技术应用于GIS开发的产物，GIS通过Web功能得以扩展，既具有空间数据的检索、查询、编辑、分析、输出等传统GIS功能，同时能实现数据的协作和共享。</p>
+</li>
+<li>
+<p>Web前端可视化技术（当下WebGL、未来WebGPU）与GIS技术深度融合，涌现出一批优秀的开源框架：a. 处理二维GIS的<strong>openlayers、leaflet</strong>；b. 处理二三维一体化的<strong><a href="https://www.zhihu.com/search?q=cesium&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">cesium</a></strong><strong>、MapBox</strong>；常见的的WebGIS应用场景包括：a. 政务Charts可视化图表；b. LBS Location Based Service地图<a href="https://www.zhihu.com/search?q=%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">开放平台</a>（高德、谷歌、百度、<a href="https://www.zhihu.com/search?q=%E5%A4%A9%E5%9C%B0%E5%9B%BE&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">天地图</a>）；c. 商业API（<a href="https://www.zhihu.com/search?q=%E4%B8%AD%E5%9C%B0%E6%95%B0%E7%A0%81&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A3424505738%7D">中地数码</a>的MapGIS Client for JS、超图的IClient、ESRI）。</p>
+</li>
+</ul>
+<p>DEM（Digital Elevation Model，数字高程模型）是一个广义的术语，表示地球表面高度信息的数字模型，它通过网格形式存储地形的高程数据，可以包括 DSM 或 DTM 的内容。因此，DEM 可以理解为一个总括性的名称，用来描述任何关于地表高度的数字模型。
+DSM（Digital Surface Model，数字表面模型）是一种更为具体的高程模型，表示的是包括地表所有物体的高度。这意味着它不仅考虑裸露地面的高度，还包括地表上覆盖的物体，如建筑物、树木、植被等。
+DTM（Digital Terrain Model，数字地形模型）是另一种具体的高程模型，专注于表示裸露的地形高程，去除了地表上的所有物体（如树木、建筑物）。它只反映地球表面的真实地形起伏，因此它更加准确地描绘了地面本身的形态。
+DOM（Digital Orthophoto Map，数字正射影像图）是指经过几何校正处理的航空影像或卫星影像。这种影像去除了由于地形起伏、传感器倾斜和透视造成的几何畸变，使得每个像素都与地面的实际位置精确对应，类似地图上的投影。因此，DOM 可以用作精确的测绘基础，并与其他地理信息系统（GIS）数据进行配合使用。
+TDOM（True Digital Orthophoto Map，真彩色数字正射影像图）是指以自然颜色为基础的数字正射影像图。它是一种经过几何校正的影像数据，其中影像的色彩真实反映了地表的自然颜色，没有经过人为色彩调整或增强。TDOM 与普通的数字正射影像（DOM）类似，但强调了其真实的色彩还原，主要用于需要真实色彩表现的应用场景。
+是将DOM纠正为垂直视角的影像产品，对各种地物、地形、植被等的倾斜投影(地物隐蔽部分）采用相邻像片修正，从而形成地物没有投影差、建筑物间无遮挡的正射影像图。
+https://www.cnblogs.com/gooutlook/p/17807986.html
+DLG（Digital Line Graph，数字线划图）是一种以数字形式存储地理信息的线条图，表示地理要素的几何形状和空间分布。DLG 主要包含地形和地理要素的线条数据，如河流、道路、行政边界、等高线等。
+<strong>倾斜摄影</strong>（Oblique Photography）是一种摄影测量技术，突破了传统正射影像只有垂直角度的局限，通过无人机搭载多台传感器，同时从一个垂直、四个倾斜等五个不同的角度采集影像，能够实现大规模区域的快速三维重建，并以真实影像作为模型贴图，是对真实世界进行快速三维重建的有效方式。
+倾斜摄影加工流程，需要的设备和工作包括：
+• 航空载具：目前实际采集以无人机为主，可以是旋翼机或者复合翼；大疆系列无人机应用很多；
+• 影像采集设备：多目倾斜摄影相机，常见的如5镜头相机；选择合适的拍摄软件如Altizure等；
+• 影像采集：包括航线规划、飞线采集，以及相关的安全飞行保障；目前国家对无人机的使用是有相应法规管控的，不能随意飞行；
+• 采集数据处理：航拍采集的影像，通过专用的处理软件，经过点云生成、tin网、构建白模、构建三维模型等步骤，生成最终的倾斜摄影模型；
+• 较主流的软件包括了Smart3d、PIX4D MAPPER、PHOTOSCAN、Photomesh、街景工厂等；
+• 目前主流的倾斜摄影格式是OSGB；根据密集点云逐级抽稀后构建的tin模型，自动创建LOD，实现不同层级之间的平滑过度；</p>
+<p>![[assets/Pasted image 20250602095110.png]]</p>
+<p>DEM有三种主要的表示模型：规则格网模型、等高线模型和不规则三角网。</p>
+<p>栅格形式（GRID DEM）：最常见的形式，地表被划分成规则的网格单元，每个栅格单元包含一个高程值，通常以数字形式表示。栅格DEM适用于许多GIS软件，如ArcGIS和QGIS，以及用于地形分析、浸水模拟等应用。</p>
+<p>TIN形式（Triangulated Irregular Network）：TIN DEM 使用不规则的三角形来表示地表，每个三角形由三个地点（点或节点）定义，包括高程值。TIN DEM 适用于描述不规则地形，因为它可以更精确地捕捉地表的曲线和斜坡。</p>
+<p>点云形式（Point Cloud）：点云DEM是一组地理坐标点，每个点具有高程值。通常采用LAS（镭射扫描标准）文件格式来存储，用于激光雷达和三维扫描仪数据。点云DEM适用于高精度地形建模和3D地形分析。</p>
+<p>矢量形式（Vector DEM）：矢量DEM使用矢量线段、多边形和多点数据来表示地表。这些数据通常用于地理信息系统（GIS）中，可以表示高程等值线、等高线和地形特征。</p>
+<p>标量场形式（Scalar Field）：标量场DEM将高程信息表示为一个连续的标量场，其中每个点都具有高程值。通过数学方程式来描述地表，适用于地形建模和分析。</p>
+<p>三维模型形式（3D Model DEM）：三维模型DEM使用三维模型文件格式（如COLLADA、OBJ等）来表示地表。这种形式通常用于三维建筑和城市模型，包括建筑物和地形。</p>
+<p>数据格式：</p>
+<p>.ddf USGS DEM</p>
+<p>.dem Vista Pro Binary DEM</p>
+<p>.dem USGS DEM</p>
+<p>.hgt SRTM（航天飞机雷达地形测绘使命）</p>
+<p>.tif GeoTIFF</p>
+<p>.dem Vista Pro Binary DEM</p>
+<ol>
+<li>
+<p>USGS DEM：由美国地质调查局开发的一种早期标准格式，每个单元格代表一个固定面积内的平均海拔高度，存储为ASCII文本或 binary 格式。</p>
+</li>
+<li>
+<p>ESRI GRID：作为ArcGIS平台支持的标准格式之一，GRID格式能有效储存DEM的数据结构与属性信息，包括像元大小、坐标系统以及镶嵌规则等详细参数。</p>
+</li>
+<li>
+<p>DTED (Digital Terrain Elevation Data): 是军用领域广泛应用的一类全球统一规格的DEM格式，包含DTED Level 0至Level 2三种精度等级，分别对应不同的分辨率要求。</p>
+</li>
+<li>
+<p>GeoTIFF: 这种基于 TIFF 图像格式扩展而来的 GIS 数据交换方式可以嵌入地理位置参考和其他元数据，适用于各种类型的遥感影像，当然也包含了用于表达DEM的空间向量信息。</p>
+</li>
+<li>
+<p>LiDAR LAS/LAZ Format：针对激光雷达(LiDAR)采集得到的密集型 elevation 点云数据设计的专用格式，不仅记录了每一个测定点的位置与强度信息，还可承载颜色、分类等多种附加属性。</p>
+</li>
+</ol>
+<p>TIFF 与 GEO TIFF</p>
+<p>https://www.cnblogs.com/arxive/p/6746570.html</p>
+<p>文件格式：http://www.bimant.com/docs/3dformat/GeoTIFF/</p>
+<p>https://blog.geohey.com/geotiff-shu-ju-ge-shi-tan-suo/</p>
+<p>https://gisgeography.com/gis-formats/</p>
+<p>Esri Grid</p>
+<p>https://desktop.arcgis.com/zh-cn/arcmap/latest/manage-data/raster-and-images/esri-grid-format.htm</p>
+<p>![[assets/Pasted image 20250602095141.png]]</p>
+<p>https://zhuanlan.zhihu.com/p/695271819</p>
+<p><strong>矢量切片</strong></p>
+<p><a href="https://github.com/mapbox/vector-tile-spec">矢量切片规范</a></p>
+<p><a href="https://github.com/mapbox/awesome-vector-tiles">awesome-vector-tiles 整理搜集矢量切片相关的库</a></p>
+<p>矢量切片的常见格式：</p>
+<p>Mapbox Vector Tiles (MVT)：Mapbox定义的格式，基于二进制的Protobuf编码，.pbf 结尾。</p>
+<p>GeoJSON：基于GeoJSON格式，数据以JSON格式传输。</p>
+<p>TopoJSON：GeoJSON的变体，通过消除冗余节点并共享边界来减少文件大小，适合描述复杂几何结构。</p>
+<p><strong>抽稀和插值</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.tooltips", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
