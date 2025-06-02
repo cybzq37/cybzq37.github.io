@@ -5,10 +5,7 @@ site_description: 独立思考，终身学习。
 copyright: Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
 repo_url: https://github.com/cybzq37/cybzq37.github.io
 
-
-
 theme:
-  custom_dir: material/overrides
   name: material
   features:
     - content.tooltips
