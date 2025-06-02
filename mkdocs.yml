@@ -1,8 +1,42 @@
-site_name: My Docs
+site_name: 左丘的杂货铺
+site_url: https://cybzq37.github.io
+site_author: 左丘
+site_description: 独立思考，终身学习。
+copyright: Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+repo_url: https://github.com/cybzq37/cybzq37.github.io
+
+
+
 theme:
+  custom_dir: material/overrides
   name: material
   features:
     - content.tooltips
+  logo: statics/img/logo.svg
+  favicon: statics/img/favicon.svg
+
+  language: en # 默认语言
+
+# 导航树 - 请按照我的做法来做，否则可能无法正常工作。引号可以省略。开头的点和斜杠也可以省略 ("./HOME/about.md" 或 Home/about.md) 。注意，导航树这里的文件名是 filename.md 这样的，但在文件夹中，它实际上被命名为 filename.en.md 和 filename.zh.md。我猜测默认是英文，所以, index.en.md 和 index.md 是一样的。i18n插件会自动识别文件名，然后根据文件名的后缀来切换语言。所以，如果你想添加一个新页面，你需要添加两个文件，一个是 filename.en.md，另一个是 filename.zh.md。其中，filename.en.md 也可以被命名为 filename.md，但是 filename.zh.md 不能被命名为 filename.md，否则会导致无法识别。
+nav: 
+  - HOME: 
+      - "index.md"
+      - ABOUT: "./home/about.md"
+      - SPONSORSHIP: "./home/sponsorship.md"
+  - GIS: 
+      - "./AI/ai.md"
+  - AI: 
+      - "./AI/ai.md"
+
+plugins:
+  - search
+  - blog:
+      archive_date_format: MMMM yyyy
+      categories_allowed:
+        - Holidays
+        - News
+  - tags
+  - meta
 
 markdown_extensions:
   - pymdownx.superfences
@@ -52,5 +86,14 @@ markdown_extensions:
 
       
 extra_javascript:
-  - javascripts/mathjax.js
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - statics/js/katex.js
+  - https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js
+  - https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js
+  
+
+extra_css:
+  - statics/css/extra.css
+  - https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css
+
+extra:
+  generator: false  # 可选，移除 "Made with Material" 字样

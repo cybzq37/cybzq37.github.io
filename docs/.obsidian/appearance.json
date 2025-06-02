@@ -1,8 +1,9 @@
 {
-  "cssTheme": "Minimal",
+  "cssTheme": "Blue Topaz",
   "interfaceFontFamily": "微软雅黑",
   "textFontFamily": "微软雅黑",
   "monospaceFontFamily": "DejaVu Sans Mono",
   "baseFontSize": 16,
-  "baseFontSizeAction": true
+  "baseFontSizeAction": true,
+  "accentColor": ""
 }

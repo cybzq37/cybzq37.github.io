@@ -9,5 +9,6 @@
   "strictLineBreaks": true,
   "showUnsupportedFiles": true,
   "readableLineLength": true,
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "useMarkdownLinks": true
 }
