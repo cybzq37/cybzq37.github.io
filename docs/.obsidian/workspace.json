@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notebook/Andrew-Ng-Machine-Learning-notes/docs/week3.md",
+                "file": "GIS/坐标系与坐标转换.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "week3"
+              "title": "坐标系与坐标转换"
             }
           }
         ],
@@ -198,13 +198,27 @@
   },
   "active": "2a303ec951a602a9",
   "lastOpenFiles": [
+    "GIS/assets/Pasted image 20250602100037.png",
+    "GIS/assets/Pasted image 20250602100015.png",
+    "GIS/assets/Pasted image 20250602095956.png",
+    "GIS/assets/Pasted image 20250602095944.png",
+    "GIS/assets/Pasted image 20250602095922.png",
+    "GIS/assets/Pasted image 20250602095916.png",
+    "GIS/assets/Pasted image 20250602095823.png",
+    "GIS/assets/Pasted image 20250602095720.png",
+    "GIS/assets/Pasted image 20250602095715.png",
+    "GIS/assets/Pasted image 20250602095658.png",
+    "GIS/assets/Pasted image 20250602095644.png",
+    "GIS/assets",
+    "GIS/关于坐标系、投影与瓦片.md",
+    "GIS/坐标系与坐标转换.md",
+    "GIS/GIS知识点.md",
+    "未命名",
+    "notebook/Andrew-Ng-Machine-Learning-notes/docs/week3.md",
     "notebook/Machine-Learning-Andrew-Ng-2022/1神经网络.md",
     "notebook/机器学习/3 多元限行回归模型.md",
     "notebook/机器学习/2 线性回归模型.md",
     "notebook/Machine-Learning-Andrew-Ng-2022/0监督学习.md",
-    "notebook/Machine-Learning-Andrew-Ng-2022/assets/Pasted image 20250601230633.png",
-    "notebook/机器学习/assets/Pasted image 20250601230117.png",
-    "notebook/机器学习/assets/Pasted image 20250601230048.png",
     "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.6 运行梯度下降.ppt",
     "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.5 线性回归中的梯度下降.ppt",
     "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/4.4 学习率.ppt",
@@ -214,19 +228,10 @@
     "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.6 可视化的例子.ppt",
     "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.5 可视化代价函数.ppt",
     "notebook/Machine-Learning-Andrew-Ng-2022/如何最简单、通俗地理解代价函数？.md",
-    "notebook/机器学习/assets/Pasted image 20250601224458.png",
-    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.4 代价函数的直观理解.ppt",
-    "notebook/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/week1/slides/3.3 代价函数.ppt",
     "notebook/机器学习/1 监督学习与非监督学习.md",
-    "notebook/机器学习/assets/Pasted image 20250601223421.png",
     "notebook/Andrew-Ng-Machine-Learning-notes/README.md",
     "notebook/Andrew-Ng-Machine-Learning-notes/docs/week2.md",
     "notebook/Andrew-Ng-Machine-Learning-notes/docs/week1.md",
-    "notebook/机器学习/assets/Pasted image 20250601223001.png",
-    "notebook/机器学习/assets/Pasted image 20250601222938.png",
-    "notebook/机器学习/assets/Pasted image 20250601222534.png",
-    "notebook/机器学习/assets/Pasted image 20250601222253.png",
-    "notebook/机器学习/assets/Pasted image 20250601222149.png",
     "notebook/Machine-Learning-Andrew-Ng-2022/机器学习常见模型.md",
     "notebook/Machine-Learning-Andrew-Ng-2022/关于大模型的一些思考.md",
     "notebook/Machine-Learning-Andrew-Ng-2022/代价函数不是凸函数吗，为什么还会有局部最优的情况.md",
@@ -238,11 +243,6 @@
     "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/5.Tree ensembles/README.md",
     "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/2.Practice quiz Decision trees/quiz.md",
     "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week4/1.Decision trees/README.md",
-    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/8.Neural network implementation in Python/quiz.md",
-    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/6.Practice quiz TensorFlow implementation/quiz.md",
-    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/4.Practice quiz Neural network model/quiz.md",
-    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/2.Practice quiz Neural networks intuition/quiz.md",
-    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week3/7.Skewed datasets (optional)/README.md",
-    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/1.Neural networks intuition/阅读材料[IMPORTANT] Have questions, issues or ideas Join our community on Discourse!.md"
+    "notebook/2022-Machine-Learning-Specialization/3 Advanced Learning Algorithms/week1/8.Neural network implementation in Python/quiz.md"
   ]
 }
