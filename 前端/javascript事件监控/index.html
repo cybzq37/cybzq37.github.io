@@ -1,0 +1,1346 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E5%89%8D%E7%AB%AF/javascript%E4%BA%8B%E4%BB%B6%E7%9B%91%E6%8E%A7/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Javascript事件监控 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#event-delegate" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Javascript事件监控
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    欢迎来到左丘的博客
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI 总览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#event-delegate" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用事件代理（Event Delegate）提升性能
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stoppropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      停止事件冒泡（stopPropagation）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event" class="md-nav__link">
+    <span class="md-ellipsis">
+      事件的 Event 对象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="事件的 Event 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typestring" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​type​​(string)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​target​​(node)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bubbles-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​bubbles​​ (boolean)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventdefault-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​preventDefault​​ (function)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stoppropagation-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​stopPropagation​​ (function)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopimmediatepropagation-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​stopImmediatePropagation​​ (function)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelable-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​cancelable​​ (boolean)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventphase-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​eventPhase​​ (number)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagex-pagey-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​pageX​​ 和 pageY​​ (number)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#istrusted-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​isTrusted​​ (boolean)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jquery" class="md-nav__link">
+    <span class="md-ellipsis">
+      jQuery 中的事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="jQuery 中的事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      绑定事件和事件代理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理过兼容性的事件对象（Event Object）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      触发事件 trigger​​ 方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      事件进阶话题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="事件进阶话题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ie" class="md-nav__link">
+    <span class="md-ellipsis">
+      IE 浏览器的差异和兼容性问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IE 浏览器的差异和兼容性问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      IE 下绑定事件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ie-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      IE 中 Event 对象需要注意的地方
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      事件回调函数的作用域问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="事件回调函数的作用域问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用匿名函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 bind 方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用事件和技巧
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用事件和技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​load​​
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beforeunload" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​beforeunload​​
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resize" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​resize​​
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​error​​
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      用 JavaScript 模拟触发内置事件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义事件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      在开发中应用事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="在开发中应用事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      用事件解耦
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishsubscribe" class="md-nav__link">
+    <span class="md-ellipsis">
+      发布（Publish）和订阅（Subscribe）模式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结和扩展阅读
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Javascript事件监控</h1>
+
+<p>介绍完上面三个事件触发阶段，我们来看下这个问题。</p>
+<p>所有介绍事件的文章都会说，在使用 addEventListener​​ 函数来监听事件时，第三个参数设置为 false​​，这样监听事件时只会监听冒泡阶段发生的事件。</p>
+<p>这是因为 IE 浏览器不支持在捕获阶段监听事件，为了统一而设置的，毕竟 IE 浏览器的份额是不可忽略的。</p>
+<p>IE 浏览器在事件这方面与标准还有一些其他的差异，我们会在后面集中介绍。</p>
+<h3 id="event-delegate">使用事件代理（Event Delegate）提升性能</h3>
+<p>因为事件有冒泡机制，所有子节点的事件都会顺着父级节点跑回去，所以我们可以通过监听父级节点来实现监听子节点的功能，这就是事件代理。</p>
+<p>使用事件代理主要有两个优势：</p>
+<ol>
+<li>减少事件绑定，提升性能。之前你需要绑定一堆子节点，而现在你只需要绑定一个父节点即可。减少了绑定事件监听函数的数量。</li>
+<li>动态变化的 DOM 结构，仍然可以监听。当一个 DOM 动态创建之后，不会带有任何事件监听，除非你重新执行事件监听函数，而使用事件监听无须担忧这个问题。</li>
+</ol>
+<p>看一个例子：</p>
+<p>上面例子中，为了简便，我使用 jQuery 来实现普通事件绑定和事件代理。我的目标是监听所有 a​​ 链接的单击事件，.ul1​​ 是常规的事件绑定方法，jQuery 会循环每一个 .ul &gt; a​​ 结构并绑定事件监听函数。.ul2​​ 则是事件监听的方法，jQuery 只为 .ul2​​ 结构绑定事件监听函数，因为 .ul2​​ 下面可能会有很多无关节点也会触发click​​ 事件，所以我在 on​​ 函数里传递了第二个参数，表示只监听 a​​ 子节点的事件。</p>
+<p>它们都可以正常工作，但是当我动态创建新 DOM 结构的时候，第一个 ul​​ 问题就出现了，新创建结构虽然还是.ul1 &gt; a​​，但是没有绑定事件，所以无法执行回调函数。而第二个 ul​​ 工作的很好，因为点击新创建的 DOM ，它的事件会冒泡到父级节点进行处理。</p>
+<p>如果使用原生的方式实现事件代理，需要注意过滤非目标节点，可以通过 id、class 或者 tagname 等等，例如：</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// 判断是否是 a 节点</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="c1">// a 的一些交互操作</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="stoppropagation">停止事件冒泡（stopPropagation）</h3>
+<p>所有的事情都会有对立面，事件的冒泡阶段虽然看起来很好，也会有不适合的场所。比较复杂的应用，由于事件监听比较复杂，可能会希望只监听发生在具体节点的事件。这个时候就需要停止事件冒泡。</p>
+<p>停止事件冒泡需要使用事件对象的 stopPropagation​​ 方法，具体代码如下：</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</span></code></pre></div>
+<p>在事件监听的回调函数里，会传递一个参数，这就是 Event​​ 对象，在这个对象上调用 stopPropagation​​ 方法即可停止事件冒泡。举个停止事件冒泡的应用实例：</p>
+<p><a href="http://jsbin.com/aparot/3/embed?html,js,output">JS Bin</a></p>
+<p>在上面例子中，有一个弹出层，我们可以在弹出层上做任何操作，例如 click​​ 等。当我们想关掉这个弹出层，在弹出层外面的任意结构中点击即可关掉。它首先对 document​​ 节点进行 click​​ 事件监听，所有的 click​​ 事件，都会让弹出层隐藏掉。同样的，我们在弹出层上面的单击操作也会导致弹出层隐藏。之后我们对弹出层使用停止事件冒泡，掐断了单击事件返回 document​​ 的冒泡路线，这样在弹出层的操作就不会被 document​​ 的事件处理函数监听到。</p>
+<p>更多关于 Event​​ 对象的事情，我们会在下面介绍。</p>
+<h2 id="event">事件的 Event 对象</h2>
+<p>当一个事件被触发的时候，会创建一个事件对象（Event Object），这个对象里面包含了一些有用的属性或者方法。事件对象会作为第一个参数，传递给我们的毁掉函数。我们可以使用下面代码，在浏览器中打印出这个事件对象：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&lt;button&gt;打印 Event Object&lt;/button&gt;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>&lt;script&gt;
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    var btn = document.getElementsByTagName(&#39;button&#39;);
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    btn[0].addEventListener(&#39;click&#39;, function(event) {
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        console.log(event);
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    }, false);
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>&lt;/script&gt;
+</span></code></pre></div>
+<p>就可以看到一堆属性列表：</p>
+<p>​<img alt="事件属性列表" src="https://sslstatic.ktanx.com/images/release/201513/rfYBGqrXB7qmGGzS.png" />​</p>
+<p>事件对象包括很多有用的信息，比如事件触发时，鼠标在屏幕上的坐标、被触发的 DOM 详细信息、以及上图最下面继承过来的停止冒泡方法（stopPropagation）。下面介绍一下比较常用的几个属性和方法：</p>
+<h3 id="typestring">​type​​(string)</h3>
+<p>事件的名称，比如 “click”。</p>
+<h3 id="targetnode">​target​​(node)</h3>
+<p>事件要触发的目标节点。</p>
+<h3 id="bubbles-boolean">​bubbles​​ (boolean)</h3>
+<p>表明该事件是否是在冒泡阶段触发的。</p>
+<h3 id="preventdefault-function">​preventDefault​​ (function)</h3>
+<p>这个方法可以禁止一切默认的行为，例如点击 a​​ 标签时，会打开一个新页面，如果为 a​​ 标签监听事件 click​​同时调用该方法，则不会打开新页面。</p>
+<h3 id="stoppropagation-function">​stopPropagation​​ (function)</h3>
+<p>停止冒泡，上面有提到，不再赘述。</p>
+<h3 id="stopimmediatepropagation-function">​stopImmediatePropagation​​ (function)</h3>
+<p>与 stopPropagation​​ 类似，就是阻止触发其他监听函数。但是与 stopPropagation​​ 不同的是，它更加 “强力”，阻止除了目标之外的事件触发，甚至阻止针对同一个目标节点的相同事件，Demo：<a href="http://jsfiddle.net/yujiangshui/ju2ujmzp/2/%E3%80%82">http://jsfiddle.net/yujiangshui/ju2ujmzp/2/。</a></p>
+<h3 id="cancelable-boolean">​cancelable​​ (boolean)</h3>
+<p>这个属性表明该事件是否可以通过调用 event.preventDefault​​ 方法来禁用默认行为。</p>
+<h3 id="eventphase-number">​eventPhase​​ (number)</h3>
+<p>这个属性的数字表示当前事件触发在什么阶段。none：0；捕获：1；目标：2；冒泡：3。</p>
+<h3 id="pagex-pagey-number">​pageX​​ 和 pageY​​ (number)</h3>
+<p>这两个属性表示触发事件时，鼠标相对于页面的坐标。Demo：<a href="http://api.jquery.com/event.pagex/%E3%80%82">http://api.jquery.com/event.pagex/。</a></p>
+<h3 id="istrusted-boolean">​isTrusted​​ (boolean)</h3>
+<p>表明该事件是浏览器触发（用户真实操作触发），还是 JavaScript 代码触发的。</p>
+<h2 id="jquery">jQuery 中的事件</h2>
+<p>如果你在写文章或者 Demo，为了简单，你当然可以用上面的事件监听函数，以及那些事件对象提供的方法等。但在实际中，有一些方法和属性是有兼容性问题的，所以我们会使用 jQuery 来消除兼容性问题。</p>
+<p>下面简单的来说一下 jQuery 中事件的基础操作。</p>
+<h3 id="_1">绑定事件和事件代理</h3>
+<p>在 jQuery 中，提供了诸如 click()​​ 这样的语法糖来绑定对应事件，但是这里推荐统一使用 on()​​ 来绑定事件。语法：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>.on( events [, selector ] [, data ], handler )
+</span></code></pre></div>
+<p>​events​​ 即为事件的名称，你可以传递第二个参数来实现事件代理，具体文档<a href="http://api.jquery.com/on/">.on()</a> 这里不再赘述。</p>
+<h3 id="event-object">处理过兼容性的事件对象（Event Object）</h3>
+<p>事件对象有些方法等也有兼容性差异，jQuery 将其封装处理，并提供跟标准一直的命名。</p>
+<p>如果你想在 jQuery 事件回调函数中访问原来的事件对象，需要使用 event.originalEvent​​，它指向原生的事件对象。</p>
+<h3 id="trigger">触发事件 trigger​​ 方法</h3>
+<p>点击某个绑定了 click​​ 事件的节点，自然会触发该节点的 click​​ 事件，从而执行对应回调函数。</p>
+<p>​trigger​​ 方法可以模拟触发事件，我们单击另一个节点 elementB，可以使用：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$(elementB).on(&#39;click&#39;, function(){
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    $(elementA).trigger( &quot;click&quot; );
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>});
+</span></code></pre></div>
+<p>来触发 elementA 节点的单击监听回调函数。详情请看文档 <a href="http://api.jquery.com/trigger/">.trigger()</a>。</p>
+<h2 id="_2">事件进阶话题</h2>
+<h3 id="ie">IE 浏览器的差异和兼容性问题</h3>
+<p>IE 浏览器就是特立独行，它对于事件的操作与标准有一些差异。不过 IE 浏览器现在也开始慢慢努力改造，让浏览器变得更加标准。</p>
+<h4 id="ie_1">IE 下绑定事件</h4>
+<p>在 IE 下面绑定一个事件监听，在 IE9- 无法使用标准的 addEventListener​​ 函数，而是使用自家的attachEvent​​，具体用法：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>element.attachEvent(&lt;event-name&gt;, &lt;callback&gt;);
+</span></code></pre></div>
+<p>其中 <code>&lt;event-name&gt;</code>​​参数需要注意，它需要为事件名称添加 on​​ 前缀，比如有个事件叫 click​​，标准事件监听函数监听 click​​，IE 这里需要监听 onclick​​。</p>
+<p>另一个，它没有第三个参数，也就是说它只支持监听在冒泡阶段触发的事件，所以为了统一，在使用标准事件监听函数的时候，第三参数传递 false。</p>
+<p>当然，这个方法在 IE9 已经被抛弃，在 IE11 已经被移除了，IE 也在慢慢变好。</p>
+<h4 id="ie-event">IE 中 Event 对象需要注意的地方</h4>
+<p>IE 中往回调函数中传递的事件对象与标准也有一些差异，你需要使用 window.event​​ 来获取事件对象。所以你通常会写出下面代码来获取事件对象：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>event = event || window.event
+</span></code></pre></div>
+<p>此外还有一些事件属性有差别，比如比较常用的 event.target​​ 属性，IE 中没有，而是使用 event.srcElement​​来代替。如果你的回调函数需要处理触发事件的节点，那么需要写：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>node = event.srcElement || event.target;
+</span></code></pre></div>
+<p>常见的就是这点，更细节的不再多说。在概念学习中，我们没必要为不标准的东西支付学习成本；在实际应用中，类库已经帮我们封装好这些兼容性问题。可喜的是 IE 浏览器现在也开始不断向标准进步。</p>
+<h3 id="_3">事件回调函数的作用域问题</h3>
+<p>与事件绑定在一起的回调函数作用域会有问题，我们来看个例子：</p>
+<p><a href="http://jsbin.com/atoluy/1/embed?html,js,output">Events in JavaScript: Removing event listeners</a></p>
+<p>回调函数调用的 user.greeting​​ 函数作用域应该是在 user​​ 下的，本期望输出 My name is Bob​​ 结果却输出了My name is undefined​​。这是因为事件绑定函数时，该函数会以当前元素为作用域执行。为了证明这一点，我们可以为当前 element​​ 添加属性：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>element.firstname = &#39;jiangshui&#39;;
+</span></code></pre></div>
+<p>再次点击，可以正确弹出 My name is jiangshui​​。那么我们来解决一下这个问题。</p>
+<h4 id="_4">使用匿名函数</h4>
+<p>我们为回调函数包裹一层匿名函数。</p>
+<p><a href="http://jsbin.com/onomud/1/embed?html,js,output">Events in JavaScript: Removing event listeners</a></p>
+<p>包裹之后，虽然匿名函数的作用域被指向事件触发元素，但执行的内容就像直接调用一样，不会影响其作用域。</p>
+<h4 id="bind">使用 bind 方法</h4>
+<p>使用匿名函数是有缺陷的，每次调用都包裹进匿名函数里面，增加了冗余代码等，此外如果想使用removeEventListener​​ 解除绑定，还需要再创建一个函数引用。Function​​ 类型提供了 bind​​ 方法，可以为函数绑定作用域，无论函数在哪里调用，都不会改变它的作用域。通过如下语句绑定作用域：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>user.greeting = user.greeting.bind(user);
+</span></code></pre></div>
+<p>这样我们就可以直接使用：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>element.addEventListener(&#39;click&#39;, user.greeting);
+</span></code></pre></div>
+<h3 id="_5">常用事件和技巧</h3>
+<p>用户的操作有很多种，所以有很多事件。为了开发方便，浏览器又提供了一些事件，所以有很多很多的事件。这里只介绍几种常用的事件和使用技巧。</p>
+<h4 id="load">​load​​</h4>
+<p>​load​​ 事件在资源加载完成时触发。这个资源可以是图片、CSS 文件、JS 文件、视频、document 和 window 等等。</p>
+<p>比较常用的就是监听 window 的 load​​ 事件，当页面内所有资源全部加载完成之后就会触发。比如用 JS 对图片以及其他资源处理，我们在 load​​ 事件中触发，可以保证 JS 不会在资源未加载完成就开始处理资源导致报错。</p>
+<p>同样的，也可以监听图片等其他资源加载情况。</p>
+<h4 id="beforeunload">​beforeunload​​</h4>
+<p>当浏览者在页面上的输入框输入一些内容时，未保存、误操作关掉网页可能会导致输入信息丢失。</p>
+<p>当浏览者输入信息但未保存时关掉网页，我们就可以开始监听这个事件，例如：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>window.addEventListener(&quot;beforeunload&quot;, function( event ) {
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    event.returnValue = &quot;放弃当前未保存内容而关闭页面？&quot;;
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>});
+</span></code></pre></div>
+<p>这时候试图关闭网页的时候，会弹窗阻止操作，点击确认之后才会关闭。当然，如果没有必要，就不要监听，不要以为使用它可以为你留住浏览者。</p>
+<h4 id="resize">​resize​​</h4>
+<p>当节点尺寸发生变化时，触发这个事件。通常用在 window 上，这样可以监听浏览器窗口的变化。通常用在复杂布局和响应式上。</p>
+<p>常见的视差滚动效果网站以及同类比较复杂的布局网站，往往使用 JavaScript 来计算尺寸、位置。如果用户调整浏览器大小，尺寸、位置不随着改变则会出现错位情况。在 window 上监听该事件，触发时调用计算尺寸、位置的函数，可以根据浏览器的大小来重新计算。</p>
+<p>但需要注意一点，当浏览器发生任意变化都会触发 resize​​ 事件，哪怕是缩小 1px 的浏览器宽度，这样调整浏览器时会触发大量的 resize​​ 事件，你的回调函数就会被大量的执行，导致变卡、崩溃等。</p>
+<p>你可以使用函数 throttle 或者 debounce 技巧来进行优化，throttle 方法大体思路就是在某一段时间内无论多次调用，只执行一次函数，到达时间就执行；debounce 方法大体思路就是在某一段时间内等待是否还会重复调用，如果不会再调用，就执行函数，如果还有重复调用，则不执行继续等待。关于它们更详细的信息，我后面会介绍一下发表在我的博客上，这里不再赘述。</p>
+<h4 id="error">​error​​</h4>
+<p>当我们加载资源失败或者加载成功但是只加载一部分而无法使用时，就会触发 error​​ 事件，我们可以通过监听该事件来提示一个友好的报错或者进行其他处理。比如 JS 资源加载失败，则提示尝试刷新；图片资源加载失败，在图片下面提示图片加载失败等。该事件不会冒泡。因为子节点加载失败，并不意味着父节点加载失败，所以你的处理函数必须精确绑定到目标节点。</p>
+<p>需要注意的是，对于该事件，你可以使用 addEventListener​​ 等进行监听，但是有时候会出现失效情况（看<a href="http://jsbin.com/esimAWA/2/quiet">这个例子</a>），这是因为 error​​ 事件都触发过了，你的 JS 监听处理代码还没有加载进来执行。为了避免这种情况，用内联法更好一些：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>&lt;img src=&quot;not-found.jpg&quot; onerror=&quot;doSomething&quot; /&gt;
+</span></code></pre></div>
+<p>如果还有其他常用事件，欢迎留言补充。</p>
+<h3 id="javascript">用 JavaScript 模拟触发内置事件</h3>
+<p>内置的事件也可以被 JavaScript 模拟触发，比如下面函数模拟触发单击事件：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>function simulateClick() {
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  var event = new MouseEvent(&#39;click&#39;, {
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    &#39;view&#39;: window,
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    &#39;bubbles&#39;: true,
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    &#39;cancelable&#39;: true
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  });
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  var cb = document.getElementById(&#39;checkbox&#39;); 
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>  var canceled = !cb.dispatchEvent(event);
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>  if (canceled) {
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    // A handler called preventDefault.
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    alert(&quot;canceled&quot;);
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>  } else {
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    // None of the handlers called preventDefault.
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    alert(&quot;not canceled&quot;);
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>  }
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>}
+</span></code></pre></div>
+<p>可以看这个 <a href="https://developer.mozilla.org/samples/domref/dispatchEvent.html">Demo</a> 来了解更多。</p>
+<h3 id="_6">自定义事件</h3>
+<p>我们可以自定义事件来实现更灵活的开发，事件用好了可以是一件很强大的工具，基于事件的开发有很多优势（后面介绍）。</p>
+<p>与自定义事件的函数有 Event​​、CustomEvent​​ 和 dispatchEvent​​。</p>
+<p>直接自定义事件，使用 Event​​ 构造函数：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>var event = new Event(&#39;build&#39;);
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>// Listen for the event.
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>elem.addEventListener(&#39;build&#39;, function (e) { ... }, false);
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>// Dispatch the event.
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>elem.dispatchEvent(event);
+</span></code></pre></div>
+<p>​CustomEvent​​ 可以创建一个更高度自定义事件，还可以附带一些数据，具体用法如下：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>var myEvent = new CustomEvent(eventname, options);
+</span></code></pre></div>
+<p>其中 options 可以是：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>{
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    detail: {
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        ...
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    },
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    bubbles: true,
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    cancelable: false
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>}
+</span></code></pre></div>
+<p>其中 detail​​ 可以存放一些初始化的信息，可以在触发的时候调用。其他属性就是定义该事件是否具有冒泡等等功能。</p>
+<p>内置的事件会由浏览器根据某些操作进行触发，自定义的事件就需要人工触发。dispatchEvent​​ 函数就是用来触发某个事件：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>element.dispatchEvent(customEvent);
+</span></code></pre></div>
+<p>上面代码表示，在 element 上面触发 customEvent 这个事件。结合起来用就是：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>// add an appropriate event listener
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>obj.addEventListener(&quot;cat&quot;, function(e) { process(e.detail) });
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>// create and dispatch the event
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>var event = new CustomEvent(&quot;cat&quot;, {&quot;detail&quot;:{&quot;hazcheeseburger&quot;:true}});
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>obj.dispatchEvent(event);
+</span></code></pre></div>
+<p>使用自定义事件需要注意兼容性问题，而使用 jQuery 就简单多了：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>// 绑定自定义事件
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>$(element).on(&#39;myCustomEvent&#39;, function(){});
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>// 触发事件
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>$(element).trigger(&#39;myCustomEvent&#39;);
+</span></code></pre></div>
+<p>此外，你还可以在触发自定义事件时传递更多参数信息：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$( &quot;p&quot; ).on( &quot;myCustomEvent&quot;, function( event, myName ) {
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>  $( this ).text( myName + &quot;, hi there!&quot; );
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>});
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>$( &quot;button&quot; ).click(function () {
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>  $( &quot;p&quot; ).trigger( &quot;myCustomEvent&quot;, [ &quot;John&quot; ] );
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>});
+</span></code></pre></div>
+<p>更详细的用法请看 <a href="http://learn.jquery.com/events/introduction-to-custom-events/">Introducing Custom Events</a>，这里不再赘述。</p>
+<h3 id="_7">在开发中应用事件</h3>
+<p>当我们操作某一个 DOM，发出一个事件，我们可以在另一个地方写代码捕获这个事件执行处理逻辑。触发操作和捕获处理操作是分开的。我们可以根据这个特性来对程序解耦。</p>
+<h4 id="_8">用事件解耦</h4>
+<p>我们可以将一个整个的功能，分割成独立的小功能，每个小功能绑定一个事件，由一个“控制器”负责根据条件触发某个事件。这样，在外面触发这个事件，也可以调用对应功能，使其更加灵活。</p>
+<p>​<img alt="应用事件对程序解耦" src="https://sslstatic.ktanx.com/images/release/201513/5mn2K2k8DFiWFDYS.png" />​</p>
+<p>在《基于 MVC 的 JavaScript Web 富应用开发》一书中，有更加具体的实例，有兴趣的朋友可以买本看看。</p>
+<h4 id="publishsubscribe">发布（Publish）和订阅（Subscribe）模式</h4>
+<p>针对上面这种用法，继续抽象一下，就是发布和订阅开发模式。正如其名，这种模式有两个角色：发布者和订阅者，此外有一条信道，发布者被触发往这个信道里面发信，订阅者从这个信道里面收信，如果收到特定信件则执行某个对应的逻辑。这样，发布者和订阅者之间是完全解耦的，只有一条信道连接。这样就非常容易扩展，也不会引入额外的依赖。</p>
+<p>这样如果需要添加新功能，只需要添加一个新的订阅者（及其执行逻辑），监听信道中某一类新的信件。再在应用中通过发布者发送一类新的信件即可。</p>
+<p>具体实现，这里推荐 cowboy 开发的 <a href="https://github.com/cowboy/jquery-tiny-pubsub">Tiny Pub Sub</a>，通过 jQuery 实现，非常简洁直观，jQuery 太赞。代码就这几行：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>(function($) {
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>  var o = $({});
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>  $.subscribe = function() {
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    o.on.apply(o, arguments);
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>  };
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>  $.unsubscribe = function() {
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    o.off.apply(o, arguments);
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>  };
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>  $.publish = function() {
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>    o.trigger.apply(o, arguments);
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>  };
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>}(jQuery));
+</span></code></pre></div>
+<p>定义一个对象作为信道，然后提供了三个方法，订阅者、取消订阅、发布者。</p>
+<h2 id="_9">总结和扩展阅读</h2>
+<p>事件有关的基础知识基本就这些，更多的还有待你继续挖掘。本文资料参考和推荐扩展阅读如下（感谢他们）：</p>
+<ul>
+<li><a href="http://www.w3.org/TR/DOM-Level-3-Events/">DOM-Level-3-Events</a></li>
+<li><a href="https://developer.mozilla.org/en/docs/Web/API/Event">Event on MDN</a></li>
+<li><a href="http://api.jquery.com/category/events/">Events of jQuery</a></li>
+<li><a href="http://learn.jquery.com/events/introduction-to-custom-events/">Introducing Custom Events</a></li>
+<li><a href="http://www.smashingmagazine.com/2013/11/12/an-introduction-to-dom-events/">An Introduction To DOM Events</a></li>
+<li>《基于 MVC 的 JavaScript Web 富应用开发》</li>
+<li><a href="https://ld246.com/article/1582987084602">https://ld246.com/article/1582987084602</a> 讲的比较好</li>
+</ul>
+<p><a href="https://juejin.cn/post/6844903834075021326">https://juejin.cn/post/6844903834075021326</a></p>
+<p><a href="https://zh.javascript.info/bubbling-and-capturing">https://zh.javascript.info/bubbling-and-capturing</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1920879">https://cloud.tencent.com/developer/article/1920879</a></p>
+<p>在 JavaScript 中，可以使用事件委托来监听页面上所有元素的点击事件。事件委托是一种利用事件冒泡的技术，将事件处理程序附加到页面上的一个父元素，并通过检测事件冒泡是否发生在某个子元素上来确定是否需要执行处理程序。</p>
+<div class="language-less highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nt">document</span><span class="p">.</span><span class="nc">addEventListener</span><span class="o">(</span><span class="s2">&quot;click&quot;</span><span class="o">,</span><span class="w"> </span><span class="nt">function</span><span class="o">(</span><span class="nt">event</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="err">console.log(&quot;Clicked</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="n">element</span><span class="p">:</span><span class="s2">&quot;, event.target);</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="s2">}, true);</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="s2">// 或者</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="s2">window.addEventListener(&quot;</span><span class="n">click</span><span class="err">&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="err">{</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="nf">log</span><span class="p">(</span><span class="n">e</span><span class="err">.</span><span class="n">target</span><span class="err">.</span><span class="n">tagName</span><span class="p">);</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="p">}</span><span class="o">);</span>
+</span></code></pre></div>
+<p>这段代码将事件处理程序附加到整个页面，并在任意元素被点击时打印事件目标。</p>
+<p><a href="https://segmentfault.com/q/1010000009266553">https://segmentfault.com/q/1010000009266553</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.tooltips", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

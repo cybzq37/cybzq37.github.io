@@ -1,0 +1,12 @@
+/* 调整 logo 和 site_name 之间的距离 */
+
+/* 默认大约是0.6rem，可以适当减小 */
+/* .md-header__button {
+  margin-right: 0.2rem !important;
+} */
+
+/* 去除多余的左边距 */
+/* .md-header__title {
+  margin-left: 0 !important;
+} */
+
