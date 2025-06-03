@@ -8,38 +8,53 @@ repo_url: https://github.com/cybzq37/cybzq37.github.io
 theme:
   name: material
   features:
-    - content.tooltips
-    - navigation.tabs           # 顶部显示导航顶层nav（一级菜单横向在顶部）
-    - navigation.tabs.sticky # 固定（浏览时不收起）标签
+    - header.autohide        # 当用户向下滚动页面时，自动隐藏顶部导航栏（Header），向上滚动时重新显示。
+    - navigation.footer      # 导航栏底部显示额外信息（如版权声明、生成时间等）
+    - navigation.indexes     # 文档直接附加到导航栏的章节（Section）下，无需创建子页面
+    - navigation.instant     # 启用无刷新导航
+    - navigation.instant.prefetch  # 预加载导航数据
+    - navigation.instant.progress  # 显示页面加载进度条
+    - navigation.path        # 页面顶部面包屑导航
+    - navigation.tabs        # 顶部显示导航顶层nav（一级菜单横向在顶部）
+    - navigation.tabs.sticky # 固定（浏览时不收起）标签  
+    - navigation.top         # 返回顶部按钮
+    - navigation.tracking    # 跟踪用户导航
+    # - navigation.prune        # 修剪未访问节点
+    # - navigation.sections     # 顶级导航分区
+    #  navigation.expand       # 自动展开所有导航层级
+    - search.highlight       # 搜索高亮匹配
+    - search.suggest         # 搜索自动补全
+    - toc.follow             # 目录功能
+    # - toc.integrate          # 将页面内的目录（Table of Contents，TOC）合并到左侧导航栏中，形成统一的导航体系
+  
+    - content.tabs.link  # 启用标签页链接功能
+    - content.tooltips       # 鼠标悬停提示
+    - content.code.annotate  # 代码块启用行号标注和注释功能
+    - content.code.copy      # 代码块复制按钮
+    - content.code.select    # 允许用户点击并选择代码块中的文本
   logo: statics/img/logo.svg
   favicon: statics/img/favicon.svg
 
   language: zh # 默认语言
 
-# 导航树 - 请按照我的做法来做，否则可能无法正常工作。引号可以省略。开头的点和斜杠也可以省略 ("./HOME/about.md" 或 Home/about.md) 。注意，导航树这里的文件名是 filename.md 这样的，但在文件夹中，它实际上被命名为 filename.en.md 和 filename.zh.md。我猜测默认是英文，所以, index.en.md 和 index.md 是一样的。i18n插件会自动识别文件名，然后根据文件名的后缀来切换语言。所以，如果你想添加一个新页面，你需要添加两个文件，一个是 filename.en.md，另一个是 filename.zh.md。其中，filename.en.md 也可以被命名为 filename.md，但是 filename.zh.md 不能被命名为 filename.md，否则会导致无法识别。
-nav:    
-  - HOME: 
-      - "index.md"
-      - ABOUT: "./Home/about.md"
-  - 人工智能: 
-    - AI 总览: "AI/index.md"
-    - 机器学习:
-        - 1 监督学习与非监督学习: "AI/机器学习/1 监督学习与非监督学习.md"
-        - 2 线性回归模型: "AI/机器学习/2 线性回归模型.md"
-        - 3 多元线性回归模型: "AI/机器学习/3 多元线性回归模型.md"
-        - 4 特征缩放与学习率: "AI/机器学习/4 特征缩放与学习率.md"
-        - 5 逻辑回归: "AI/机器学习/5 逻辑回归.md"
-        - 6 过拟合与正则化: "AI/机器学习/6 过拟合与正则化.md"
-
 plugins:
-  - search
   - blog:
       archive_date_format: MMMM yyyy
       categories_allowed:
         - Holidays
         - News
-  - tags
-  - meta
+  - tags:  # 文档中使用 tags: [tag1, tag2]
+      # tags_file: tags.md  # 自定义标签索引页
+      sort: alphabetical  # 按字母排序标签
+  - meta:
+      required:  # 指定必填字段
+        - title
+        - date
+        - tags
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true  # 压缩html
 
 markdown_extensions:
   - pymdownx.superfences
@@ -100,3 +115,36 @@ extra_css:
 
 extra:
   generator: false  # 可选，移除 "Made with Material" 字样
+  # analytics:
+  #   provider: google
+  #   property: !ENV GOOGLE_ANALYTICS_KEY
+  #   # property: GOOGLE_ANALYTICS_KEY
+  #   feedback:
+  #     title: Was this page helpful?
+  #     ratings:
+  #       - icon: material/thumb-up-outline
+  #         name: This page was helpful
+  #         data: 1
+  #         note: >-
+  #           Thanks for your feedback!
+  #       - icon: material/thumb-down-outline
+  #         name: This page could be improved
+  #         data: 0
+  #         note: >- 
+  #           Thanks for your feedback! Help us improve this page by
+  #           using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+
+# 导航树 - 请按照我的做法来做，否则可能无法正常工作。引号可以省略。开头的点和斜杠也可以省略 ("./HOME/about.md" 或 Home/about.md) 。注意，导航树这里的文件名是 filename.md 这样的，但在文件夹中，它实际上被命名为 filename.en.md 和 filename.zh.md。我猜测默认是英文，所以, index.en.md 和 index.md 是一样的。i18n插件会自动识别文件名，然后根据文件名的后缀来切换语言。所以，如果你想添加一个新页面，你需要添加两个文件，一个是 filename.en.md，另一个是 filename.zh.md。其中，filename.en.md 也可以被命名为 filename.md，但是 filename.zh.md 不能被命名为 filename.md，否则会导致无法识别。
+nav:    
+  - HOME: 
+      - "index.md"
+      - ABOUT: "./Home/about.md"
+  - 人工智能: 
+    - AI 总览: "AI/index.md"
+    - 机器学习:
+        - 1 监督学习与非监督学习: "AI/机器学习/1 监督学习与非监督学习.md"
+        - 2 线性回归模型: "AI/机器学习/2 线性回归模型.md"
+        - 3 多元线性回归模型: "AI/机器学习/3 多元线性回归模型.md"
+        - 4 特征缩放与学习率: "AI/机器学习/4 特征缩放与学习率.md"
+        - 5 逻辑回归: "AI/机器学习/5 逻辑回归.md"
+        - 6 过拟合与正则化: "AI/机器学习/6 过拟合与正则化.md"
