@@ -1,11 +1,16 @@
 #### 常用命令
 ```bash
 # 查看可用发行版
-wsl --list --online 或 wsl -l -o
+wsl --list --online
+wsl -l -o
+
 # 查看已安装发行版
-wsl --list --verbose 或 wsl -l -v
+wsl --list --verbose
+wsl -l -v
+
 # 安装发行版
 wsl --install -d <发行版名称>
+
 # 关机
 wsl --shutdown
 ```
@@ -16,6 +21,15 @@ wsl --shutdown
 wsl --export Ubuntu-22.04 D:\\wsl2\\images\\Ubuntu-22.04.tar
 wsl --unregister Ubuntu-22.04
 wsl --import Ubuntu-22.04 D:\\wsl2\\data D:\\wsl2\\images\\Ubuntu-22.04.tar
+```
+
+#### 设置默认root登录
+```bash
+vim /etc/wsl.conf
+#======
+[user]
+default=root
+#======
 ```
 
 #### 配置文件
