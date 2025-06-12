@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "贝叶斯定理.md",
+                "file": "cpp/基础知识.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "贝叶斯定理"
+              "title": "基础知识"
             }
           }
         ]
@@ -181,8 +181,26 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "64fc886f008e23df",
+  "active": "f55ac23df70e476a",
   "lastOpenFiles": [
+    "cpp/函数.md",
+    "cpp/基础知识.md",
+    "cpp/容器.md",
+    "cpp/类型转换.md",
+    "cpp/静态数组 & 动态数组.md",
+    "cpp/关键字.md",
+    "cpp/指向函数的指针.md",
+    "cpp/指针 & 引用 & 常量.md",
+    "cpp/字符串.md",
+    "cpp/未命名 1.md",
+    "cpp/未命名.md",
+    "cpp/类型擦除.md",
+    "cpp",
+    "概率.md",
+    "c++.md",
+    "人生哲理.md",
+    "炒股记录",
+    "贝叶斯定理.md",
     "assets/Pasted image 20250608230938.png",
     "assets/Pasted image 20250608230930.png",
     "assets/Pasted image 20250608230105.png",
@@ -193,9 +211,7 @@
     "assets/Pasted image 20250608225836.png",
     "assets/Pasted image 20250608225827.png",
     "assets/Pasted image 20250608225343.png",
-    "assets/Pasted image 20250608213729.png",
     "timescaledb超表.md",
-    "贝叶斯定理.md",
     "jupyter配置说明.md",
     "index.md",
     "markdown-examples.md",
@@ -205,14 +221,6 @@
     "GIS/polardb.md",
     "GIS/一文通读GIS基础知识.md",
     "GIS/GIS知识点.md",
-    "GIS/坐标系与坐标转换.md",
-    "GIS/坐标系、投影与瓦片.md",
-    "GIS/地图匹配算法.md",
-    "AI/机器学习/6 过拟合与正则化.md",
-    "AI/Machine-Learning-Andrew-Ng-2022/0监督学习.md",
-    "qgis图层.md",
-    "大数据/wsl2.md",
-    "AI/机器学习/5 逻辑回归.md",
     "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.5 正则化logistic回归.ppt",
     "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.4 正则化线性回归.ppt",
     "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.3 正则化代价函数.ppt",
@@ -220,14 +228,6 @@
     "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.1 过拟合的问题.ppt",
     "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/9.1 梯度下降实现.ppt",
     "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/8.2 逻辑回归的简化版代价函数.ppt",
-    "Home/about.md",
-    "Home/index.md",
-    "Home",
-    "home/about.md",
-    "home/index copy.md",
-    "home/index.md",
-    "home",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/逻辑回归的简化版代价函数.ppt",
-    "AI/index.md"
+    "Home"
   ]
 }
