@@ -1,0 +1,1130 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E6%99%BA%E8%83%BD%E7%BD%91%E8%81%94/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>知识图谱 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#can-tcpmqtt-tsp" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              知识图谱
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#can-tcpmqtt-tsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚗 CAN → 网关 → TCP/MQTT → TSP 通信链路总览图
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 一、角色说明
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 二、详细流程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 二、详细流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-can" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚘 1. 车内 CAN 网络采集数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-t-box-can" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 2. T-Box 作为CAN 网关
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 3. T-Box 做协议适配和打包
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tcp-mqtt-https-tsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      📡 4. 使用 TCP / MQTT / HTTPS 上传到 TSP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☁️ 5. TSP 云平台处理数据
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>知识图谱</h1>
+
+<pre class="mermaid"><code>graph LR
+    A[车内设备] --&gt; B[T-Box]
+    B --&gt; C[车厂 TSP 平台]
+    C --&gt; D[手机 App]
+    C --&gt; E[数据平台]
+    C --&gt; F[政府监管平台]
+
+    style A fill:#e3f2fd,stroke:#90caf9,stroke-width:2px
+    style B fill:#fff3e0,stroke:#ffb74d,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#81c784,stroke-width:2px
+    style D fill:#f3e5f5,stroke:#ba68c8,stroke-width:2px
+    style E fill:#ede7f6,stroke:#9575cd,stroke-width:2px
+    style F fill:#fffde7,stroke:#fff176,stroke-width:2px
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>T-Box （Telematics Box）</th>
+<th>TSP （Telematics Service Platform）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>位置</td>
+<td>车载硬件，安装在车辆内部</td>
+<td>云端系统，部署在车厂/服务商的服务器</td>
+</tr>
+<tr>
+<td>本质</td>
+<td>车载通信控制器，类似“调制解调器”或“网关”</td>
+<td>后台服务平台，处理数据、提供接口、做业务逻辑</td>
+</tr>
+<tr>
+<td>作用</td>
+<td>采集车辆数据、发送消息、执行远程指令</td>
+<td>管理车辆数据、用户数据、发送指令、与外部对接</td>
+</tr>
+<tr>
+<td>功能举例</td>
+<td>定位上传、故障上报、接收OTA、远程控制车门</td>
+<td>用户登录、车辆绑定、轨迹展示、OTA策略下发</td>
+</tr>
+<tr>
+<td>协议</td>
+<td>支持私有/标准协议（如 GB/T 32960）</td>
+<td>接收TBox协议并解析、也会暴露HTTP/MQTT等接口</td>
+</tr>
+<tr>
+<td>开发重点</td>
+<td>嵌入式开发、CAN通信、无线通信（LTE/5G）</td>
+<td>后端开发、数据处理、接口安全、指令队列管理</td>
+</tr>
+</tbody>
+</table>
+<p><strong>专业术语：</strong>
+EE架构，汽车电子电气架构
+ECU Electronic Control Unit，电子控制器单元
+T-BOX   telematics box，远程通信模块
+CAN Controller Area Network，控制器区域网络，总线协议之一
+LIN 总线协议之一，串行通讯网络
+FlexRay 总线协议之一，一种时间触发式的总线系统
+ADAS    Advanced Driver Assistance Systems，高级驾驶辅助系统
+BCM 汽车车身控制模块
+VCU 整车控制器
+ACU 自动驾驶域控制器
+HeadUnit：车载娱乐信息系统，简称HU或HUT
+TSP Telematics Service Provider，汽车远程服务提供商，车联网服务平台
+TBOX：Telematics Box，简称TBOX（T盒），TBOX主要用于采集车辆数据与TSP平台实时通信，数据上报，人车交互。
+SMS：短信平台。
+GBCENTER：国标平台或地标平台的简称。</p>
+<p>I-Call：提供资讯，一键导航等。
+B-Call：提供道路救援服务。
+E-Call：提供紧急救援服务。
+VIN：车辆识别码，简称车架号。
+IMSI：SIM卡服务识别号，用来识别SIM卡入网服务的标识。
+ICCID：SIM卡硬件识别号，用来识别SIM卡的硬件。
+IMEI：TBOX的唯一设备识别码，用于区分TBOX设备。</p>
+<p>![[assets/Pasted image 20250508220704.png]]![[assets/Pasted image 20250508220857.png]]</p>
+<p>https://www.iotsec-zone.com/article/367</p>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>是否常用</th>
+<th>使用场景</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅ MQTT</td>
+<td>⭐⭐⭐⭐（最常用）</td>
+<td>实时通信、状态上报、远程指令</td>
+<td>轻量、支持长连接、低功耗、QoS保障</td>
+<td>二进制协议调试不便，需专用客户端工具</td>
+</tr>
+<tr>
+<td>✅ TCP</td>
+<td>⭐⭐</td>
+<td>自定义协议的基础（尤其是早期TSP系统）</td>
+<td>灵活、可定制、性能好</td>
+<td>无标准结构，需自行设计会话管理等</td>
+</tr>
+<tr>
+<td>✅ HTTPS</td>
+<td>⭐⭐</td>
+<td>设备注册、补发数据、升级等非实时操作</td>
+<td>安全（TLS），调试方便，浏览器兼容</td>
+<td>建连慢、通信频繁时效率低、功耗高</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐协议</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实时状态上报 / 指令推送</td>
+<td>MQTT</td>
+<td>长连接低延迟，支持 QoS，广泛适用于车联网</td>
+</tr>
+<tr>
+<td>大文件传输（如 OTA 升级）</td>
+<td>HTTPS</td>
+<td>传输可靠、易部署 CDN，支持断点续传</td>
+</tr>
+<tr>
+<td>首次注册 / 鉴权 / 配置拉取</td>
+<td>HTTPS</td>
+<td>安全且只需偶尔连接</td>
+</tr>
+<tr>
+<td>定制老平台或无 MQTT 网关的系统</td>
+<td>TCP</td>
+<td>允许厂商完全定制协议格式，但需额外开发解析逻辑</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>CAN 总线</th>
+<th>TCP 协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>控制器局域网协议（Controller Area Network）</td>
+<td>传输控制协议（Transmission Control Protocol）</td>
+</tr>
+<tr>
+<td>工作层级</td>
+<td><strong>物理层 + 数据链路层</strong></td>
+<td><strong>传输层</strong>（TCP/IP 四层模型）</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>汽车内、工业自动化、机器人</td>
+<td>互联网通信（浏览器、APP、Web服务器）</td>
+</tr>
+<tr>
+<td>传输方式</td>
+<td>广播式（所有节点接收），无连接</td>
+<td>面向连接，一对一可靠通信</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>通常 ≤ 1 Mbps（CAN FD 可提升）</td>
+<td>取决于网络环境（10Mbps ~ Gbps）</td>
+</tr>
+<tr>
+<td>典型通信</td>
+<td>车内 ECU 之间传感器/控制器数据传输</td>
+<td>网页加载、聊天消息、视频流传输等</td>
+</tr>
+</tbody>
+</table>
+<h2 id="can-tcpmqtt-tsp">🚗 CAN → 网关 → TCP/MQTT → TSP 通信链路总览图</h2>
+<p>less</p>
+<p>复制编辑</p>
+<p><code>[ 各类ECU ]    |    ↓（CAN总线） [ 车载网关（T-Box） ]    |    ↓（TCP/MQTT/HTTPS） [ TSP云平台 ]</code></p>
+<hr />
+<h2 id="_1">🔍 一、角色说明</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ECU</strong></td>
+<td>发动机/车身/空调等控制器，工作在 CAN 网络中</td>
+</tr>
+<tr>
+<td><strong>T-Box/网关</strong></td>
+<td>连接 CAN 总线，收集数据并上传到云（TSP）</td>
+</tr>
+<tr>
+<td><strong>TSP</strong></td>
+<td>云端平台，接收数据、做远程控制、OTA、监控等</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">🔄 二、详细流程</h2>
+<h3 id="1-can">🚘 1. 车内 CAN 网络采集数据</h3>
+<ul>
+<li>
+<p>每个 ECU 周期性广播自己的状态，如：</p>
+<ul>
+<li>
+<p>发动机 ECU → 发转速数据；</p>
+</li>
+<li>
+<p>电池管理 ECU → 发电压/温度数据；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>这些数据都是 <strong>CAN 报文（ID + Data）</strong>。</p>
+</li>
+</ul>
+<h3 id="2-t-box-can">📦 2. T-Box 作为<strong>CAN 网关</strong></h3>
+<ul>
+<li>
+<p>T-Box 连接到 CAN 总线；</p>
+</li>
+<li>
+<p>使用驱动程序（如 SocketCAN 或专用 MCU 驱动）监听所有 CAN 报文；</p>
+</li>
+<li>
+<p>通过 DBC 文件（协议定义）解析报文成<strong>可读参数</strong>；</p>
+<p>makefile</p>
+<p>复制编辑</p>
+<p><code>0x100: vehicle_speed = 80 km/h 0x205: battery_voltage = 12.4 V</code></p>
+</li>
+</ul>
+<h3 id="3-t-box">🧠 3. T-Box 做协议适配和打包</h3>
+<ul>
+<li>
+<p>将解析后的数据转换成<strong>云平台能识别的格式</strong>：</p>
+<ul>
+<li>
+<p>自定义 JSON；</p>
+</li>
+<li>
+<p>GB/T 32960 格式；</p>
+</li>
+<li>
+<p>Protobuf 编码结构；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>加入身份信息（如 VIN、ICCID、设备ID）；</p>
+</li>
+<li>
+<p>统一打包。</p>
+</li>
+</ul>
+<h3 id="4-tcp-mqtt-https-tsp">📡 4. 使用 TCP / MQTT / HTTPS 上传到 TSP</h3>
+<ul>
+<li>
+<p><strong>MQTT</strong>：建立长连接，周期性上报状态/实时接收指令；</p>
+</li>
+<li>
+<p><strong>TCP</strong>：适合自定义协议的长连接；</p>
+</li>
+<li>
+<p><strong>HTTPS</strong>：适合首次注册、补发数据、OTA 文件请求等。</p>
+</li>
+</ul>
+<h3 id="5-tsp">☁️ 5. TSP 云平台处理数据</h3>
+<ul>
+<li>
+<p>鉴权/验签，判断数据合法；</p>
+</li>
+<li>
+<p>入库、报警检测、显示在用户App；</p>
+</li>
+<li>
+<p>可以发控制命令（例如远程开空调）回传到 T-Box；</p>
+</li>
+<li>
+<p>T-Box 收到后通过 CAN 下发命令给 ECU。</p>
+</li>
+</ul>
+<pre class="mermaid"><code>graph TD
+    ECU1[发动机ECU] --&gt; CAN[CAN总线]
+    ECU2[电池管理ECU] --&gt; CAN
+    CAN --&gt; TBOX[T-Box（网关）]
+    TBOX --&gt; TCP[TCP/MQTT/HTTPS 上传]
+    TCP --&gt; TSP[云端TSP平台]
+    TSP --&gt;|控制指令| TBOX
+    TBOX --&gt;|CAN命令| CAN</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

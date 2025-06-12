@@ -1,0 +1,1048 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/cpp/%E6%9C%AA%E5%91%BD%E5%90%8D%201/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>编译链接知识 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              编译链接知识
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">编译链接知识</h1>
+<p>预处理 &gt; 编译 &gt; 汇编 &gt; 链接</p>
+<ul>
+<li>
+<p>预处理：引入头文件、去除注释、宏替换、条件编译指令、添加行号、保留所有的编译器指令；</p>
+</li>
+<li>
+<p>编译：经过词法分析、语法分析、语义分析、符号汇总生成汇编代码。</p>
+</li>
+<li>
+<p>汇编：将汇编代码 <code>.s</code> 翻译成机器指令 <code>.o</code> 文件。</p>
+</li>
+<li>
+<p>链接：链接目标文件，生成可被系统加载执行的ELF文件 <code>.a</code> 。</p>
+</li>
+</ul>
+<p>静态链接 &amp; 动态链接</p>
+<p>静态链接：静态链接库一般以 .a 文件，我们可以将多个 .o 文件链接成一个静态链接库。</p>
+<p>动态链接：动态链接库一般以 .so 文件，我们可以将多个 .o 文件链接成一个动态链接库。</p>
+<p>交叉编译</p>
+<h1 id="_2">内存知识</h1>
+<p>目标文件（可执行文件、共享库、静态库）&amp; ELF文件格式</p>
+<p>进程内存布局</p>
+<p>堆与栈</p>
+<p>内存对齐</p>
+<p>内存泄漏与预防</p>
+<h1 id="_3">基础知识</h1>
+<p>关键字 &amp; 类型 &amp; 标识符 &amp; 运算符</p>
+<p>表达式 &amp; 语句</p>
+<p>声明 &amp; 定义 &amp; 初始化</p>
+<p>指针 &amp; 引用</p>
+<p>静态数组 &amp; 动态数组 &amp; 多维数组</p>
+<p>变量定义与生存周期</p>
+<p>变量</p>
+<ul>
+<li>
+<p>声明 &amp; 定义 &amp; 初始化</p>
+</li>
+<li>
+<p>作用域（全局、命名空间、文件、类作用域、局部、语句作用域）</p>
+</li>
+<li>
+<p>生命周期（在作用域内有效，静态除外）</p>
+</li>
+<li>
+<p>static修饰（全局、静态全局、局部、静态局部）</p>
+</li>
+<li>
+<p>const修饰</p>
+</li>
+</ul>
+<p>字符串（大括号初始化）</p>
+<p>类型擦除 &amp; 类型转换</p>
+<p>函数</p>
+<ul>
+<li>
+<p>形参与实参（外实内虚）&amp; 可变形参</p>
+</li>
+<li>
+<p>形参传递（值、引用、常量引用、指针、数组、函数）</p>
+</li>
+<li>
+<p>函数返回（引用「左值」、右值、指针）</p>
+</li>
+<li>
+<p>重载（顶层const无法区分、底层const可以区分）</p>
+</li>
+<li>
+<p>static 修饰</p>
+</li>
+<li>
+<p>const 修饰</p>
+</li>
+</ul>
+<p>常用容器（vector、deque、list、set、multiset、map、multimap、bitset）</p>
+<p>命名空间</p>
+<p>库</p>
+<h1 id="_4">面向对象</h1>
+<p>封装 &amp; 继承 &amp; 多态</p>
+<ul>
+<li>
+<p>封装：对外提供接口，降低耦合。</p>
+</li>
+<li>
+<p>继承：代码复用。</p>
+</li>
+<li>
+<p>多态：使编程更加的灵活。</p>
+</li>
+</ul>
+<p>重载 &amp; 重写 &amp; 隐藏</p>
+<ul>
+<li>
+<p>重载：函数内部发生在重载。</p>
+</li>
+<li>
+<p>隐藏：发生在编译期，派生类中的函数隐藏了基类中的同名函数。</p>
+<ul>
+<li>
+<p>如果派生类中的函数与基类中的函数同名，但参数不同，则派生类中的函数隐藏了基类中的函数。</p>
+</li>
+<li>
+<p>如果派生类中的函数与基类中的函数同名，参数也相同，但基类中的函数不是虚函数，则派生类中的函数隐藏了基类中的函数。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>重写：发生在运行时，派生类中的虚函数覆盖了基类中的同名虚函数。</p>
+<ul>
+<li>
+<p>派生类中的函数与基类中的函数同名，参数也相同。</p>
+</li>
+<li>
+<p>基类中的函数必须是虚函数。</p>
+</li>
+<li>
+<p>派生类中的函数可以有不同的返回值类型，但必须与基类中的函数的返回值类型兼容。</p>
+</li>
+<li>
+<p>派生类中的函数可以抛出更多的异常，但必须与基类中的函数抛出的异常兼容。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>访问权限 &amp; 继承权限</p>
+<p>this指针</p>
+<ul>
+<li>
+<p><code>this</code>指针是一个隐式的指针，它指向当前对象的地址。</p>
+</li>
+<li>
+<p>在成员函数中返回<code>*this</code>来返回当前对象本身，实现链式调用。</p>
+</li>
+</ul>
+<p>构造函数 &amp; 析构函数</p>
+<ul>
+<li>
+<p>构造函数</p>
+<ul>
+<li>
+<p>默认构造函数</p>
+</li>
+<li>
+<p>初始化构造函数</p>
+</li>
+<li>
+<p>拷贝构造函数</p>
+</li>
+<li>
+<p>移动构造函数</p>
+</li>
+<li>
+<p>委托构造函数</p>
+</li>
+<li>
+<p>转换构造函数</p>
+</li>
+<li>
+<p>constexpr 修饰</p>
+</li>
+<li>
+<p>explicit 修饰</p>
+</li>
+</ul>
+</li>
+<li>
+<p>析构函数：</p>
+<ul>
+<li>
+<p>默认析构函数</p>
+</li>
+<li>
+<p>虚析构函数</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>类对象初始化顺序 &amp; 析构顺序</p>
+<p>三五法则</p>
+<p>如果类不需要定义「析构函数」回收资源，则只需要定义「普通构造函数」。</p>
+<p>如果类需要定义「析构函数」回收资源，则在定义「普通构造函数」外，也需要定义「拷贝构造函数、拷贝赋值运算函数」。</p>
+<p>用户定义的「析构函数、拷贝构造函数、拷贝赋值运算符」的存在会阻止 「移动构造函数、移动赋值运算符」的隐式定义，所以任何想要移动语义的类必须声明全部五个特殊成员函数。</p>
+<p>虚函数 &amp; 纯虚函数</p>
+<ul>
+<li>
+<p>虚函数是基于「虚函数表」和「虚函数指针」实现。</p>
+</li>
+<li>
+<p>当调用一个虚函数时，编译器会先检查对象的虚函数指针，然后根据该指针找到相应的虚函数表。最后，根据虚函数表中存储的函数地址，调用相应的虚函数实现代码。</p>
+</li>
+</ul>
+<p>多态的实现原理</p>
+<p>单继承 &amp; 多继承 &amp; 菱形继承 &amp; 虚继承</p>
+<p>菱形继承：</p>
+<ul>
+<li>
+<p><strong>数据冗余</strong>：派生类对象中包含两个相同基类的成员。</p>
+</li>
+<li>
+<p><strong>二义性</strong>：派生类调用基类函数时，无法确定调用哪个。</p>
+</li>
+</ul>
+<p>虚继承：用于解决菱形继承的问题。</p>
+<p>对象内存布局（单继承 &amp; 多继承）</p>
+<p>类的大小</p>
+<p>控制对象在堆或栈上分配</p>
+<p>友元函数 &amp; 友元类</p>
+<h1 id="_5">语言特性</h1>
+<h2 id="c11">C++11特性</h2>
+<p>RAII</p>
+<p>引用计数</p>
+<p>智能指针</p>
+<ul>
+<li>
+<p>unique_ptr &amp; shared_ptr &amp; weak_ptr</p>
+</li>
+<li>
+<p>值传递 &amp; 引用传递</p>
+</li>
+<li>
+<p>unique_ptr</p>
+<ul>
+<li>
+<p>避免使用 unique_ptr 作为值传递，通常是获取裸指针传递，或转移所有权</p>
+</li>
+<li>
+<p>如果一定要传递，也要使用引用传递</p>
+</li>
+<li>
+<p>unique_ptr 作为返回值使用，设计模式中经常用到，异常安全</p>
+</li>
+</ul>
+</li>
+<li>
+<p>shared_ptr</p>
+<ul>
+<li>
+<p>避免循环引用问题，内部使用 weak_ptr</p>
+</li>
+<li>
+<p>作为值传递没问题，因为所有权不会发生变化</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>异常处理</p>
+<p>左值与右值</p>
+<p>右值引用、移动语义与完美转发</p>
+<p><code>auto</code> 类型推导</p>
+<p><code>decltype</code> 类型推导</p>
+<p><code>lambda</code> 表达式</p>
+<p>默认构造函数 <code>= default</code></p>
+<p>禁用函数 <code>= delete</code></p>
+<p><code>constexpr</code> 常量表达式</p>
+<p>初始化列表<code>initializer list</code></p>
+<p><code>nullptr</code> 空指针常量</p>
+<p>可扩展的随机数功能</p>
+<p>模板与泛型编程：模板定义、实例化、模板编译、模板特化</p>
+<p>lambda表达式</p>
+<p>C++14特性：</p>
+<p>支持函数返回值类型推导</p>
+<p><code>lambda</code> 函数的形式参数允许泛型</p>
+<p><code>deprecated</code> 属性</p>
+<p>新增<code>std::make_unique</code></p>
+<p>共享的互斥体和锁</p>
+<p>C++ 17 新特性：</p>
+<p>结构化绑定</p>
+<p><code>if-switch</code> 语句初始化</p>
+<p><code>constexpr lambda</code> 表达式</p>
+<p><code>namespace</code> 嵌套</p>
+<p><code>std::any</code>可以存储任何类型</p>
+<p><code>std::filesystem</code> 文件库</p>
+<h1 id="io">IO处理</h1>
+<p>标准IO &amp; 文件IO &amp; 内存IO &amp; 网络IO</p>
+<p>标准IO：cin cout cerr</p>
+<p>文件IO：ifstream ofstream fstream</p>
+<p>内存IO：stringstream</p>
+<p>网络IO：socket</p>
+<h1 id="_6">多线程编程</h1>
+<p>锁的种类：互斥锁、条件锁、自选锁、读写锁、递归锁</p>
+<h1 id="_7">编码规范</h1>
+<ul>
+<li>变量最好在定义时就初始化，并且使用 <code>{}</code> 显式初始化</li>
+</ul>
+<h1 id="_8">工程化</h1>
+<p>include " " 与 &lt;&gt; 的区别</p>
+<p>构建：make、cmake</p>
+<p>调试：gdb</p>
+<h1 id="_9">问题</h1>
+<p>static 的作用</p>
+<p>const 的作用</p>
+<p>sizeof 与 strlen 的区别</p>
+<p>auto 推导的规则</p>
+<p>new 与 mollac 的区别</p>
+<p>delete 与 free 的区别</p>
+<p>volatile 的作用与使用场景</p>
+<p>class 与 struct 的区别</p>
+<p>struct 与 union 的区别</p>
+<p>class 与 struct 的区别</p>
+<p>extern C 的作用</p>
+<p>strcpy 的缺陷</p>
+<p>lambda 表达式的作用</p>
+<p>memmove 函数的底层原理</p>
+<p>深拷贝和浅拷贝</p>
+<p>友元函数</p>
+<p>返回函数中静态变量的地址会发生什么</p>
+<p>sizeof(1==1) 在 C 和 C++ 中的结果</p>
+<p>memmove 函数的底层原理</p>
+<p>explicit 的作用</p>
+<p>define 与 typedef 的区别</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,909 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86/">
+      
+      
+      
+      
+      <link rel="icon" href="../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>贝叶斯定理 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              贝叶斯定理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      从条件概率说起
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      关于疾病的例子
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      另一种表示
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝叶斯的应用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      关于信念
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>贝叶斯定理</h1>
+
+<h3 id="_1">从条件概率说起</h3>
+<p>掷两次骰子，可能出现的结果有6x6=36种
+<img alt="" src="../assets/Pasted%20image%2020250608212952.png" /></p>
+<p>如果我们定义事件A为：至少有一个骰子是 2，那么事件 A 的样本空间如下：
+<img alt="" src="../assets/Pasted%20image%2020250608213051.png" />
+事件A一共有11种情况，我们计算事件A的概率P(A)：
+<img alt="" src="../assets/Pasted%20image%2020250608213118.png" />
+我们再定义事件B：两个骰子之和为7，那么事件B的样本空间如下图绿色部分所示：
+<img alt="" src="../assets/Pasted%20image%2020250608213129.png" />
+事件B一共有6种情况，我们计算事件B的概率P(B)：
+<img alt="" src="../assets/Pasted%20image%2020250608213146.png" />
+接下来我们用P(A∩B)表示A和B同时发生的概率，A∩B就是A和B的交集，如下图蓝色部分所示：
+<img alt="" src="../assets/Pasted%20image%2020250608213203.png" />
+显然A∩B只有两种情况，因此，计算P(A∩B)：
+<img alt="" src="../assets/Pasted%20image%2020250608213230.png" />
+接下来我们就可以讨论条件概率了。我们用P(A|B)表示在B发生的条件下，A发生的概率。由于B已经发生，所以，样本空间就是B的样本数量6，而要发生A则只能是A、B同时发生，即A∩B，有两种情况。</p>
+<p>因此，计算P(A|B)如下：
+<img alt="" src="../assets/Pasted%20image%2020250608213240.png" />
+同理，我们用P(B|A)表示在A发生的条件下，B发生的概率。此时，分子仍然是A∩B的样本数量，但分母变成A的样本数量：
+<img alt="" src="../assets/Pasted%20image%2020250608213248.png" />
+可见，条件概率P(A|B)和P(B|A)是不同的。</p>
+<p>我们再回到A、B同时发生的概率，观察P(A∩B)可以改写为：
+<img alt="" src="../assets/Pasted%20image%2020250608213259.png" />
+同理，P(A∩B)还可以改写为：
+<img alt="" src="../assets/Pasted%20image%2020250608213308.png" />
+因此，根据上述两个等式，我们推导出下面的等式：
+<img alt="" src="../assets/Pasted%20image%2020250608213318.png" />
+把左边的<code>P(A∩B)</code>去掉，我们得到等式：
+<img alt="" src="../assets/Pasted%20image%2020250608213327.png" />
+最后，整理一下等式，我们推导出贝叶斯定理如下：
+<img alt="" src="../assets/Pasted%20image%2020250608213336.png" />
+这就是著名的贝叶斯定理，它表示，当出现B时，如何计算A的概率。</p>
+<p>很多时候，我们把<code>A</code>改写为<code>H</code>，把<code>B</code>改写为<code>E</code>：
+<img alt="" src="../assets/Pasted%20image%2020250608213348.png" />
+H表示Hypothesis（假设），E表示Evidence（证据），贝叶斯定理的意义就在于，给定一个先验概率P(H)，在出现了证据E的情况下，计算<a href="https://zhida.zhihu.com/search?content_id=233324763&amp;content_type=Article&amp;match_order=1&amp;q=%E5%90%8E%E9%AA%8C%E6%A6%82%E7%8E%87&amp;zhida_source=entity">后验概率</a>P(H|E)。</p>
+<h3 id="_2">关于疾病的例子</h3>
+<p>已知有一种疾病，发病率是 0.1%（先验概率），针对这种疾病的测试非常准确：
+- 如果有病，则准确率是 99%（即有1%未检出阳性）
+- 如果没有病，则误报率是 2%（即有2%误报为阳性）</p>
+<p>现在，如果一个人测试显示阳性，请问他患病的概率是多少？</p>
+<p>用H表示患病，E表示测试为阳性，那么，我们要计算在测试为阳性的条件下，一个人患病的概率，就是计算P(H|E)。根据贝叶斯定理，计算如下：
+<img alt="" src="../assets/Pasted%20image%2020250608213729.png" /></p>
+<p>P(H)表示患病的概率，根据发病率可知，P(H)=0.1%</p>
+<p>P(E|H)表示在患病的情况下，测试为阳性的概率，根据“如果有病，则准确率是99%”可知P(E|H)=99%</p>
+<p>P(E)表示测试为阳性的概率</p>
+<p>假如对10万人进行检测，根据发病率可知：</p>
+<ul>
+<li>有100人是病人，另外99900是健康人；</li>
+<li>对100个病人进行测试，有99人显示阳性，另有1人未检出（阴性）；</li>
+<li>对99900个健康人进行测试，有2%=1998人显示阳性（误报），另有98%=97902人为阴性。</li>
+</ul>
+<p>所以，对于10万人的样本空间来说，事件E（显示阳性的概率）为 (99+1998)/100000=2.097%。</p>
+<p>带入贝叶斯定理，计算P(H|E)：
+<img alt="" src="../assets/Pasted%20image%2020250608225343.png" /></p>
+<p>计算结果为患病的概率为4.721%，这个概率远小于99%，且与大多数人的直觉不同，原因在于庞大的健康人群导致的误报数量远多于病人，当出现“检测阳性”的证据时，患病的概率从先验概率0.1%提升到4.721%，还远不足以确诊。</p>
+<h3 id="_3">另一种表示</h3>
+<p>在上述计算中，我们发现计算P(E)是比较困难的，很多时候，甚至无法知道P(E)。此时，我们需要贝叶斯定理的另一种表示形式。</p>
+<p>我们用P(H)表示H发生的概率，用<sup>H表示H不发生，P(</sup>H)表示H不发生的概率。显然P(^H)=1-P(H)。</p>
+<p>下图红色部分表示H，红色部分以外则表示^H：
+<img alt="" src="../assets/Pasted%20image%2020250608225827.png" /></p>
+<p>事件E用绿色表示：
+<img alt="" src="../assets/Pasted%20image%2020250608225836.png" /></p>
+<p>可见，P(E)可以分为两部分，一部分是E和H的交集，另一部分是E和^H的交集：
+<img alt="" src="../assets/Pasted%20image%2020250608225909.png" /></p>
+<p>根据上文的公式P(A∩B)=P(A|B)xP(B)，代入可得：
+<img alt="" src="../assets/Pasted%20image%2020250608225919.png" /></p>
+<p>把P(E)替换掉，我们得到贝叶斯定理的另一种写法：
+<img alt="" src="../assets/Pasted%20image%2020250608225929.png" /></p>
+<p>用这个公式来计算，我们就不必计算P(E)了。再次回到开头的问题：</p>
+<p>已知有一种疾病，发病率是0.1%。针对这种疾病的测试非常准确：</p>
+<ul>
+<li>如果有病，则准确率是99%（即有1%未检出阳性）；</li>
+<li>如果没有病，则误报率是2%（即有2%误报为阳性）。</li>
+</ul>
+<p>现在，如果一个人测试显示阳性，请问他患病的概率是多少？</p>
+<ul>
+<li>P(E|H)表示患病时检测阳性的概率=99%；</li>
+<li>P(H)表示患病的概率=0.1%；</li>
+<li>P(E|^H)表示没有患病但检测阳性的概率=2%；</li>
+<li>P(^H)表示没有患病的概率=1-P(H)=99.9%。</li>
+</ul>
+<p>代入公式，计算：</p>
+<p><img alt="" src="../assets/Pasted%20image%2020250608225942.png" /></p>
+<p>检测为阳性这一证据使得患病的概率从0.1%提升到4.721%。假设这个人又做了一次检测，结果仍然是阳性，那么他患病的概率是多少？</p>
+<p>我们仍然使用贝叶斯定理计算，只不过现在先验概率P(H)不再是0.1%，而是4.721%，P(E|H)和P(E|^H)仍保持不变，计算新的P(H|E)：</p>
+<p><img alt="" src="../assets/Pasted%20image%2020250608230105.png" />
+结果为71%，两次检测为阳性的结果使得先验概率从0.1%提升到4.721%再提升到71%，继续第三次检测如果为阳性则概率将提升至99.18%。</p>
+<p>可见，贝叶斯定理的核心思想就是不断根据新的证据，将先验概率调整为后验概率，使之更接近客观事实。</p>
+<h3 id="_4">贝叶斯的应用</h3>
+<p>在统计学里，长期以来，有频率学派和贝叶斯学派两大学派。</p>
+<p>这两大学派最根本的观点在于看待世界的方式不同：</p>
+<ul>
+<li>频率学派认为世界是客观的，必须通过大量独立采样来获得统计均值，不能先给出一个主观的<a href="https://zhida.zhihu.com/search?content_id=233325049&amp;content_type=Article&amp;match_order=1&amp;q=%E5%85%88%E9%AA%8C%E6%A6%82%E7%8E%87&amp;zhida_source=entity">先验概率</a>（假设）；</li>
+<li>贝叶斯学派则认为概率是一种信念度，可以有非常主观的先验概率，然后，通过一次次采样结果修正先验概率，使之逼近客观事实。</li>
+</ul>
+<p>这两大学派哪个才是正确的？其实都对，只是看待世界的角度不同。但是在现实世界中，除了抛硬币、掷骰子、玩老虎机等少数符合理想数学模型的场景，频率学派才能发挥作用。大多数需要我们估算概率的现实场景，只能用贝叶斯理论来指导实践。</p>
+<p>举个例子，假设我住在市区，希望赶上飞机的概率不低于90%，那么我应该提前多久出发呢？我必须试验至少100次，看看样本空间，才能获得一个比较准确的统计均值。然而这是不现实的，因为我一年可能就坐几次飞机。我只能拍脑袋先估一个提前30分钟就够了，结果第三次就没赶上，这说明我必须修正我的先验概率，后续改为提前45分钟，才能提升赶上飞机的概率。</p>
+<p>要把<a href="https://zhida.zhihu.com/search?content_id=233325049&amp;content_type=Article&amp;match_order=1&amp;q=%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86&amp;zhida_source=entity">贝叶斯定理</a>用到定量计算，必须得借助计算机。</p>
+<p>以吴军老师在中文分词领域举的一个例子来说，对于一个句子：南京市长江大桥，可以有两种划分：</p>
+<ul>
+<li>南京市 / 长江大桥</li>
+<li>南京市长 / 江大桥</li>
+</ul>
+<p>到底哪一种更合理？我们可以计算条件概率：</p>
+<ul>
+<li>P(长江大桥|南京市) = 出现“南京市”时，出现“长江大桥”的概率；</li>
+<li>P(江大桥|南京市长) = 出现“南京市长”时，出现“江大桥”的概率。</li>
+</ul>
+<p>提前准备好大量的中文语料，计算出任意两个词的条件概率，我们就可以得出哪种分词更合理。</p>
+<p>在互联网领域，凡是遇到“当出现xyz时应该推荐什么”这样的条件概率时，也总是能应用贝叶斯理论。</p>
+<h3 id="_5">关于信念</h3>
+<p>我们再回顾一下贝叶斯定理：
+<img alt="" src="../assets/Pasted%20image%2020250608230930.png" /></p>
+<p>稍微改一下，变为：
+<img alt="" src="../assets/Pasted%20image%2020250608230938.png" /></p>
+<p>P(H)是先验概率，P(H|E)是后验概率，P(E|H)/P(E)被称为<a href="https://zhida.zhihu.com/search?content_id=233325049&amp;content_type=Article&amp;match_order=1&amp;q=%E8%B0%83%E6%95%B4%E5%9B%A0%E5%AD%90&amp;zhida_source=entity">调整因子</a>，先验概率乘以调整因子就得到后验概率。</p>
+<p>我们发现，如果P(H)=0，则P(H|E)=0；如果P(H)=1，则P(E|H)=P(E)，P(H|E)=1。</p>
+<p>也就是说，如果先验概率为0%或100%，那么，无论出现任何证据E，都无法改变后验概率P(H|E)。这对我们看待世界的认知有重大指导意义，因为贝叶斯概率的本质是信念，通过一次次事件，我们可能加强某种信念，也可能减弱某种信念，但如果信念保持100%或0%，则可以做到对外界输入完全“免疫”。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

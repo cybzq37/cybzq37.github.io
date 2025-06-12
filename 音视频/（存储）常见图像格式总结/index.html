@@ -1,0 +1,1233 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E9%9F%B3%E8%A7%86%E9%A2%91/%EF%BC%88%E5%AD%98%E5%82%A8%EF%BC%89%E5%B8%B8%E8%A7%81%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F%E6%80%BB%E7%BB%93/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>（存储）常见图像格式总结 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#raw" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              （存储）常见图像格式总结
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#raw" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAW格式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      数码相机成像原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rgb" class="md-nav__link">
+    <span class="md-ellipsis">
+      RGB格式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV格式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv444" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV444
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv422" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV422
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv420" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV420
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV的存储方式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv422_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV422
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv420_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV420
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuv_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV的优势
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yuvrgb" class="md-nav__link">
+    <span class="md-ellipsis">
+      YUV与RGB之间的转换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="YUV与RGB之间的转换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bt601-which-is-the-standard-for-sdtv" class="md-nav__link">
+    <span class="md-ellipsis">
+      BT.601, which is the standard for SDTV.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bt601full-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      BT.601，Full Range
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bt709-which-is-the-standard-for-hdtv" class="md-nav__link">
+    <span class="md-ellipsis">
+      BT.709, which is the standard for HDTV.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BT.709, which is the standard for HDTV.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3yuv" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、YUV
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、YUV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31yuv" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1、yuv 定义：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2、采样格式：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3、存储格式：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      图像格式的解析、格式转换和看图软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图像格式的解析、格式转换和看图软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理原理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<ul>
+<li>RAW</li>
+<li>RGB</li>
+<li>YUV</li>
+</ul>
+<h3 id="raw">RAW格式</h3>
+<p>可以将 RAW 照片理解为 CMOS 或者 CCD 图像感应器将捕捉到的光源信号转化为数字信号的原始 数据。数码相机拍摄的“原始图像编码数据”的格式统一称为 RAW 格式。</p>
+<p>当数码相机进行曝光时，CCD/CMOS 感光元件会用高低电平来记录每个像素点的光亮，然后数码 相机再将这些电信号转化成相应的数字符号，一般被记录为 12 位或 14 位的数据，那就意味着每个像 素点有 4096 或 16384 种不同的亮度级别，RAW 可以对这些像素进行完整的输出，将数码相机所记录的 12 位或 14 位的数据扩展到 16 位的空间。</p>
+<h3 id="_1">数码相机成像原理</h3>
+<p>https://www.cambridgeincolour.com/tutorials/camera-sensors.htm</p>
+<p>数码相机使用数百万个微小的感光元来记录图像。当按下相机的快门按钮并开始曝光时，每一个感光元都会收集光子并将其其存储为电信号。 曝光结束后，相机将关闭所有这些光点，然后尝试通过测量电信号的强度来评估有多少光子掉入每个感光元中。 然后将信号量化为数字值，其精度由 <strong>图像位深</strong> 确定。</p>
+<p>我们最后在手机上看到的图像精度结果取决于图像的记录格式，比如8位的JPEG照片其像素值就有2^8 = 256，其每一个pixel值就为[0-255]。使用的位数越大，我们就可以将颜色表示得越精细。
+<img alt="" src="assets/image-20231215095438.png" />  </p>
+<p><img alt="" src="Pasted%20image%2020231215095452.png" /></p>
+<p>问题来了，我们如何收集到彩色图像呢？回想起三原色RGB红绿蓝了么，也就是小水滴滴在屏幕上我们所看到的。那我们如何去捕捉他们呢？由于这些感光元无法区分每种颜色的数量，因此上图中只能创建灰度图像（也就是黑白图）。</p>
+<p>为了捕获彩色图像，必须在每个感光元上方放置一个滤镜，该滤镜仅允许特定颜色的光。 实际上，当前所有的数码相机只能在每个感光元中捕获三种原色之一，因此它们会丢弃大约2/3的入射光。因此，相机必须近似其他两种原色以便在每个像素处都是全色彩的。Color Filter Array（CFA）就登场了，中文叫彩色滤光片阵列，而最常使用和见到CFA为<strong>Bayer阵列(拜耳阵列)</strong>，如图二所示:</p>
+<p><img alt="" src="https://pic1.zhimg.com/80/v2-068c33c003753c728e083a76edc03048_720w.webp" /></p>
+<p>以2*2的小方块来看，其是一个有规律的排列，遵循绿-红-蓝-绿的组合。专业点说，拜耳阵列由交替排列的绿红和蓝绿滤光片组成。 请注意，拜耳阵列包含的绿色传感器是红色或蓝色传感器的两倍（这样设计的原因是人眼对绿色更为敏感，所以使用了更多的绿色滤光片采集绿色）。这样设计的另一个原因是与每种颜色均等相比，带有绿色像素的冗余所产生的图像看起来噪声更少，并且具有更好的细节。 好了，现在我们来看看处理后的JPEG图片和采集到最原始的RAW图片吧。</p>
+<p><img alt="" src="https://pic3.zhimg.com/80/v2-0d3b404c0f8046fe8ffa1ebca373bde6_720w.webp" /></p>
+<p>左边就是各位在手机上看到的JPEG图而右边便是相机传感器接收到的最原始的图。为了方便查看和对比拜耳阵列，请看红方框的放大细节。这里需要注意的是，并非所有的数码相机都使用拜耳阵列，但这是迄今为止最常见的设置。 例如其他传感器可能以类似的阵列捕获四种颜色：红色，绿色，蓝色和翠绿色。</p>
+<p><strong>Bayer去马赛克 - BAYER DEMOSAICING</strong></p>
+<p>右边的图看起来很像马赛克吧？ok那现在要如何去马赛克呢？</p>
+<p>Bayer去马赛克是将这种拜耳原色阵列转换为最终图像的过程，该最终图像的每个像素都是全色的。 一种简单的方法是将红色，绿色和蓝色的每个2x2阵列视为一个完整的彩色块。如图三，黑色圆圈表示的就是2x2阵列合并得到的全色信息。</p>
+<p><img alt="" src="https://pic2.zhimg.com/80/v2-d3639f4a9606b8e894fda7b1663451e9_720w.webp" /></p>
+<p>图三</p>
+<p>这里很容易可以发现一个问题，这种方法会导致分辨率下降。因为长宽分别少了1/2那么总体分辨率就少了1/4，所以一般不用这样的方法，一般将RGB分别拆开进行插值然后再合并，这样能有100%的分辨率。插值方法有很多，在这里不表述。简单过程如图四。</p>
+<p><img alt="" src="https://pic3.zhimg.com/80/v2-96a2df77ab5d40b3dad179c654885742_720w.webp" /></p>
+<p>图四</p>
+<p><img alt="" src="https://pic4.zhimg.com/80/v2-9687ab4d194e1f125368a00a72d0a8cf_720w.webp" /></p>
+<p>图五 Source：https://www.hisour.com/bayer-filter-24546/</p>
+<p>通过图五来简单回顾总结一下RAW图。1是现实世界中的图，也就是我们眼睛看到的景色。具有Bayer阵列的相机传感器获取到的原始图像信息是3，没有Bayer阵列采集到的原始图像信息为2，也就是灰度图（黑白图，只有亮度信息）。这里要说明从RAW图到JEPG有一系列复杂的图像信号处理过程，称作ISP（Image Signal Processing），这里不做表述，去马赛克只是其中的一小步。去马赛克后再经过后续处理我们可以得到4图，也即手机上看到的压缩过后的JPEG图。</p>
+<p>raw数据是sensor输出的原始数据，一般有raw8, raw10, raw12等，分别表示一个像素点有8bit、10bit、12bit数据。是sensor将光信号转化为电信号时的电平高低的原始记录，单纯地没有进行任何处理的图像数据，即摄像元件直接得到的电信号进行数字化处理而得到的。
+raw数据在输出的时候是有一定顺序的，主要有四种: GRBG、RGGB、BGGR、GBRG。</p>
+<h3 id="rgb">RGB格式</h3>
+<p>RGB格式：即每一个像素由三原色R红色、G绿色、B蓝色组成。通过三种颜色的混合，基本就能够混合出人类视力所能感受到的所有颜色。</p>
+<p>RGB常见的的几种格式和描述：
+RGB565 每个像素用16位表示，RGB分量各使用5位、6位、5位；
+RGB555 每个像素用16位表示，RGB分量都使用5位（剩下1位不用）；
+RGB24 每个像素用24位表示，RGB分量各使用8位；
+RGB32 每个像素用32位表示，RGB分量各使用8位（剩下8位不用）；
+ARGB32 每个像素用32位表示，RGB分量各使用8位（剩下的8位用于表示Alpha(透明度)通道值）</p>
+<p>RGB是我们平时遇到最多的颜色空间。使用RGB表示的每种颜色都是由红光、绿光、蓝光组合而成的。对于使用RGB存储的图片，我们分别使用R、G、B三个分量来表示红光、绿光、蓝光，每个分量占每个分量8bit，并且三个分量依次排列存储，表示一个像素。</p>
+<p><img alt="image.png" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a204b364b754f4faab0d171a5804d8c~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<p>上图中，图像数据以R &gt; G &gt; B的排列顺序进行存储，这个排序并不是绝对的，也有可能是以B &gt; G &gt; R的顺序进行存储。</p>
+<p>RGB常常用于图像的存储，并且十分简单。但是在视频领域中，RGB就不那么常见了。我们知道，视频其实是由一张张连续的图片序列组成的，我们假设有一个1080p（1920 * 1080）分辨率、帧率为30帧的视频，如果不对视频进行压缩，并且使用RGB进行存储的话，仅仅一分钟的视频就能达到 （ 1920 * 1080 * 8 * 30 * 60 ）bit （约等于27G）。这明显是不现实的，所以我们需要对视频数据进行压缩。</p>
+<p>但由于RGB的三个分量是存在相关性的，这不利于我们对数据进行压缩编码。所以我们需要一种数据相关性没那么强的颜色空间，我们接下来要介绍的YUV，就是这么一种颜色空间。</p>
+<h3 id="yuv">YUV格式</h3>
+<p>是被欧洲电视系统所采用的一种颜色编码方法。
+Y：表示明亮度（Luma）,就是灰阶值
+U和V表示色度（Chroma）
+Y其实就是我们常说的灰度值，是图片的总体轮廓，而U和V则用于描述色彩颜色和颜色饱和度。
+YUV用于电视系统以及模拟视频领域，它将亮度信息（Y）与色彩信息（UV）分离，没有UV信息一样可以显示完整的图像，只不过是黑白的。
+<img alt="" src="Pasted%20image%2020231215102059.png" />
+上面的第一张图片为YUV图片的原图，下面的图片分别为只有Y分量、只有U分量、只有V分量数据的图片。可以看到只有Y分量的图片能够看清楚图片的轮廓，但图片是黑白的。</p>
+<p>这样的设计很好地解决了彩色电视机与黑白电视的兼容问题。并且，YUV不像RGB那样要求三个独立的视频信号同时传输，所以用YUV方式传送占用极少的频宽。</p>
+<p>常用格式有：YUV444，YUV422，YUV420（为什么是4呢？因为这个4，实际上表达了共享的最大单位！也就是最多4个像素进行共享，因此4实际上是隐含的采样全集）；</p>
+<p>摄像头中最常用的是YUV 422格式，及Y-U-Y-V格式。以YUV422 8bit为例，每个像素点都包含亮度分量（8bit）以及UV两个颜色分量中的某一个（8bit）。因此每个像素点需要16bit数据。如果使用YUV422 10bit，那每个像素点需要20bit来描述；</p>
+<p>常见的YUV有YUV444，YUV422，YUV420，不同类型之间的主要区别是使用了不同的方式进行U、V分量的采样。</p>
+<p><img alt="image.png" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f3ca09e83aae4af39536a7f6a336a49e~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<blockquote>
+<p>如上图所示，其中实心黑点表示像素点的Y分量，空心圆圈表示采用该像素点的UV分量。</p>
+</blockquote>
+<h3 id="yuv444">YUV444</h3>
+<p>YUV444中每个Y分量分别对应一个U分量和一个V分量。</p>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a85b4a88cda14345966683f5c152c2c8~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<h3 id="yuv422">YUV422</h3>
+<p>YUV422中每两个Y分量共用一个U分量和一个V分量。</p>
+<p><img alt="image.png" src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/743a88b45eb74e77a932b0ba78c8d466~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<h3 id="yuv420">YUV420</h3>
+<p>YUV420中每四个Y分量共用一个U分量和一个V分量。</p>
+<p><img alt="image.png" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1d4fa0e0214e44c7b19ca4d8ebc1e76e~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<p>我们可以清楚的看到，在存储一张2 * 2像素的图片时：</p>
+<ul>
+<li>YUV444需要 12 * 8 bit，</li>
+</ul>
+<p><img alt="image.png" src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/16c4a347cc7f4467b49a083916201aa2~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>YUV422需要 8 * 8 bit，</li>
+</ul>
+<p><img alt="image.png" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f329979ec8be48659a4f5d036d5e1816~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>而YUV420则只需要 6 * 8 bit。</li>
+</ul>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/52241aaf137c41e7a1326dff0462fd6f~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<p>YUV444存储的数据量与RGB相同，但YUV422和YUV420却只需要存储RGB的数据量的 2/3 和 1/2 。</p>
+<h3 id="yuv_1">YUV的存储方式</h3>
+<p>YUV有packed（打包）和 planar（平面）两种存储方式。</p>
+<ul>
+<li>packed ：packed格式是先连续存储所有的Y分量，然后依次交叉<strong>储存</strong>U、V分量；</li>
+<li>planar：planar格式也会先连续存储所有的Y分量，但planar会先<strong>连续</strong>存储U分量的数据，再<strong>连续</strong>存储V分量的数据，或者先<strong>连续</strong>存储V分量的数据，再<strong>连续</strong>存储U分量的数据；</li>
+</ul>
+<p>每种YUV类型都会有多种存储方式，接下来我们来解析一下比较常用的YUV422和YUV420。</p>
+<h3 id="yuv422_1">YUV422</h3>
+<ul>
+<li>YU16：也叫I422或YUV422P，每两个Y分量共用一个U分量和一个V分量，以<strong>planar</strong>方式进行存储，先连续储存Y分量，再连续存储U分量，最后连续储存V分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0889d299f82244dca5dba1bf725d2fe4~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>YV16：也叫I422或YUV422P，每两个Y分量共用一个U分量和一个V分量，以<strong>planar</strong>方式进行存储，先连续储存Y分量，再连续存储V分量，最后连续储存U分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1e7db4fcadf43f39330624d98bd3add~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>NV16：也叫YUV422SP，每两个Y分量共用一个U分量和一个V分量，以<strong>packed</strong>方式进行存储，先连续储存Y分量，再以<strong>U、V</strong>的顺序交叉存储U分量和Y分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e102258d1a0443d28feb39cacb86d3ab~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>NV61：也叫YUV422SP，每两个Y分量共用一个U分量和一个V分量，以<strong>packed</strong>方式进行存储，先连续储存Y分量，再以<strong>V、U</strong>的顺序交叉存储U分量和Y分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d14107a8a0d441178c24334280b0ef34~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<h3 id="yuv420_1">YUV420</h3>
+<ul>
+<li>YU12：也叫I420或YUV420P，每四个Y分量共用一个U分量和一个V分量，以<strong>planar</strong>方式进行存储，先连续储存Y分量，再连续存储U分量，最后连续储存V分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/748dfdbcd16e4205bd982b0551f5d4a2~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>YV12：也叫I420或YUV420P，每四个Y分量共用一个U分量和一个V分量，以<strong>planar</strong>方式进行存储，先连续储存Y分量，再连续存储V分量，最后连续储存U分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f22ba28e99004d67af62ed74b1ad50c4~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>NV12：也叫YUV420SP，每四个Y分量共用一个U分量和一个V分量，以<strong>packed</strong>方式进行存储，先连续储存Y分量，再以<strong>U、V</strong>的顺序交叉存储U分量和Y分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/82e156319b534e439cf2c97242435c91~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<ul>
+<li>NV21：也叫YUV422SP，每四个Y分量共用一个U分量和一个V分量，以<strong>packed</strong>方式进行存储，先连续储存Y分量，再以<strong>V、U</strong>的顺序交叉存储U分量和Y分量。</li>
+</ul>
+<p><img alt="image.png" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3171f7afa89f4cd3ba8e856a45896228~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" /></p>
+<h2 id="yuv_2">YUV的优势</h2>
+<ol>
+<li>便于压缩编码。RGB表示的每种颜色都是由红光、绿光、蓝光组合而成的，我们分别使用R、G、B三个分量来表示红光、绿光、蓝光，每个像素的三个分量之间存在着相关性。所以通常会把RGB转换成YUV进行压缩。</li>
+<li>数据量相对RGB来说更小。前面我们有分析过，同样分辨率的图像，YUV444存储的数据量与RGB相同，但YUV422和YUV420却只需要存储RGB的数据量的 2/3 和 1/2 。</li>
+<li>能够兼容老式黑白电视。Y分量单独显示是其实就是黑白图像，因此YUV由彩色转黑白只需要去除UV相关的数据就可以了。</li>
+</ol>
+<h1 id="yuvrgb">YUV与RGB之间的转换</h1>
+<p>虽然一般的视频编码都会使用YUV，但由于大多是的采集设备都是使用RGB的，所以YUV与RGB之间的转换是十分常见的。</p>
+<p>YUV与RGB之间的转换是存在标准的，常见的标准有ITU-R BT.601（标清）、ITU-R BT.709（高清）、ITU-R BT.2020（超高清）。不同的标准有不同的准换公式，同时还要区分不同的Color Range。</p>
+<blockquote>
+<p>Color Range用于指定RGB分量的取值范围，可分为Full Range（取值范围为0~~255）和Limited Range（取值范围为16~~235）</p>
+</blockquote>
+<h2 id="bt601-which-is-the-standard-for-sdtv">BT.601, which is the standard for SDTV.</h2>
+<ul>
+<li>RGB &gt; YUV</li>
+</ul>
+<p>ini</p>
+<p>复制代码</p>
+<p><code>Y = 0.299R+0.587G+0.114B V = 0.713(R−Y)=0.500R−0.419G−0.081B U = 0.564(B−Y)=−0.169R−0.331G+0.500B</code></p>
+<ul>
+<li>YUV &gt; RGB</li>
+</ul>
+<p>ini</p>
+<p>复制代码</p>
+<p><code>R = 1.164Y+1.596V-0.871; G = 1.164Y-0.813V-0.391U+0.529; B = 1.164Y+2.018U-1.0729;</code></p>
+<h2 id="bt601full-range">BT.601，Full Range</h2>
+<ul>
+<li>RGB &gt; YUV</li>
+</ul>
+<p>ini</p>
+<p>复制代码</p>
+<p><code>Y = 0.299 * R + 0.587 * G + 0.114 * B 　　　 V = -0.169 * R - 0.331 * G + 0.500 * B U = 0.500 * R - 0.439 * G - 0.081 * B</code></p>
+<ul>
+<li>YUV &gt; RGB</li>
+</ul>
+<p>ini</p>
+<p>复制代码</p>
+<p><code>R = Y + 1.400V - 0.7 G = Y - 0.343U - 0.711V + 0.526 B = Y + 1.765U - 0.883</code></p>
+<h2 id="bt709-which-is-the-standard-for-hdtv">BT.709, which is the standard for HDTV.</h2>
+<ul>
+<li>RGB &gt; YUV</li>
+</ul>
+<p>ini</p>
+<p>复制代码</p>
+<p><code>Y = 0.0627 + 0.183 * R + 0.614 * g + 0.062 * b U = 0.5 - 0.101 * R - 0.339 * g + 0.439 * b V = 0.5 + 0.439 * R - 0.399 * g - 0.040 * b</code></p>
+<ul>
+<li>YUV &gt; RGB</li>
+</ul>
+<p>ini</p>
+<p>复制代码</p>
+<p><code>R = 1.164Y + 1.739V - 0.97 G = 1.164Y - 0.213U - 0.533V + 0.301 B = 1.164Y + 2.112U - 1.129</code></p>
+<h3 id="3yuv"><strong>3、YUV</strong></h3>
+<h4 id="31yuv"><strong>3.1、yuv 定义：</strong></h4>
+<p>是被欧洲电视系统所采用的一种颜色编码方法。其中“Y”表示明亮度（Luma）,就是灰阶值，而“U”和“V”表示色度（Chroma）。与我们熟知的RGB类似，YUV也是一种颜色编码方法；主要用于电视系统以及模拟视频领域，它将亮度信息（Y）与色彩信息（UV）分离，没有UV信息一样可以显示完整的图像，只不过是黑白的，</p>
+<p>这样的设计很好地解决了彩色电视机与黑白电视的兼容问题。并且，YUV不像RGB那样要求三个独立的视频信号同时传输，所以用YUV方式传送占用极少的频宽。常用格式有：YUV444，YUV422，YUV420（为什么是4呢？因为这个4，实际上表达了共享的最大单位！也就是最多4个像素进行共享，因此4实际上是隐含的采样全集）；</p>
+<p>摄像头中最常用的是YUV 422格式，及Y-U-Y-V格式。以YUV422 8bit为例，每个像素点都包含亮度分量（8bit）以及UV两个颜色分量中的某一个（8bit）。因此每个像素点需要16bit数据。如果使用YUV422 10bit，那每个像素点需要20bit来描述；</p>
+<h4 id="32"><strong>3.2、采样格式：</strong></h4>
+<p>从前述定义中，可以了解YUV空间描述RGB空间的像素颜色按“亮度”分量和两个“色度”分量进行了表示。这种编码表示也更加适应于人眼，据研究表明，人眼对亮度信息比色彩信息更加敏感。而YUV下采样就是根据人眼的特点，将人眼相对不敏感的色彩信息进行压缩采样，得到相对小的文件进行播放和传输。</p>
+<ul>
+<li>1）YUV 444</li>
+</ul>
+<p>一个家庭成员是[yuv]，每个Y对应一组UV，一个YUV占24bits 3个字节；</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/48027d07639592c7a6d7d475cdaa95c4.png" /></p>
+<ul>
+<li>2）YUV 422</li>
+</ul>
+<p>一个家庭成员是[yu][yv]，也就是2个Y公用一个UV，一个YUV占8+4+4=16bits 2个节；</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/afbbbbb90008d0e5750490d6bc05dc1c.png" /></p>
+<ul>
+<li>3）YUV 420</li>
+</ul>
+<p>yuv420的意思似乎是在yuv422的基础上，再拿掉两个v，这样不就没有v了吗？其实yuv420的取名方式不是很高明，更确切的命名为yuv420yuv402也就是第一行只有两个u，而第二行只有两个v，如下图；</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/0f8d074374c29587655dfbd133cb0628.png" /></p>
+<p>对于yuv420而言，这个家庭的成员如下图所示，显然4个Y公用一组UV，每个YUV占用8+2+2=12bits，1.5个字节；</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/9881a3e448dc0137865bafb31561c957.png" /></p>
+<ul>
+<li>4）yuv不同采样格式对图像画质的影响</li>
+</ul>
+<p>根据前述的YUV采样格式分析，这里我们分析一下对图像画质的影响。我们将一个原始图像为8*8像素的红蓝相间的图案，分别按YUV444、YUV422、YUV420不同的采用格式采样，然后再还原输出。</p>
+<p>图(a)：我们可以看到YUV444的色度信号的分辨率和亮度信号的分辨率无损失，我们获得了与原始图案一致的还原画面图案。</p>
+<p>图(b)：YUV422获得还原图案在水平方向上，已经出现了丢失，从绿色所框选的像素来看，YUV422在水平方向上丢失了另一个像素点的色彩值，故在画面还原时仅是对前一个像素值简单的复制重构。</p>
+<p>图(c)：YUV420获得还原图案在水平方向以及垂直方向上，均出现了丢失，获得的还原图像与原始图像出现很大的失真。</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/d691250a2377fb9bd64957741f3c6653.png" /></p>
+<p>由图5所示的直观观测，对图像高频细节的图像表达上，YUV444优于YUV422，YUV422优于YUV420。在信号传输带宽的节省上，YUV420效率优于YUV444，YUV422优于YUV444。因此在普通的视频编解码算法上，为节省传输带宽开销，普遍采用YUV420或者YUV422的采样格式。</p>
+<h4 id="33"><strong>3.3、存储格式：</strong></h4>
+<ul>
+<li>planar 平面格式：指连续存储所有像素点的Y分量，然后存储U分量，最后是V分量。</li>
+<li>packed 打包模式：指每个像素点的Y、U、V分量是连续交替存储的。</li>
+</ul>
+<p>下面用图的形式给出常见的YUV码流的存储方式，并在存储方式后面附有取样每个像素点的YUV数据的方法，其中，Cb、Cr的含义等同于U、V。</p>
+<p><strong>1）基于YUV4:2:2采样的格式</strong></p>
+<p>YUV 4:2:2 采样规定了 Y 和 UV 分量按照 2: 1 的比例采样，两个 Y 分量公用一组 UV 分量；</p>
+<ul>
+<li>YUYV格式</li>
+</ul>
+<p>YUYV是采用打包格式存储的，相邻的两个Y共用其相邻的两个Cb、Cr，分析，对于像素点Y'00、Y'01 而言，其Cb、Cr的值均为 Cb00、Cr00，其他的像素点的YUV取值依次类推。</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/247d9f6691351227392836150a0d7542.png" /></p>
+<ul>
+<li>UYVY格式</li>
+</ul>
+<p>UYVY也是采用打包格式存储的，它的顺序与YUYV相反，还原其每个像素点的YUV值的方法与上面一样。</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/0905de62114ba30bc0e723b9c98c09a0.png" /></p>
+<ul>
+<li>YUV422P格式</li>
+</ul>
+<p>YUV422P也属于YUV422的一种，它是一种Plane模式，即平面模式，并不是将YUV数据交错存储，而是先存放所有的Y分量，然后存储所有的U（Cb）分量，最后存储所有的V（Cr）分量，如上图所示。</p>
+<p>其每一个像素点的YUV值提取方法也是遵循YUV422格式的最基本提取方法，即两个Y共用一个UV。比如，对于像素点Y'00、Y'01 而言，其Cb、Cr的值均为 Cb00、Cr00。</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/a0440fac6b8a25cd04f384be007acdc0.png" /></p>
+<p><strong>2）基于YUV4:2:0采样的格式</strong></p>
+<p>基于 YUV 4:2:0 采样的格式主要有 YUV 420P 和 YUV 420SP 两种类型，YUV420P 和 YUV420SP 都是基于 Planar平面格式进行存储的，先存储所有的 Y 分量后，YUV420P 类型就会先存储所有的 U 分量或者 V 分量，而 YUV420SP 则是按照 UV 或者 VU 的交替顺序进行存储了，具体查看看下图：</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/4f23aee3da8e248708e80df22e7d74f6.png" /></p>
+<ul>
+<li>YUV420P ___ YU12</li>
+</ul>
+<p>在android平台下也叫作I420格式，首先是所有Y值，然后是所有U值，最后是所有V值;</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/ca4d06497113bd5802caf9ab591faaca.png" /></p>
+<ul>
+<li>YUV420P ___ YV12</li>
+</ul>
+<p>YV12格式与YU12基本相同，首先是所有Y值，然后是所有V值，最后是所有U值;</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/0834a505184dbff427ece103ecb1e2d6.png" /></p>
+<ul>
+<li>YUV420SP ___ NV21</li>
+</ul>
+<p>android手机从摄像头采集的预览数据一般都是NV21，存储顺序是先存Y，再VU交替存储，NV21存储顺序是先存Y值，再VU交替存储;</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/69e0c27332fc849c0e5c117ce19675de.png" /></p>
+<ul>
+<li>YUV420SP ___ NV12</li>
+</ul>
+<p>NV12与NV21类似，也属于YUV420SP格式，NV12存储顺序是先存Y值，再UV交替存储;</p>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/60159dbb20fcc9d4e6df3b1b75856e5e.png" /></p>
+<h2 id="_2"><strong>图像格式的解析、格式转换和看图软件</strong></h2>
+<p>在ISP的图像算法开发中，经常会涉及到YUV、RAW等格式的图像。例如，在YUV域，经常会涉及到I420、NV12和P010等数据格式之间的转换。在RAW域，又会经常涉及到MIPI RAW等数据的查看。</p>
+<p>目前，YUV的格式解析软件有开源的YUView，解析RAW格式的有LibRaw等。但是，算法开发中会经常用到图像的转换、看图等功能，所以还是自己写个软件更方便些。</p>
+<p>根据使用习惯，软件应该能够实现下面的功能：</p>
+<ul>
+<li>1.首先能够解析ISP中常用的格式，并且能够实现单个、批量格式转换</li>
+</ul>
+<p><img alt="" src="https://developer.qcloudimg.com/http-save/yehe-1392766/466e7884bd1f6286c059c4c786458ae0.png" /></p>
+<p>YUV和RGB各有什么优点？这本身就个伪命题！感叹网络上有关YUV、RGB的理论文章实在太多，却与实践完全脱节。这正是我们教育方面存在的问题。首先我们要搞清为什么有RGB格式和YUV格式？CCD和CMOS感光板直接接收的是RGB信号。液晶或OLED等显示面板接收的，也是RGB信号。那YUV不是多余吗？RGB是原始信号，不能编辑、渲染！所有拍好的视频，如果需要调色、调整清晰度、加入特效，必须将RGB信号转为YUV信号，即色差信号，将亮度、色度分离出来进行调整。RGB转YUV，就是常说的渲染。渲染后的YUV视频，会在显示器或电视机内部转化为RGB信号，再输送到显示面板上面显示出来。如果一段视频或一部电影，你想原汁原味地播放出来，连字幕都不想添加，那你可以选择播放机或播放软件输出RGB格式信号。如果此时仍然可以调整颜色等，只能说明内部已经将RGB转为YUV了。这样转来转去，反而影响画质。所以，所有播放机或播放软件的视频输出应选择YUV420。（市面公开发行的成品电影电视剧视频格式都是YUV420，你设成YUV444是没有意义的）。</p>
+<h3 id="_3">物理原理</h3>
+<p>色彩的亮度值并不直接对应于特定的波长，而是与光的频谱分布和人眼对不同波长光的感知特性有关。</p>
+<p>人眼对不同波长的光有不同的感知敏感度，这种感知特性被称为光谱响应。人眼对绿色光最为敏感，而对红色和蓝色光的敏感度较低。因此，在色彩亮度值的计算中，会根据光的频谱分布和人眼的光谱响应特性来确定亮度值。</p>
+<p>传统上，色彩亮度值通常使用CIE XYZ色彩空间中的Y分量表示，它反映了人眼感知的亮度信息。在CIE XYZ色彩空间中，Y分量与光的频谱分布进行加权，以考虑人眼对不同波长光的感知差异。</p>
+<p>因此，色彩的亮度值并不直接对应于特定的波长，而是通过对光的频谱分布和人眼感知特性的综合考虑得出的。</p>
+<p>色彩的饱和度并不直接对应于特定的波长，而是与色彩的纯度或强度有关。</p>
+<p>饱和度是指色彩与灰色的混合程度，即色彩的纯度或强度。当色彩完全饱和时，它是纯色，没有灰色成分。而当色彩的饱和度降低时，灰色成分逐渐增加，色彩变得更加淡。</p>
+<p>色彩的饱和度不仅与光的波长有关，还与色彩的光谱分布和感知特性有关。不同波长的光在色彩的感知中起着重要作用，但饱和度的变化不仅取决于单一波长的光，还取决于光谱分布的宽度和形状。</p>
+<p>在色彩空间中，例如CIE xyY色彩空间和CIE Lab色彩空间，色彩的饱和度通常通过与灰度轴的距离来表示。距离较大的点表示较高的饱和度，而距离较小的点表示较低的饱和度。</p>
+<p>因此，色彩的饱和度不是直接对应于特定的波长，而是通过考虑色彩的光谱分布和人眼感知特性来确定的。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

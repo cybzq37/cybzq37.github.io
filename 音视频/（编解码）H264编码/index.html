@@ -1,0 +1,1028 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E9%9F%B3%E8%A7%86%E9%A2%91/%EF%BC%88%E7%BC%96%E8%A7%A3%E7%A0%81%EF%BC%89H264%E7%BC%96%E7%A0%81/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>（编解码）H264编码 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#i-h264" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              （编解码）H264编码
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#i-h264" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. H264的发展历史
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-h264" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. H264编码格式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-nal" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. 网络抽象层：NAL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nal-nalu" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAL单元 - NALU
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nalu-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      NALU Header
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nalu-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      NALU Payload
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iv-h264" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. H264其他概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Code
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>（编解码）H264编码</h1>
+
+<p>https://www.yuque.com/keith-an9fr/aab7xp/vng2pb#E8aUL</p>
+<p>本文介绍的是H264编码格式，并不涉及编码原理和算法，适合工程同学阅读。</p>
+<p>本文将介绍的是：</p>
+<ol>
+<li>H264的发展历史。将介绍<strong>H26x</strong>和<strong>MPEG</strong>家族的发展和关联。</li>
+<li>H264的编码格式。主要介绍<strong>VCL</strong>和<strong>NAL</strong>，前者与视频编码数据紧密相关，后者和H264格式相关，也是本文介绍的重点。</li>
+<li>NAL。介绍NAL的组成单元：<strong>NALU</strong>。包括NALU的组成结构、类型、几个特殊的NALU，AU等。</li>
+<li>H264其他概念。如H264的两种格式：<strong>Annex-B和AVCC</strong>，<strong>Start Code</strong>。</li>
+</ol>
+<hr />
+<h3 id="i-h264"><strong>I. H264的发展历史</strong></h3>
+<p>本文提出第一个问题<strong>“所有的视频都一定要编码吗？”</strong> 答案是肯定的。相信查看其他人的博客的理由是一样的：<strong>不经过压缩的视频太大！在网络传输时对带宽的要求和压力太大！</strong></p>
+<p>为此，<strong>ITU-T与ISO/IEC是制定视频编码标准的两大组织</strong>，陆续提出了很多视频压缩标准。</p>
+<p>百度百科<strong>ITU-T</strong>的历史：</p>
+<blockquote>
+<p>ITU-T的中文名称是<a href="https://link.zhihu.com/?target=https%3A//baike.baidu.com/item/%25E5%259B%25BD%25E9%2599%2585%25E7%2594%25B5%25E4%25BF%25A1%25E8%2581%2594%25E7%259B%259F">国际电信联盟</a>电信标准分局(ITU-T for ITU Telecommunication Standardization Sector), 它是国际电信联盟管理下的专门制定电信标准的分支机构。<br />
+该机构创建于1993年，前身是国际电报电话咨询委员会（CCITT 是法语Comité Consultatif International Téléphonique et Télégraphique的缩写，英文是International Telegraph and Telephone Consultative Committee），总部设在瑞士日内瓦。</p>
+</blockquote>
+<p>百度百科<strong>ISO/IEC</strong>会发现，其实这是2个机构：</p>
+<ul>
+<li><strong>ISO</strong>并不陌生 - 国际标准化组织，下文同样摘自百度百科（会发现，<strong>ISO</strong>就是一个制定国际化标准）：<br />
+    国际标准化组织（International Organization for Standardization，ISO）简称ISO，是一个全球性的非政府组织，是国际标准化领域中一个十分重要的组织。ISO国际标准组织成立于1947年。<br />
+    ISO负责目前绝大部分领域（包括军工、石油、船舶等垄断行业）的标准化活动。ISO的宗旨是“在世界上促进标准化及其相关活动的发展，以便于商品和服务的国际交换，在智力、科学、技术和经济领域开展合作。”</li>
+<li><strong>IEC</strong>是国际电工委员会，其介绍和历史摘自百度百科：<br />
+    国际电工委员会（International Electrotechnical Commission，IEC）成立于1906年，它是世界上成立最早的国际性电工标准化机构，负责有关电气工程和电子工程电子工程/5448766)领域中的国际标准化工作。<br />
+    1947年作为一个电工部门并入国际标准化组织（ISO），1976年又从ISO中分立出来。宗旨促进电气、电子工程领域中标准化及有关问题的国际合作，增进国际间的相互了解。</li>
+</ul>
+<p><strong>哎，那ITU-T与ISO/IEC这俩大组织，在历史上究竟发生了什么有趣的事情呢？</strong></p>
+<p>当然是指定了不少标准咯（坏笑）。下面笔者通过维基百科，整理了如下图1的发展历史，必须要声明一点：因为每个标准有提出时间、完成时间、立草案时间和正式发布时间。笔者采用了维基百科上出现的最早时间（捂脸）。</p>
+<p><img alt="" src="https://pic4.zhimg.com/80/v2-a1dc54873faa134433f0c6766c149a4f_720w.webp" /></p>
+<p>​图1. 编码标准历史</p>
+<p>一般认为，<strong>ITU-T</strong>的<strong>H.26x</strong>标准，主要应用于<strong>实时视频通信领域</strong>，如会议电视；<strong>ISO/IEC</strong>制定的<strong>MPEG系列</strong>标准，主要应用于<strong>视频存储(DVD)、广播电视、因特网或无线网上的流媒体</strong>等。</p>
+<p>上图1中可以看到几个有趣的事情：</p>
+<ul>
+<li>两个组织也在一起共同制定了一些标准：H.262标准等同于MPEG-2的视频编码标准；H.264标准等同于MPEG-4，并且被收录到第10部分。之前，笔者之前一直不明白，对于『H.264』，为什么有的地方会称呼为『MPEG4 AVC』，整理到这里终于明白了：这个协议是两个组织机构共同指定的，每个机构收录到各自的标准手册中，为了保持命名统一，所以才衍生了H.264和MPEG4 AVC两个名词。而最新的H.264标准则被纳入MPEG-4的第10部分，所以又称MPEG4 Part 10 AVC。</li>
+<li>MPEG3并不存在！从维基百科摘录原因如下：<br />
+    MPEG-3是在制定MPEG-2标准之后准备推出的适用于HDTV（高清晰度电视）的视频、音频压缩标准，但是由于MPEG-2标准已经可以满足要求，故MPEG-3标准并未正式推出。</li>
+</ul>
+<p>虽然说H.264标准等同于MPEG-4，但是想必读者从网上一定看到不少关于<strong>“H.264和MPEG-4的区别”</strong>的讨论，还有一个pdf文档专门记录了差别：<a href="https://link.zhihu.com/?target=https%3A//www.velleman.eu/downloads/3/h264_vs_mpeg4_en.pdf">The difference between MPEG-4 and H.264</a> 。<strong>说好的H.264和MPEG-4标准只是名字不一样，内容是由两个机构一起定制的呢？</strong></p>
+<p>这个问题似乎并没有得到很好的总结，网上查找很多资料，都会罗列出很多两者的差别。笔者综合StackOverflow上的问题<a href="https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/10477430/what-is-the-difference-between-h-264-video-and-mpeg-4-video">What is the difference between H.264 video and MPEG-4 video?</a> 和Quora上的问题<a href="https://link.zhihu.com/?target=https%3A//www.quora.com/How-are-x264-and-MPEG-4-different">How are x264 and MPEG-4 different?</a>，结合自己的理解。笔者总结入下：</p>
+<ul>
+<li>首先，<strong>以上提到的都是标准，并不是具体的实现</strong>。在H.264和MPEG-4的实践，前者以x264居多，后者没有具体了解。但是粗粗在网上搜了下，似乎是另一套代码实现。但是网上大家对于<strong>“H.264和MPEG-4的区别”</strong>是否由此引起，笔者不敢肯定；【挖个坑】</li>
+<li>其次，很多标准也是在不断演化的，比如MPEG-4，大家应该留意到，有些外文中的说法是“<strong>basic</strong><strong>MPEG-4</strong> compression”，而且H.264也确实是在后来被ISO收录到MPEG第10卷中的，在那之后，H.264和MPEG才开始保持同步更新的。</li>
+<li>最后，不知什么原因，H.264这个名词被大家广泛使用，而MPEG-4似乎就没有这么热门。加上两者名词相差甚远，因此被很多人认为是截然不同的东西也是可能的。</li>
+</ul>
+<hr />
+<h3 id="ii-h264"><strong>II. H264编码格式</strong></h3>
+<p>笔者还记得最早尝试学习H264的时候开篇就看到了<strong>“NALU”</strong>、<strong>“AU”</strong>，还有<strong>“NAL”</strong>、<strong>“VCL”</strong>一类高深莫测的名词，顿时觉得头昏脑胀：“这都是什么鬼”。接下来，笔者尝试把H264编码格式说清楚。</p>
+<p><img alt="" src="https://pic2.zhimg.com/80/v2-8671446b3adc017f89a58ee6f3ce6ce5_720w.webp" /></p>
+<p>​图2. H264功能划分示意图</p>
+<p>读者请结合上图2，耐心阅读下段抄录（图片和引用均摘录自博客<a href="https://link.zhihu.com/?target=https%3A//www.jianshu.com/p/eeecb0eb2c6e">VCL &amp; NAL</a> ）的话：</p>
+<blockquote>
+<p>H264的主要目标是：<br />
+1. 高的视频压缩比，当初提出的指标是比H.263，MPEG-4【<strong>怀疑是原作者的笔误，可能是MJPEG-2</strong>】，约为它们的2倍，现在都已基本实现；<br />
+2. 良好的网络亲和性，即可适用于各种传输网络。  </p>
+<p>为此，H.264 的功能分为两层，即视频编码层（VCL）和网络提取层（NAL)。<br />
+VCL 数据即<strong>编码处理的输出</strong>，它表示被压缩编码后的视频数据序列。在VCL 数据传输或存储之前，这些编码的VCL 数据，先被映射或封装进NAL 单元中。</p>
+</blockquote>
+<p>从引文中可以得到以下信息：</p>
+<ul>
+<li>H264能同时做到高压缩比和良好的网络亲和性；</li>
+<li>H264可以分为2层：视频编码层『<strong>VCL</strong>』和网络提取层『<strong>NAL</strong>』。</li>
+</ul>
+<p>好了，到这里，一部分读者已经晕了：又是<strong>视频编码层</strong>，又是<strong>网络抽象层</strong>。<strong>“天哪，这听上去这么高大上的名字都是什么玩意儿，更加看不懂了”</strong>。但是呢，H264本身就是用了一套复杂的编码/压缩规则来达到<strong>相同码率下压缩率高且图像质量高、同时具有网络亲和性</strong>的目的。这里，读者们不要联想到神经网络（笔者最开始就以为他的背后是一套深度学习框架），试想一想，H264是2003年才提出的理论框架，用的还是比较传统的算法（毕竟，当时神经网络还没有现下这么大火）。</p>
+<p>其实，仔细考虑，引文解释得其实很清楚了，笔者再啰嗦附加几句自己的解释：<strong>“H264功能划分为『NAL』和『VCL』”的这个说法笔者觉得会在一定程度上误导读者。</strong></p>
+<p>首先，来看『<strong>VCL</strong>』，它的英文全称<strong>Video Coding Layer</strong>，解释为:</p>
+<blockquote>
+<p>A layer in H.264/AVC and HEVC that <strong>contains coded video data</strong>.<br />
+（『<strong>VCL</strong>』）是 H.264/AVC和HEVC的一层，它包含了编码的视频数据。</p>
+</blockquote>
+<p>『<strong>VCL</strong>』是管理H264视频数据层，对应实现目标1，从<a href="https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/34037635/vid%253Cb%253Eeo-coding%253C/b%253E-layer-what-exactly-is-vcl-and-what-are-its-functions">Video Coding Layer: What exactly is vcl and what are its functions?</a>的回答也可以佐证这点。那<strong>『VCL』究竟是怎么管理H264视频数据的呢？</strong>抛开H264压缩算法细节来看就3步：</p>
+<ol>
+<li>压缩：预测（帧内预测和帧间预测）-&gt; DCT变化和量化 -&gt; 比特流编码；</li>
+<li>切分数据，主要为了第三步。这里一点，网上看到的“<strong>切片（slice）</strong>”、“<strong>宏块（macroblock）</strong>”是在<strong>VCL</strong>中的概念，一方面提高编码效率和降低误码率、另一方面提高网络传输的灵活性。（这块本文将不展开）</li>
+<li>包装成『<strong>NAL</strong>』。</li>
+</ol>
+<p>对的，没有看错，『<strong>VCL</strong>』最后会被包装成『<strong>NAL</strong>』！！！</p>
+<p>那么接下来就来介绍『<strong>NAL</strong>』，英文全称<strong>Network Abstraction Layer</strong>，这块和H264压缩算法无关，涉设计出『<strong>NAL</strong>』的目的就是为了获得“network-friendly”，即对应实现目标2。关于NAL的描述，参照维基百科的介绍：</p>
+<blockquote>
+<p>The NAL is designed in order to provide "network friendliness" to enable simple and effective customization of the use of VCL for a broad variety of systems. The NAL facilitates the ability to map VCL data to transport layers such as:<br />
+· RTP/IP for any kind of real-time wire-line and wireless Internet services.<br />
+· File formats, e.g., ISO MP4 for storage and MMS.<br />
+· H.32X for wireline and wireless conversational services.<br />
+· MPEG-2 systems for broadcasting services, etc.  </p>
+<p>NAL旨在提供“网络友好性”，以便为各种系统简单有效地定制VCL的使用。 NAL有助于将VCL数据映射到传输层，例如：<br />
+· RTP / IP适用于任何类型的实时有线和无线互联网服务。<br />
+· 文件格式，例如用于存储和MMS的ISO MP4。<br />
+· H.32X用于有线和无线会话服务。<br />
+· 用于广播服务等的MPEG-2系统。</p>
+</blockquote>
+<p>直白翻译过来就是：<strong>『NAL』就是为了包装『VCL』以达到更好网络传输效果。</strong>于是问题接着来了，<strong>『NAL』究竟是怎么组织数据，能够做到这么好的网络友好性呢？</strong></p>
+<p>且看后文，在这之前总结下本章，H264功能划分为2层：</p>
+<ul>
+<li><strong>VCL（Video Coding Layer），视频编码层</strong>，H264编码/压缩的核心，主要负责将视频数据编码/压缩，再切分。</li>
+<li><strong>NAL（Network Abstraction Layer），网络抽象层</strong>，这里的网络指的是计算机网络而不是神经网络，负责将<strong>VCL</strong>的数据组织打包。</li>
+</ul>
+<hr />
+<h3 id="iii-nal"><strong>III. 网络抽象层：NAL</strong></h3>
+<p>终于要讲『<strong>NAL</strong>』了，但是，我们需要先看『<strong>NAL</strong>』的组成单元 - 『<strong>NALU</strong>』。</p>
+<h3 id="nal-nalu"><strong>NAL单元 - NALU</strong></h3>
+<p>『<strong>NALU</strong>』的格式如下图3（引用<a href="https://link.zhihu.com/?target=http%3A//iphome.hhi.de/wiegand/assets/pdfs/DIC_H264_07.pdf">H264 PDF</a>）所示：</p>
+<p><img alt="" src="https://pic3.zhimg.com/80/v2-50f311378a505db252ac73f2fdf27cda_720w.webp" /></p>
+<p>​图3. NALU格式示意图</p>
+<p>​很明显，『<strong>NALU</strong>』由<strong>头</strong>和<strong>身体</strong>两个部分组成：</p>
+<ul>
+<li>头：一般存储标志信息，譬如<strong>NALU</strong>的类型。第二章讲过<strong>NAL</strong>会打包<strong>VCL</strong>数据，但是这并不意味着所有的<strong>NALU</strong>负载的都是<strong>VCL</strong>，也有一些<strong>NALU</strong>仅仅存储了和编解码信息相关的数据；</li>
+<li>身体：存储了真正的数据。但实际上，这块也会相对比较复杂，第二章其实也提到过H264的一个目的是“网络友好性”，说白了就是能够很好地适配各种传输格式。所以根据实际采用数据传输流格式，也会对这部分数据格式再进行处理。【这里先挖一个坑】</li>
+</ul>
+<h3 id="nalu-header"><strong>NALU Header</strong></h3>
+<p>首先，『<strong>NALU Header</strong>』只占1个字节，即8位，其组成如下：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>| forbidden_zero_bit | nal_ref_idc | nal_unit_type |
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>`--------------------+-------------+---------------`
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>|        1 bit       |    2 bit    |    5 bit      |
+</span></code></pre></div>
+<p>下面详细介绍：</p>
+<ul>
+<li>
+<p>『forbidden_zero_bit』：禁止位，笔者在有的地方看到是『forbidden_bit』。在网络传输中发生错误时，会被置为1，告诉接收方丢掉该单元；否则为0。这里笔者有几个疑问：【又挖坑了】</p>
+</li>
+<li>
+<p>网络传输发生错误时，由谁来对这个位进行置1处理？</p>
+</li>
+<li>
+<p>置1后被对方接收了，由谁来丢弃？（笔者怀疑是解码器）</p>
+</li>
+<li>
+<p>『nal_ref_idc』：指示当前<strong>NALU</strong>的<strong>优先级</strong>，或者说<strong>重要性</strong>，数值越大表明越重要。笔者从文章<a href="https://link.zhihu.com/?target=https%3A//yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/">Introduction to H.264: NAL Unit</a>摘录下文：</p>
+</li>
+</ul>
+<blockquote>
+<p>On one hand, if it is a <strong>reference</strong> field / frame / picture, nal_ref_idc is <strong>not</strong> equal to 0. According to the Recommendation, non-zero nal_ref_idc specifies that the content of the NAL unit contains a sequence parameter set (SPS), a SPS extension, a subset SPS, a picture parameter set (PPS), a slice of a reference picture, a slice data partition of a reference picture, or a prefix NAL unit preceding a slice of a reference picture.<br />
+On the other hand, if it is a <strong>non-reference</strong> field / frame / picture, nal_ref_idc is equal to 0.<br />
+一方面，如果它是参考字段/帧/图片，则nal_ref_idc不等于0。根据H264标准，非零nal_ref_idcs指示NALU的内容可能为：序列参数集（SPS），SPS扩展，子SPS，图片参数集（PPS），参考图片的切片，参考图片的切片数据分区，或参考图片的切片之前的前缀NALU。 另一方面，如果它是非参考场/帧/图片，则nal_ref_idc等于0。</p>
+</blockquote>
+<p>【挖坑：这里指的参考图像究竟是什么含义呢？是I帧吗？】</p>
+<ul>
+<li>『nal_unit_type』：表示<strong>NALU</strong>的类型。笔者从<a href="https://link.zhihu.com/?target=https%3A//yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/">Introduction to H.264: NAL Unit</a>摘录了并翻译如下：<br />
+    （先解释下每列的含义，第一列是『nal_unit_type』的取值，第二列如中文含义，第三列比较迷，笔者还没有完全弄明白，第四列表示该类型的NALU是否为VCL）</li>
+</ul>
+<p><img alt="" src="https://pic1.zhimg.com/80/v2-ed8f09330f84967dee9c87cbd4d7d40c_720w.webp" /></p>
+<p>笔者删除了13以后类型，接下来让我们逐一来看现在列着的内容：</p>
+<ul>
+<li>1-4：I/P/B帧，合起来介绍的原因是，他们是依据<strong>VLC的slice</strong>区分的，这块因为本文不涉及，一方面是这个太过于细节，真要展开篇幅太长；另一个原因是就算不了解slice、macroblock也不影响对H264格式的理解。</li>
+<li>5：<strong>IDR帧</strong>。<strong>I帧</strong>的一种，告诉解码器，之前依赖的解码参数集合（接下来要出现的SPS\PPS等）可以被刷新了。</li>
+<li>6：<strong>SEI</strong>，英文全称<strong>Supplemental Enhancement Information</strong>，翻译为“<strong>补充增强信息</strong>”，提供了向视频码流中加入额外信息的方法。</li>
+<li>7：<strong>SPS</strong>，全称<strong>Sequence Paramater Set</strong>，翻译为“<strong>序列参数集</strong>”。SPS中保存了一组编码视频序列(Coded Video Sequence)的全局参数。因此该类型保存的是和编码序列相关的参数。</li>
+<li>8: <strong>PPS</strong>，全称<strong>Picture Paramater Set</strong>，翻译为“<strong>图像参数集</strong>”。该类型保存了整体图像相关的参数。</li>
+<li>9：<strong>AU分隔符</strong>，<strong>AU</strong>全称<strong>Access Unit</strong>，它是一个或者多个<strong>NALU</strong>的集合，代表了一个完整的帧。</li>
+</ul>
+<p><strong>特殊的NALU类型：SPS和PPS</strong><br />
+<strong>SPS</strong>和<strong>PPS</strong>存储了编解码需要一些图像参数，从<a href="https://link.zhihu.com/?target=https%3A//www.quora.com/What-are-SPS-and-PPS-in-video-codecs">What are SPS and PPS in video codecs?</a>回答中来说，<strong>在之前的协议中，发现实际网络传输编码好的数据流的时候会出现丢包，而如果丢包数据为图像头等关键信息的时候甚至会导致后续解码失败。在H264之前，为了应对图像头关键信息被丢失的做法是在很多包（也有说法是每一个包）都会携带图像头关键信息（冗余做灾备的思想）。但是，在H264种，为了提高网络传输鲁棒性，重新设计出SPS和PPS。</strong>【这里笔者需要给自己挖一个坑：SPS和PPS较之前的做法优越在哪里？是因为SPS和PPS存储的仅仅是一个GOP的信息，而之前的头信息存储的是整个视频关键信息嘛？】<br />
+提到这里，笔者插一句题外故事：<br />
+有一次，笔者在实际生产环境中遇到过用RTSP连接一款摄像头有问题，会提示“<strong>no-existing PPS 0 referenced</strong>”，出错信息如下：</p>
+<p><img alt="" src="https://pic1.zhimg.com/80/v2-b42c37335064e6a07cac67666e3d44f8_720w.webp" /></p>
+<p>这个错误在用<strong>h264_qsv</strong>解码插件的时候出现，但是切换到用cpu做解码的时候就正常了。后来定位到问题出现在视频流本身上：<strong>对于一些解码器，如h264_qsv，必须要有sps和pps才能解码，这是因为很多硬解码插件依赖PPS信息。</strong>解决方案是：把摄像头的PPS选项调整到enable就可以了。  </p>
+<p><strong>特殊的NALU类型：SEI</strong><br />
+笔者最近想在原始的视频帧上叠加一些OSD，发现了这个有趣的SEI，似乎可以存放用户自定义的数据，<a href="https://zhuanlan.zhihu.com/p/33720871">SEI那些事儿</a>。【挖个坑】  </p>
+<p><strong>AU分隔符引发的故事</strong><br />
+<strong>问题：NALU是H264编码的基本单元，NALU是不是代表了一个完整帧？</strong><br />
+答案是<strong>未知，或者有时候否定</strong>的。解释这个问题前，引入一个新概念『<strong>AU</strong>』：H.264 将构成一帧图像所有<strong>NALU</strong>的集合称为一个『<strong>AU</strong>』，英文全称<strong>Access Unit</strong>。『<strong>AU</strong>』在H264中被提到频率不高，但是这是一个非常重要的概念，特别是在解码中要识别帧边界，这就是『<strong>AU分隔符</strong>』，英文全称<strong>Access unit Delimiter</strong>，然而实际解码器只有在解码的过程中，通过更多语法元素的组合才能判断一帧图像是否结束。</p>
+<p>至此，<strong>NALU头部分</strong>的一些基础知识了解完毕。接下来讲讲<strong>NALU身体部分</strong>。</p>
+<h3 id="nalu-payload"><strong>NALU Payload</strong></h3>
+<p>很少有资料会称身体部分为<strong>Payload</strong>，绝大部分资料对<strong>NALU</strong>组成的定义是这样子的：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NALU = NALU Header + SODB // 定义1
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>NALU = NALU Header + RBSP // 定义2
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>NALU = NALU Header + EBSP // 定义3
+</span></code></pre></div>
+<p>于是新的问题来了：<strong>SODB，RBSP和EBSP都是什么东西呢？</strong>这块概念，在博客<a href="https://link.zhihu.com/?target=https%3A//www.jianshu.com/p/5f89ea2c3a28">NALU详解二（EBSP、RBSP与SODB）</a>中介绍得非常清楚，总结来说就是：</p>
+<p><strong>SODB</strong></p>
+<p>英文全称<strong>String Of Data Bits</strong>，称<strong>原始数据比特流</strong>，就是最原始的编码/压缩得到的数据。</p>
+<p><strong>RBSP</strong></p>
+<p>全称<strong>Raw Byte Sequence Payload</strong>，又称<strong>原始字节序列载荷</strong>。和<strong>SODB</strong>关系如下：</p>
+<blockquote>
+<p><strong>RBSP = SODB + RBSP Trailing Bits（RBSP尾部补齐字节）</strong></p>
+</blockquote>
+<p>引入<strong>RBSP Trailing Bits</strong>做8位字节补齐。</p>
+<p><strong>EBSP</strong></p>
+<p>全称<strong>Encapsulated Byte Sequence Payload</strong>，称为<strong>扩展字节序列载荷</strong>。和<strong>RBSP</strong>关系如下：</p>
+<blockquote>
+<p><strong>EBSP ：RBSP插入防竞争字节（<code>0x03</code>）</strong></p>
+</blockquote>
+<p>这里说明下<strong>防止竞争字节（<code>0x03</code>）</strong>：因为讲解顺序的问题，H264 Annex-B格式的<strong>StartCode（<code>0x000001</code>或<code>0x00000001</code>）</strong>将在下一章才讲解到。读者可以先认为H264会插入一个叫做<strong>StartCode</strong>的字节串来分割<strong>NALU</strong>，于是问题来了，如果<strong>RBSP</strong>种也包括了<strong>StartCode（<code>0x000001</code>或<code>0x00000001</code>）</strong>怎么办呢？所以，就有了<strong>防止竞争字节（<code>0x03</code>）</strong>：</p>
+<blockquote>
+<p>编码时，扫描<strong>RBSP</strong>，如果遇到连续两个<code>0x00</code>字节，就在后面添加<strong>防止竞争字节（<code>0x03</code>）</strong>；解码时，同样扫描<strong>EBSP</strong>，进行逆向操作即可。</p>
+</blockquote>
+<p>最后，以一幅图总结本章节：</p>
+<p><img alt="" src="https://pic3.zhimg.com/80/v2-372ff557b629bc6afe59054738bc37e2_720w.webp" /></p>
+<p>NALU格式</p>
+<hr />
+<h3 id="iv-h264"><strong>IV. H264其他概念</strong></h3>
+<p>了解了<strong>NALU</strong>之后，关于H264格式，还有一个问题：<strong>解码器怎么知道一个NALU要结束了？或者说它怎么区分NALU的边界？</strong></p>
+<p>要回答这个问题，就必须了解H264的<strong>打包方式</strong>，通俗来说是<strong>H264如何组织一连串的NALU为完整的H264码流</strong>。目前H264主流的两种格式：</p>
+<ul>
+<li><strong>Annex-B</strong>：本文关于<strong>NALU</strong>的很多细节介绍都是<strong>Annex-B</strong>，它依靠前文提到的<strong>Start Code</strong>来分隔<strong>NALU</strong>，打包方式如下：<br />
+    [start code]--[NALU]--[start code]--[NALU]...</li>
+<li>
+<p><strong>AVCC</strong>：笔者对这个格式了解的不多，从网上找到很多资料知道以下几点：</p>
+</li>
+<li>
+<p>由<strong>NALU</strong>和<strong>extradata/sequence header</strong>组成，由于在<strong>extradata/sequence header</strong>中存储了<strong>NALU</strong>的长度，因此<strong>NALU Payload</strong>不需要做字节对齐，不过防竞争字节还是有的；</p>
+</li>
+<li><strong>SPS</strong>和<strong>PPS</strong>被放在了<strong>extradata/sequence header</strong>。</li>
+<li>打包方式：<br />
+    [SIZE (4 bytes)]--[NAL]--[SIZE (4 bytes)]--[NAL]... //请注意，SIZE一般为4字节，但是具体以实际为准</li>
+</ul>
+<p>至于为什么要有这两类格式，笔者还需要查阅更多的资料。【挖坑挖坑】不过StackOverflow上关于<a href="https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/24884827/possible-locations-for-sequence-picture-parameter-sets-for-h-264-stream">Possible Locations for Sequence/Picture Parameter Set(s) for H.264 Stream</a>的回答可以帮助深入了解这两种格式，推荐阅读。</p>
+<h3 id="start-code"><strong>Start Code</strong></h3>
+<p>笔者有一次尝试用qsv硬解解码一个离线视频，结果提示<strong>“no start code is found”</strong>，笔者当时就懵了：<strong>什么是start code？</strong></p>
+<p><img alt="" src="https://pic2.zhimg.com/80/v2-09d1afae414bf598764ce8b6afb469f1_720w.webp" /></p>
+<p><strong>Start Code</strong>是<strong>Annex-B</strong>分隔<strong>NALU</strong>的办法，一般采用<code>0x000001</code>或<code>0x00000001</code>。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

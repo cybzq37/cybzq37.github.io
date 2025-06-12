@@ -1,0 +1,1748 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E8%AE%A1%E7%AE%97%E6%9C%BA/">
+      
+      
+      
+      
+      <link rel="icon" href="../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>计算机 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ml-system" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              计算机
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#course" class="md-nav__link">
+    <span class="md-ellipsis">
+      Course
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Course">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operating System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jyy-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      南京大学JYY OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mit-6s081" class="md-nav__link">
+    <span class="md-ellipsis">
+      MIT 6.S081
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel computing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel computing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmu15418-parallel-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMU15418 Parallel computing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ucb-cs267-applications-of-parallel-computers" class="md-nav__link">
+    <span class="md-ellipsis">
+      UCB cs267 Applications of Parallel Computers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distributed system
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mit6824" class="md-nav__link">
+    <span class="md-ellipsis">
+      MIT6.824分布式系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      MLSystem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MLSystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmu-dl-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMU DL System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mini-torch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mini torch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习系统:设计和实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-for-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      System for AI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Compilation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AI Compilation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#machine-learning-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Machine Learning Compilation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-model-training-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large model training &amp; paper
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programming-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Programming Languages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programming Languages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      C++
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cuda
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opencl" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenCL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><a href="https://csdiy.wiki/">cs自学指南</a>
+<a href="https://csrankings.org/">计算机分类</a>
+<a href="https://github.com/liguodongiot/llm-action">大模型</a>
+<a href="https://zhuanlan.zhihu.com/p/682907673">大模型原理和实战</a>
+<a href="各方向综述">mlsys</a>
+<a href="https://hackway.org/docs/ai/intro">CS专业学习路线</a></p>
+<p>https://github.com/awesome-programming-books/awesome-programming-books.github.io
+https://github.com/httaotao/glusterfs-book
+https://github.com/wangzhiwubigdata/God-Of-BigData
+https://github.com/it-ebooks-0/geektime-books
+https://github.com/lshmouse/reading-papers
+https://github.com/digoal/blog
+https://github.com/zouhuigang/book
+https://github.com/chungchi300/reading-book/tree/master
+https://github.com/zouhuigang/book</p>
+<p>人工智能（AI, Artificial Intelligence）
+- 计算机视觉 (CV)
+- 机器学习 (ML)
+    - - 监督学习（分类、回归）
+    - 无监督学习（聚类、降维）
+    - 强化学习（控制、博弈）
+    - 深度学习（Deep Learning）
+- 自然语言处理 (NLP)
+- 专家系统、机器人等
+- 大模型算法
+- mlsys
+- 网络与信息检索 
+- <strong>大模型（Large Language Model, LLM / Foundation Model）</strong>
+    深度学习的一个分支成果，属于“应用机器学习”的前沿领域。
+    是近年来深度学习发展出的超大规模模型（如 GPT、BERT、LLaMA、Claude），通常训练参数数以百亿、千亿计。
+- <strong>MLSys（Machine Learning Systems）
+    是</strong>机器学习系统<strong>的研究领域，关注如何让大规模机器学习</strong>更高效、更可扩展、更经济**地运行。
+    - 分布式训练（如 PyTorch Distributed、TensorFlow MultiWorker）
+    - GPU/TPU 编程
+    - 高效推理（ONNX, TensorRT, quantization）
+    - 自动化机器学习（AutoML、调参）
+    - 数据管道、模型部署、性能优化
+    - 系统设计（包括调度、存储、通信）</p>
+<p>系统
+- 计算机架构
+- 计算机网络
+- 计算机安全
+- <del>数据库</del>
+- 设计自动化
+- 嵌入式和实时系统
+- 高性能计算
+- 移动计算
+- 测量和性能分析
+- 操作系统
+- <del>编程语言 (PL) 需求量极少</del>
+- 软件工程  </p>
+<p>理论
+ - 算法与复杂性
+ - 密码学
+ - 逻辑与验证    </p>
+<p>跨学科领域
+- 计算机生物学和生物信息学
+- 计算机图形
+- 计算机科学教育
+- 经济学与计算
+- 人机交互
+- 机器人技术
+- 可视化</p>
+<ul>
+<li>
+<p>AI：人工智能（Artificial intelligence）得益于其“数据驱动”的特点，在近些年得到了广泛的研究与应用。</p>
+<ul>
+<li>Machine learning &amp; data mining：通常指经典的机器学习方法，包括分类（Classification）、回归（Regression）、聚类（Clustering）、降维（Dimensionality Reduction）等子领域，也包括算法的部署（分布式计算、联邦学习等）</li>
+<li>Computer vision：因互联网中广泛的应用场景而备受重视的研究领域之一，主要任务是提取图像中的特征，将特征应用于分类、目标检测与追踪、分割、检索、补帧、超分辨率等任务；另外与计算机图形学、机器人学、自动驾驶等有紧密的联系</li>
+<li>Natural language processing：另一备受重视的研究领域，主要处理以文本为主，有翻译、检索等传统研究方向，也有掩码语言模型（Masked Language Model）等新兴研究方向</li>
+<li>Multimodal learning：“模态”（Modality）指一种信息的表现形式，如图像、文字、语音、动作等。多模态研究重点关注多个模态之间的表示（表示学习）、对齐（Cross-modal Retrival 等）、翻译（Image Captioning 等）、融合（情感分析等）、协同学习（多个模态共享知识）等问题</li>
+<li>Content Generation：内容生成其实已经包括在之前的 entry 中，这里主要强调使用 AI 进行“创造性”的工作；包括单一模态，如文字续写、图像扩展、图像风格化，也包括多个模态，如从图像生成文字（Image Captioning）、从文字生成图像等</li>
+<li>Reinforcement learning：不了解，笔者中没有研究该方向的</li>
+<li>The Web &amp; information retrieval：跟Deep Learning三大应用之一的搜广推密切相关，目前的细分方向主要有认知搜索（与脑机接口技术结合）、神经搜索（以跨模态检索为主，把不同种类的数据按照同样的结构做向量化存储，同时对已有不同数据库支持vector search和filter）以及搜索引擎中的公平性与隐私性（在Trustworthy ML研究范围之内），THUIR的work基本代表了国内最前沿的研究</li>
+<li>
+<p>System：着重介绍下System系统领域</p>
+</li>
+<li>
+<p>Computer Architecture：顾名思义，计算机体系结构主要研究计算机本身的架构等，包括CPU和GPU等的架构，本身这个研究方向会比较偏向硬件；这一部分研究和Operating system的研究会有部分重合；但是更加偏底层一点</p>
+</li>
+<li>Computer Networks：计算机网络主要研究为当前的网络环境提出更合适的协议，优化网络协议，软件定义网络，以及对网络架构进行优化和加速等；网络领域的科研往往需要比较大规模的实验，现在的这个方向部分研究开始偏无线一点了（有线做到头了），该领域目前比较关注的热门课题：<ul>
+<li>MLSys：MLSys中的大规模网络优化问题，包括如何降低bubble time等</li>
+<li>卫星网络：研究卫星网络如何通信优化、卫星网络的路由算法等（大家可以理解为研究星链类似的东西）</li>
+<li>Blockchain的网络：研究Blockchain的各种协议如何优化性能等</li>
+<li>...</li>
+</ul>
+</li>
+<li>Computer security：计算机安全主要研究系统安全、软件安全、网络安全等，现在的安全研究也扩展到了对一些新兴技术的安全研究，比如AI模型本身的安全性等。这里笔者列一些具体的研究方向：<ul>
+<li>ML安全：包括但不限于大语言模型的安全（Jailbreak、Prompt Injection等），FL学习的隐私安全，预训练模型中的数据泄露、数据窃取等</li>
+<li>软件漏洞：包括如何挖掘软件漏洞，如何自动化利用软件漏洞等</li>
+<li>隐私：包括但不限于用各种差分隐私算法对数据脱敏化，并且也包括各种privacy合规性检查等等（所有跟privacy能扯上边的）</li>
+<li>...</li>
+</ul>
+</li>
+<li>Databases：数据库当前前沿研究主要聚焦于如何优化数据库的存储速度等</li>
+<li>Design automation：不了解，笔者中没有研究该方向的</li>
+<li>Embedded &amp; real time system：不了解，笔者中没有研究该方向的，理论上应该偏向于无线</li>
+<li>High-performance computing：高性能计算主要是超算相关的技术等，包括一些分布式系统加速，主要就是优化当前的大型大规模计算系统的速度和效率</li>
+<li>Mobile computing：移动计算相关研究主要关注边缘计算等，比如说边缘计算中的小型AI模型的加速、模型压缩等</li>
+<li>Measurement &amp; performance analysis：测量等主要关注对当前网络环境的一些测量，比如说测量不同的协议对于用户体验的影响等</li>
+<li>Operating system：操作系统这个领域主要研究包括操作系统内核优化、内核安全，以及分布式系统优化，包括区块链等研究，特别硬核</li>
+<li>Programming Languages：编程语言这方面研究属于真·计算机方向的研究，包括程序分析、程序安全和程序合成等，研究的东西很多会涉及到编译原理等，极端硬核</li>
+<li>Software engineering：软件工程的研究主要包含软件架构、软件分析、软件安全等</li>
+<li>
+<p>Theory：理论领域主要研究计算机理论，这一部分很多都比较偏数学了</p>
+</li>
+<li>
+<p>Algorithms &amp; complexity：你可以理解为你在算法导论里面看到的那些算法等</p>
+</li>
+<li>Cryptography：密码学，主要研究加密解密算法那一块东西，现在主要研究同态、零知识证明等算法，基本都是数学，其实这部分有的时候也被归类为计算机安全的相关研究</li>
+<li>Logic &amp; verification：不了解，笔者中没有研究该方向的</li>
+<li>
+<p>Interdisciplinary Areas：主要研究计算机与其他领域之间的交叉，一般来说是计算机技术如何应用于其他领域</p>
+</li>
+<li>
+<p>Comp. bio &amp; bioinformatics：生物信息学，主要研究如何将计算机技术应用于生物学方面的研究，有人称之为AI for science</p>
+</li>
+<li>Computer graphics：计算机图形学，主要研究如何通过计算机模拟现实世界的图像，比如大家知道的Nvidia的一系列技术等，也属于这个范畴</li>
+<li>Economics &amp; computation：主要研究计算机如何应用于经济学和运筹学等的技术</li>
+<li>Human-computer interaction：人机交互，这一部分主要是研究如何优化计算机与用户之间的交互，可以分成技术端和人文端，这一个研究领域除了计算机研究人员，还有很多学美术、心理、文学等领域的研究者进行研究</li>
+<li>Robotics：研究机器人相关技术</li>
+<li>Visualization：研究AR和VR等相关技术</li>
+</ul>
+</li>
+</ul>
+<h1 id="ml-system">ML system 入坑指南</h1>
+<p>最近ChatGpt大火,越来越多开始关注大模型2,但对于大模型落地而言,除了先进的算法,其背后的MLsystem(机器学习系统), 从分布式训练到高效推理的完整链路同样重要, 好的基础设施是应用爆发的基础.</p>
+<p>作为一个入坑MLsys快两年半的练习生, 本文主要围绕自己学习的经历来构筑,会持续更新,希望能给希望入坑的新人一个指引,也给非Mlsys背景但感兴趣的其他领域的同学一些启发.</p>
+<hr />
+<h2 id="course"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Course" title="Course"></a>Course</h2>
+<p>首先是课程,入坑MLsys,基本的计算机背景知识比如数据结构就不多聊了,更多讲讲一些更加专业性的进阶课程,</p>
+<h3 id="operating-system"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Operating-System" title="Operating System"></a>Operating System</h3>
+<h4 id="jyy-os"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#%E5%8D%97%E4%BA%AC%E5%A4%A7%E5%AD%A6JYY-OS" title="南京大学JYY OS"></a>南京大学JYY OS</h4>
+<p>南京大学JYY老师开的操作系统课内容非常硬核, workload巨大,课程质量比肩四大</p>
+<h4 id="mit-6s081"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#MIT-6-S081" title="MIT 6.S081"></a>MIT 6.S081</h4>
+<p>MIT经典OS课,资料,lab都非常全</p>
+<ul>
+<li><a href="https://pdos.csail.mit.edu/6.828/2020/schedule.html">课程主页</a></li>
+<li><a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/">MIT 6.S081 中文 Tutorial Book</a></li>
+</ul>
+<h3 id="parallel-computing"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Parallel-computing" title="Parallel computing"></a>Parallel computing</h3>
+<h4 id="cmu15418-parallel-computing"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#CMU15418-Parallel-computing" title="CMU15418 Parallel computing"></a>CMU15418 Parallel computing</h4>
+<p>并行计算非常好的入门课,内容硬核,workload巨大,涉及现代多处理器,CPU加速比如SIMD,分布式通讯协议MPI,GPU加速Cuda编程,异构计算,同步,Cache</p>
+<ul>
+<li><a href="http://15418.courses.cs.cmu.edu/spring2016/">课程主页</a></li>
+</ul>
+<h4 id="ucb-cs267-applications-of-parallel-computers"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#UCB-cs267-Applications-of-Parallel-Computers" title="UCB cs267 Applications of Parallel Computers"></a>UCB cs267 Applications of Parallel Computers</h4>
+<p>HPC祖师爷 Jim Demmel 22 spring最新版本,</p>
+<ul>
+<li><a href="https://sites.google.com/lbl.gov/cs267-spr2022?pli=1">课程主页</a></li>
+</ul>
+<h3 id="distributed-system"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Distributed-system" title="Distributed system"></a>Distributed system</h3>
+<h4 id="mit6824"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#MIT6-824%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F" title="MIT6.824分布式系统"></a>MIT6.824分布式系统</h4>
+<p>这门课推荐的人也非常多了,用go实现,了解传统的分布式系统知识和历史对现代的分布式机器学习系统的学习还是有一定的帮助,不过对于做MLsys不是必须.</p>
+<ul>
+<li><a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-824/">课程主页</a></li>
+</ul>
+<h3 id="mlsystem"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#MLSystem" title="MLSystem"></a>MLSystem</h3>
+<h4 id="cmu-dl-system"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#CMU-DL-System" title="CMU DL System"></a>CMU DL System</h4>
+<p>陈天奇老师的课,涉及nn库实现,自动微分,GPU加速,模型部署和部分AI编译内容,内容除了分布式训练涉及的不够,基础的MLsys还是非常全面的.</p>
+<ul>
+<li><a href="https://dlsyscourse.org/">课程主页</a></li>
+</ul>
+<h4 id="mini-torch"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Mini-torch" title="Mini torch"></a>Mini torch</h4>
+<p>完全用python实现的简单torch版本,涉及自动微分,张量,GPU加速.适合新手入门</p>
+<ul>
+<li><a href="https://minitorch.github.io/">课程主页</a></li>
+</ul>
+<h4 id="_1"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F-%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0" title="机器学习系统:设计和实现"></a>机器学习系统:设计和实现</h4>
+<p>华为Mindspore团队(没错,就是我打过工的Team)和一群大佬AP搞的, 计算图,编译器前后端,分布式训练都有涉及,内容比较全面,比较适合有一定基础的人阅读或者作为工具书.</p>
+<ul>
+<li><a href="https://openmlsys.github.io/#">主页</a></li>
+</ul>
+<h4 id="system-for-ai"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#System-for-AI" title="System for AI"></a>System for AI</h4>
+<p>微软发起的,目前还在快速迭代更新的工具书,舍和补全基础.</p>
+<ul>
+<li><a href="https://github.com/microsoft/AI-System">主页</a></li>
+</ul>
+<h3 id="ai-compilation"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#AI-Compilation" title="AI Compilation"></a>AI Compilation</h3>
+<h4 id="machine-learning-compilation"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Machine-Learning-Compilation" title="Machine Learning Compilation"></a>Machine Learning Compilation</h4>
+<p>还是陈天奇老师的课,以TVM为基础, AI编译器这样前沿的领域为数不多的课.</p>
+<ul>
+<li><a href="https://mlc.ai/summer22-zh/">课程主页</a></li>
+</ul>
+<h3 id="large-model"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Large-model" title="Large model"></a>Large model</h3>
+<p>对于做ML system 的同学而言,了解一些最新的算法也是非常必要的,不用过度关系一些fancy的技巧,更多关注模型架构,参数,大的范式上的变化即可.<br />
+算法的业界进展确实太快了,很难有系统的课,某些顶级大学会用讲座的形式开展,去讲GPT,PLAM这样的大模型, 看论文和官方网站,blog是更好的选择.</p>
+<p>可以看李沐老师论文精讲去follow一些比较新且影响力巨大的工作, Muli is all you need !!!</p>
+<ul>
+<li><a href="https://github.com/mli/paper-reading">paper-reading github 主页</a></li>
+</ul>
+<h3 id="large-model-training-paper"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Large-model-training-amp-paper" title="Large model training &amp; paper"></a>Large model training &amp; paper</h3>
+<p>这块目前还没有比较系统的课,大规模的分布式训练开始应用也就这几年的事情,也是MLsys领域的最大热点,这里简单总结一下需要掌握的知识点和参考论文</p>
+<ul>
+<li>Data Parallel(数据并行)</li>
+<li>Distributed Data Parallel(分布式数据并行)<ul>
+<li><a href="https://arxiv.org/abs/2006.15704">PyTorch Distributed: Experiences on Accelerating Data Parallel Training</a></li>
+</ul>
+</li>
+<li>Mix precise Training(混合精度训练)<ul>
+<li><a href="https://arxiv.org/abs/1710.03740">Mix precise Training</a></li>
+</ul>
+</li>
+<li>Zero Optimizer(零冗余优化器)<ul>
+<li><a href="https://arxiv.org/abs/2104.07857">ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning</a></li>
+</ul>
+</li>
+<li>Tensor Parallel(张量并行)<ul>
+<li>1D并行:<a href="https://arxiv.org/abs/1909.08053">Megatron-LM</a></li>
+</ul>
+</li>
+<li>Pipeline Parallel(流水并行)<ul>
+<li><a href="https://arxiv.org/abs/1811.06965">GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism</a></li>
+</ul>
+</li>
+<li>Auto Parallel(自动并行)<ul>
+<li><a href="https://arxiv.org/abs/2201.12023">Alpa:Automating Inter- and Intra-Operator Parallelism for Distributed Deep Learning</a></li>
+</ul>
+</li>
+<li>Sequence Parallel(序列并行)<ul>
+<li><a href="https://arxiv.org/abs/2105.13120">Sequence Parallelism: Long Sequence Training from<br />
+    System Perspective</a></li>
+</ul>
+</li>
+<li>Large batchsize(超大batch size)<ul>
+<li><a href="https://arxiv.org/abs/1708.03888">LARS:Large Batch Training of Convolutional Networks</a></li>
+</ul>
+</li>
+<li>MOE(混合专家模型)<ul>
+<li><a href="https://arxiv.org/abs/2006.16668">GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding</a></li>
+</ul>
+</li>
+<li>Kernal Fusion(算子融合)<ul>
+<li><a href="https://arxiv.org/abs/2205.14135">Flash attention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a></li>
+</ul>
+</li>
+<li>Optimizer Fusion(优化器融合)<ul>
+<li><a href="https://arxiv.org/abs/2104.00237">OPTIMIZER FUSION: EFFICIENT TRAINING WITH BETTER LOCALITY AND PARALLELISM</a></li>
+</ul>
+</li>
+<li>Activation checkpoint<ul>
+<li><a href="https://arxiv.org/abs/1604.06174">Training Deep Nets with Sublinear Memory Cost</a></li>
+</ul>
+</li>
+<li>Fine-tune accelerate(微调加速)<ul>
+<li><a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a></li>
+</ul>
+</li>
+<li>Isomorphic training(异构训练)<ul>
+<li><a href="https://arxiv.org/abs/2108.05818">PatrickStar: Parallel Training of Pre-trained Models via<br />
+    Chunk-based Dynamic Memory Management</a></li>
+</ul>
+</li>
+<li>Asynchronous Distributed Dataflow(异步数据流)<ul>
+<li><a href="https://arxiv.org/abs/2203.12533">PATHWAYS: ASYNCHRONOUS DISTRIBUTED DATAFLOW FOR ML</a></li>
+</ul>
+</li>
+<li>Distributed Scheduling(分布式调度)<ul>
+<li><a href="https://arxiv.org/abs/1712.09381">RLlib: Abstractions for Distributed Reinforcement Learning</a></li>
+</ul>
+</li>
+<li>Quant(量化)<ul>
+<li><a href="https://arxiv.org/abs/2211.10438">SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models</a></li>
+</ul>
+</li>
+<li>大语言模型推理<ul>
+<li><a href="https://github.com/FMInference/FlexGen/blob/main/docs/paper.pdf">FlexGen: High-throughput Generative Inference of Large Language Models with a Single GPU</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>每个细分领域的论文还有很多,不一一列举了,对于入坑来说,抓住主线即可.</p>
+</blockquote>
+<h2 id="programming-languages"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Programming-Languages" title="Programming Languages"></a>Programming Languages</h2>
+<h3 id="c"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#C" title="C++"></a>C++</h3>
+<ul>
+<li><a href="https://www.hahack.com/codes/cmake/">Cmake</a></li>
+<li><a href="https://changkun.de/modern-cpp/zh-cn/01-intro/">现代CPP</a></li>
+</ul>
+<h3 id="python"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Python" title="Python"></a>Python</h3>
+<p>Python基础课这个太多了,不作推荐了,做MLsys比较需要掌握用python调用C,比如Cpython,pybind,以及一些python高级特性,比如hook,装饰器</p>
+<ul>
+<li><a href="https://github.com/pybind/pybind11">pybind</a></li>
+</ul>
+<h3 id="cuda"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Cuda" title="Cuda"></a>Cuda</h3>
+<p>这个可以参考的也比较多,英伟达的官方手册永远是最好的参考.</p>
+<ul>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">Cuda programming guide</a></li>
+</ul>
+<h3 id="opencl"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#OpenCL" title="OpenCL"></a>OpenCL</h3>
+<p>对于非Nvidia芯片的设备,比如手机Soc,移动端推理芯片大多不支持cuda,那么用OpenCL来做异构加速就是一个更通用的方案</p>
+<ul>
+<li><a href="https://www.bookstack.cn/read/Heterogeneous-Computing-with-OpenCL-2.0/README.md">OpenCL异构计算</a></li>
+</ul>
+<h1 id="_2"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#%E5%86%9B%E7%81%AB%E5%BA%93" title="军火库"></a>军火库</h1>
+<p>这里会简单总结我接触或使用和直接参与开发的Mlsys的军火库,会持续更新.</p>
+<h2 id="framework"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Framework" title="Framework"></a>Framework</h2>
+<p>对于MLsys这样前沿的领域而言,因为很多方面并没有足够的资料,经常被迫去直接学习源码,以实际的case作为学习手段也是非常好的方式.这里简单归类一下我遇到过的MLsys,大多数处于简单了解和使用,有少部分比较深入看过源码.</p>
+<h3 id="inference"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Inference" title="Inference"></a>Inference</h3>
+<h4 id="tensorrt"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#TensorRT" title="TensorRT"></a>TensorRT</h4>
+<p>英伟达的推理方案, 目前整体上在英伟达GPU上做的最好的推理框架,比较是自己的卡.</p>
+<ul>
+<li><a href="https://github.com/NVIDIA/TensorRT">github</a></li>
+</ul>
+<h4 id="ai-template"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#AI-Template" title="AI Template"></a>AI Template</h4>
+<p>FaceBook刚搞的一个推理库,在很多硬件上速度性能都超过TensorRT, 还比较新的框架</p>
+<ul>
+<li><a href="https://github.com/facebookincubator/AITemplate">github</a></li>
+</ul>
+<h3 id="severing"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Severing" title="Severing"></a>Severing</h3>
+<h4 id="triton-inference-server"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#triton-inference-server" title="triton-inference-server"></a>triton-inference-server</h4>
+<p>英伟达的ML serving框架,比较成熟</p>
+<ul>
+<li><a href="https://github.com/triton-inference-server/server">github</a></li>
+</ul>
+<h4 id="clip-as-service"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#clip-as-service" title="clip-as-service"></a>clip-as-service</h4>
+<p>Jina-AI做的,一家中国 start up, 在mass(model as service)上是一个非常不错的落地产品,特别喜欢</p>
+<ul>
+<li><a href="https://github.com/jina-ai/clip-as-service">github</a></li>
+</ul>
+<h3 id="mobile-inference"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Mobile-inference" title="Mobile inference"></a>Mobile inference</h3>
+<p>移动端推理是我比较深入做过的,对其底层了解的比较多</p>
+<h4 id="mindsporelite"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Mindsporelite" title="Mindsporelite"></a>Mindsporelite</h4>
+<p>我有幸参与写过的推理引擎,对于全流程在mindspore上做的体验还是不错的.</p>
+<ul>
+<li><a href="https://gitee.com/mindspore/mindspore">gitee</a></li>
+</ul>
+<h4 id="mnn"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#MNN" title="MNN"></a>MNN</h4>
+<p>阿里达摩院做的,我写mindsporelite的遇到问题的时候经常被mentor叫去学习一下友商的代码,CPU的一些kernel用汇编写的,这点映像非常深刻,代码质量非常高.</p>
+<ul>
+<li><a href="https://github.com/alibaba/MNN">github</a></li>
+</ul>
+<h4 id="tensorflowlite"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#TensorFlowlite" title="TensorFlowlite"></a>TensorFlowlite</h4>
+<p>集成在Tensorflow的移动端推引擎,国际上应该是最早做的移动端推理.没错,TFlite的大哥就是那个从谷歌跑路重回斯坦福读博的皮特·沃登,他写了TinyML这本书,对整个移动端推理都是有重要意义的.我也从这学习了不少.google的代码质量太高了,看注释都能学很多.</p>
+<ul>
+<li><a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite">github</a></li>
+</ul>
+<h4 id="ncnn"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#NCNN" title="NCNN"></a>NCNN</h4>
+<p>国内做的最早的端侧推理引擎,腾讯搞的,不得不说,很多东西还是需求驱动, 靠各种移动APP为主要产品的中国互联网公司,移动推理引擎做的都不错.</p>
+<ul>
+<li><a href="https://github.com/Tencent/ncnn">github</a></li>
+</ul>
+<h2 id="deeplearning-framework"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#DeepLearning-Framework" title="DeepLearning Framework"></a>DeepLearning Framework</h2>
+<p>大的深度学习的框架的介绍太多了,不一一介绍了,大同小异,做ML系统多少都会看看各种框架做的一些新特性,Torch2.0的一些东西可以关注.</p>
+<ul>
+<li><a href="https://github.com/pytorch/pytorch">Torch</a></li>
+<li><a href="https://github.com/tensorflow/tensorflow">TensorFlow</a></li>
+<li><a href="https://gitee.com/mindspore/mindspore">Mindspore</a></li>
+<li><a href="https://github.com/google/jax">Jax</a></li>
+<li><a href="https://github.com/Oneflow-Inc/oneflow">oneflow</a></li>
+<li><a href="https://github.com/PaddlePaddle/Paddle">paddle</a></li>
+<li><a href="https://github.com/unifyai/ivy">ivy</a></li>
+</ul>
+<h2 id="ai-compiler"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#AI-compiler" title="AI compiler"></a>AI compiler</h2>
+<p>编译这块我接触的不多,这两个项目可以参考</p>
+<h3 id="tvm"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#TVM" title="TVM"></a>TVM</h3>
+<ul>
+<li><a href="https://github.com/apache/tvm">github</a></li>
+</ul>
+<h3 id="bladedisc"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#BladeDISC" title="BladeDISC"></a>BladeDISC</h3>
+<ul>
+<li><a href="https://github.com/alibaba/BladeDISC">github</a></li>
+</ul>
+<h2 id="distributed-training"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Distributed-training" title="Distributed training"></a>Distributed training</h2>
+<p>对于大模型而言,分布式训练是比不缺的,除了最基本的分布式数据并行,各种混合并行策略,显存优化策略必不可缺,也因此出现了一系列的大模型训练框架.</p>
+<h3 id="colossalai"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#ColossalAI" title="ColossalAI"></a>ColossalAI</h3>
+<p>All in 参与的项目,刚刚star接近15k了,在torch生态下支持各种并行和显存优化策略,给自己打个广告,欢迎各位朋友star,关注</p>
+<ul>
+<li><a href="https://github.com/hpcaitech/ColossalAI">github</a></li>
+</ul>
+<h3 id="megatron-lm"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Megatron-LM" title="Megatron-LM"></a>Megatron-LM</h3>
+<p>NVIDIA做的模型并行库,也是最早开源的模型并行,但对缺乏分布式训练背景的人使用不太友好.</p>
+<ul>
+<li><a href="https://github.com/NVIDIA/Megatron-LM">Github</a></li>
+</ul>
+<h3 id="deepspeed"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Deepspeed" title="Deepspeed"></a>Deepspeed</h3>
+<p>微软的大模型训练框架,核心技术是Zero infinity相关的一系列paper,使用Megatron-LM作为张量并行的支持</p>
+<ul>
+<li><a href="https://github.com/microsoft/DeepSpeed-MII">github</a></li>
+</ul>
+<h3 id="huggingface-accelerate"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#huggingface-accelerate" title="huggingface accelerate"></a>huggingface accelerate</h3>
+<p>huggingface的加速器,对各种不同硬件做了兼容,在huggingface生态下非常好用,在分布式上做了比较多的封装,可以直接调用Deepspeed.</p>
+<ul>
+<li><a href="https://github.com/huggingface/accelerate">github</a></li>
+</ul>
+<h3 id="bagua"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Bagua" title="Bagua"></a>Bagua</h3>
+<p>Bagua在多机通讯上做了非常多的工作,对allreduce等分布式通讯做了不少优化.</p>
+<ul>
+<li><a href="https://github.com/BaguaSys/bagua">github</a></li>
+</ul>
+<h3 id="lightning"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#lightning" title="lightning"></a>lightning</h3>
+<p>lightning集成了各种分布式后端,可以很方便的启动各种分布式策略,lightning本身是一套更好的MLflow,设计理念是算法和工程分开,提供了大量自定义hook,对于大型AI项目而言,是个不错的选择,但是学习门槛不低,对团队人员水平要求比较高.</p>
+<ul>
+<li><a href="https://github.com/Lightning-AI/lightning">github</a></li>
+</ul>
+<h2 id="distributed-communication"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Distributed-Communication" title="Distributed Communication"></a>Distributed Communication</h2>
+<p>在nccl之前MPI是分布式通讯的主要方式,简单了解一下还是有必要的</p>
+<h3 id="mpithe-message-passing-interface"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#MPI-the-Message-Passing-Interface" title="MPI(the Message Passing Interface)"></a>MPI(the Message Passing Interface)</h3>
+<ul>
+<li><a href="https://mpitutorial.com/tutorials/">MPI Tutorials</a></li>
+</ul>
+<h2 id="tips"><a href="https://fazzie-key.cool/2023/02/21/MLsys/#Tips" title="Tips"></a>Tips</h2>
+<p>最后简单给几个Tips,</p>
+<ul>
+<li>尽可能参与到业界的项目去,多注重落地,在实验玩一些很fancy但不落地的东西意义不大,目前MLsys业界比学界跑的快太多了,学界比较有影响力的工作往往也是何大公司合作的,比如前面提到的<a href="https://arxiv.org/abs/2201.12023">Alpa</a>的实验就是在Google的TPU集群和AWS上做的,一般的lab更本没有条件.</li>
+<li>及时关注各种Blog,新的论文,这个领域每天都有新的东西出来,比如我就比较喜欢每天去twitter,一些Discord channel挖宝,总能带来一些惊喜</li>
+<li>Mlsys是一个交叉全面的领域,除了软件和算法,懂点基本的硬件,学会做产品也很重要,更多时候易用性大于性能.</li>
+<li>新的东西肯定是看不完的,抓住主干即可,在自己做的部分保证专注</li>
+<li>拥抱开源社区,不管是github还是huggingface,你永远想象不出开源社区的老哥的创造力</li>
+</ul>
+<p>下面是从 0 到进入 LLM/MLSys 前沿的学习路径：</p>
+<h3 id="1">✅ 1. 基础阶段（打牢数学与编程基础）</h3>
+<ul>
+<li><strong>数学：</strong><ul>
+<li>线性代数（矩阵运算、特征值分解）</li>
+<li>概率论与统计</li>
+<li>微积分</li>
+<li>优化基础（梯度下降）</li>
+</ul>
+</li>
+<li><strong>编程：</strong><ul>
+<li>Python 基础</li>
+<li>Numpy / Matplotlib / Pandas</li>
+<li>Jupyter Notebook 使用</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="2">✅ 2. 机器学习基础（模型+理论）</h3>
+<ul>
+<li>经典算法：<ul>
+<li>线性回归、逻辑回归</li>
+<li>决策树、随机森林、SVM</li>
+<li>KNN、KMeans、PCA</li>
+</ul>
+</li>
+<li>框架：<ul>
+<li>Scikit-learn</li>
+</ul>
+</li>
+<li>课程推荐：<ul>
+<li><a href="https://www.coursera.org/learn/machine-learning">吴恩达《机器学习》</a></li>
+<li>周志华《机器学习》教材</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="3">✅ 3. 深度学习进阶</h3>
+<ul>
+<li>理论 + 实践：<ul>
+<li>多层感知机（MLP）</li>
+<li>卷积神经网络（CNN）</li>
+<li>循环神经网络（RNN/LSTM）</li>
+<li>Transformer、注意力机制</li>
+</ul>
+</li>
+<li>框架：<ul>
+<li>PyTorch / TensorFlow</li>
+<li>HuggingFace Transformers</li>
+</ul>
+</li>
+<li>课程推荐：<ul>
+<li><a href="https://www.coursera.org/specializations/deep-learning">深度学习专项课程（吴恩达）</a></li>
+<li>CS231n（Stanford）</li>
+<li>CS224n（Stanford NLP）</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="4-nlp">✅ 4. 大模型与自然语言处理（NLP）</h3>
+<ul>
+<li>学习内容：<ul>
+<li>语言模型（BERT、GPT）</li>
+<li>预训练 + 微调</li>
+<li>Prompt 工程、RAG、LoRA、量化等</li>
+</ul>
+</li>
+<li>实践：<ul>
+<li>用 HuggingFace 加载/微调模型</li>
+<li>搭建 Chatbot、RAG 系统</li>
+</ul>
+</li>
+<li>推荐项目：<ul>
+<li>LangChain, LlamaIndex, OpenChat</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="5-mlsys">✅ 5. MLSys &amp; 工程实践</h3>
+<ul>
+<li>系统设计：<ul>
+<li>GPU 调度、分布式训练策略（DDP, ZeRO）</li>
+<li>自动混合精度（AMP）、模型并行、数据并行</li>
+<li>模型压缩、部署优化（ONNX, TensorRT）</li>
+</ul>
+</li>
+<li>工具栈：<ul>
+<li>Ray, DeepSpeed, Megatron-LM</li>
+<li>Docker, Kubernetes, MLflow</li>
+<li>CUDA 编程（选学）</li>
+</ul>
+</li>
+<li>课程推荐：<ul>
+<li>CMU 10-414 / 10-418：ML Systems</li>
+<li>Stanford CS329D：Machine Learning Systems Design</li>
+</ul>
+</li>
+</ul>
+<p>MLSys 看作是“机器学习+分布式系统+系统优化”三者的交集。</p>
+<h2 id="_3">🧱 第一阶段：基础准备</h2>
+<h3 id="_4">🧑‍💻 编程能力</h3>
+<ul>
+<li>
+<p>熟练掌握：<strong>Go、Rust、C++ 或 Java/Python</strong></p>
+</li>
+<li>
+<p>理解多线程、多进程、协程（如 Go 的 goroutine）</p>
+</li>
+</ul>
+<h3 id="_5">📘 操作系统知识（理解底层机制）</h3>
+<ul>
+<li>
+<p>进程、线程、锁、IO、多路复用、内存管理、虚拟化</p>
+</li>
+<li>
+<p>推荐课程：</p>
+<ul>
+<li>
+<p>MIT 6.828（操作系统）</p>
+</li>
+<li>
+<p>《操作系统：三易》</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">🌐 网络基础</h3>
+<ul>
+<li>
+<p>TCP/IP、DNS、Socket 编程</p>
+</li>
+<li>
+<p>HTTP/2、QUIC、gRPC 等现代通信协议</p>
+</li>
+</ul>
+<hr />
+<h2 id="_7">⚙️ 第二阶段：分布式系统基础原理</h2>
+<h3 id="_8">📚 推荐教材</h3>
+<ul>
+<li>
+<p>《Designing Data-Intensive Applications》（DDIA）⭐️⭐️⭐️⭐️⭐️（必须看）</p>
+</li>
+<li>
+<p>《分布式系统原理与范式》（Tanenbaum）</p>
+</li>
+<li>
+<p>《The Art of Multiprocessor Programming》（并发相关）</p>
+</li>
+</ul>
+<h3 id="_9">🧠 学习核心概念</h3>
+<ul>
+<li>
+<p>CAP 定理（Consistency, Availability, Partition tolerance）</p>
+</li>
+<li>
+<p>BASE 原则、最终一致性</p>
+</li>
+<li>
+<p>分布式存储 vs 分布式计算 vs 分布式协调</p>
+</li>
+</ul>
+<hr />
+<h2 id="_10">🔧 第三阶段：分布式系统关键技术</h2>
+<h3 id="_11">✅ 一致性协议</h3>
+<ul>
+<li>
+<p>经典算法：</p>
+<ul>
+<li>Paxos、Raft（共识算法）</li>
+</ul>
+</li>
+<li>
+<p>应用场景：</p>
+<ul>
+<li>分布式锁、协调（Zookeeper、etcd）</li>
+</ul>
+</li>
+</ul>
+<h3 id="_12">✅ 容错机制</h3>
+<ul>
+<li>
+<p>重试、幂等、超时、心跳、选主</p>
+</li>
+<li>
+<p>Checkpoint、日志复制、快照恢复</p>
+</li>
+</ul>
+<h3 id="_13">✅ 分布式通信</h3>
+<ul>
+<li>
+<p>RPC 框架（gRPC、Thrift、Dubbo）</p>
+</li>
+<li>
+<p>服务发现（Consul、etcd）</p>
+</li>
+</ul>
+<hr />
+<h2 id="_14">💾 第四阶段：分布式系统实战组件</h2>
+<h3 id="_15">🔨 实践构建以下系统的“简化版”或源码阅读：</h3>
+<table>
+<thead>
+<tr>
+<th>组件类型</th>
+<th>工具/框架</th>
+<th>建议实践</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分布式 KV 存储</td>
+<td>etcd、Consul、TiKV（Rust）</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>分布式队列</td>
+<td>Kafka、Pulsar、NATS</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>分布式数据库</td>
+<td>CockroachDB、TiDB、YugabyteDB</td>
+<td>⭐️</td>
+</tr>
+<tr>
+<td>分布式锁 / 协调</td>
+<td>Zookeeper、etcd</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>分布式计算</td>
+<td>Spark、Ray、Dask</td>
+<td>⭐️</td>
+</tr>
+<tr>
+<td>分布式训练框架</td>
+<td>PyTorch DDP、Horovod、DeepSpeed</td>
+<td>⭐️⭐️</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_16">☁️ 第五阶段：云原生与工程部署</h2>
+<h3 id="_17">📦 容器技术</h3>
+<ul>
+<li>
+<p>Docker、OCI、容器镜像与网络</p>
+</li>
+<li>
+<p>容器调度（Kubernetes 核心原理）</p>
+</li>
+</ul>
+<h3 id="_18">📡 服务治理</h3>
+<ul>
+<li>
+<p>Service Mesh（Istio、Linkerd）</p>
+</li>
+<li>
+<p>API Gateway、负载均衡（Envoy）</p>
+</li>
+</ul>
+<h3 id="observability">📈 系统 observability</h3>
+<ul>
+<li>日志（EFK）、指标（Prometheus + Grafana）、分布式追踪（Jaeger）</li>
+</ul>
+<hr />
+<h2 id="_19">🔬 第六阶段：进阶方向</h2>
+<h3 id="_20">☁️ 云原生分布式系统</h3>
+<ul>
+<li>
+<p>Kubernetes 深入</p>
+</li>
+<li>
+<p>微服务架构与治理</p>
+</li>
+<li>
+<p>CI/CD、DevOps</p>
+</li>
+</ul>
+<h3 id="mlsys-ai-infra">🤖 MLSys / AI Infra</h3>
+<ul>
+<li>
+<p>分布式训练系统设计</p>
+</li>
+<li>
+<p>模型并行、数据并行</p>
+</li>
+<li>
+<p>FSDP、ZeRO、TensorParallel</p>
+</li>
+</ul>
+<h3 id="_21">🪄 论文精读（建议选读）</h3>
+<ul>
+<li>
+<p>Google Spanner、Dynamo、Chubby</p>
+</li>
+<li>
+<p>Paxos Made Simple、Raft</p>
+</li>
+<li>
+<p>GFS、MapReduce、Bigtable</p>
+</li>
+</ul>
+<hr />
+<h2 id="_22">📘 路线图总结表（精简版）</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>学什么</th>
+<th>推荐书/课/实践</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础准备</td>
+<td>操作系统、网络、并发</td>
+<td>MIT 6.828、CS144、Go并发编程</td>
+</tr>
+<tr>
+<td>核心原理</td>
+<td>CAP、Paxos、Raft、共识、一致性</td>
+<td>DDIA、Tanenbaum</td>
+</tr>
+<tr>
+<td>构建能力</td>
+<td>分布式存储、RPC、协调、容错</td>
+<td>构建 etcd、阅读 TiKV、Kafka 源码</td>
+</tr>
+<tr>
+<td>工程落地</td>
+<td>Docker、K8s、微服务</td>
+<td>Kubernetes Handbook、Istio 实践</td>
+</tr>
+<tr>
+<td>深度优化</td>
+<td>分布式 AI、系统调优、弹性、Serverless</td>
+<td>Megatron、DeepSpeed、Ray、Paper 精读</td>
+</tr>
+</tbody>
+</table>
+<p>机器学习
+- 吴恩达《2022新版机器学习》课程
+- </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

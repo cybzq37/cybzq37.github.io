@@ -1,0 +1,1219 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/linux/function-call-stack-in-c/">
+      
+      
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Function call stack in c - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Function call stack in c
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    HOME
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            HOME
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABOUT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    人工智能
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            人工智能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    机器学习
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            机器学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1 监督学习与非监督学习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2 线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3 多元线性回归模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4 特征缩放与学习率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5 逻辑回归
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6 过拟合与正则化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈帧结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      寄存器使用惯例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      这段代码的含义？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么c语言中函数的参数是值传递？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ia32intel-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      (IA32)Intel 32位体系结构寄存器
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈帧结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆栈操作
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数调用栈过程分析
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Function call stack in c</h1>
+
+<p>程序的执行过程可看作连续的函数调用。当一个函数执行完毕时，程序要回到调用指令的下一条指令(紧接call指令)处继续执行。函数调用过程通常使用堆栈实现，每个用户态进程对应一个调用栈结构(call stack)。编译器使用堆栈传递函数参数、保存返回地址、临时保存寄存器原有值(即函数调用的上下文)以备恢复以及存储本地局部变量。 </p>
+<p>不同处理器和编译器的堆栈布局、函数调用方法都可能不同，但堆栈的基本概念是一样的。</p>
+<h2 id="_1">栈帧结构</h2>
+<p><strong>栈帧</strong>是指为一个函数调用单独分配的那部分栈空间。当运行中的程序调用另一个函数时，就要进入一个新的栈帧，原来函数的栈帧称为调用者的帧，新的栈帧称为当前帧。被调用的函数运行结束后当前帧全部收缩，回到调用者的帧。</p>
+<p><img alt="函数调用栈" src="../assets/function-stack.png" /><br />
+这里用到了两个寄存器，<code>%ebp</code>是帧指针，它总是指向当前帧的底部；<code>%esp</code>是栈指针，它总是指向当前帧的顶部。这两个寄存器用来定位当前帧中的所有空间，在后面的代码中将会经常出现。编译器需要根据IA32指令集的规则小心翼翼地调整这两个寄存器的值，一旦出错，参数传递、函数返回都可能出现问题。
+下面来看一个例子。函数<code>caller</code>中调用函数<code>swap_add</code>，完成交换并相加的工作，C代码如下：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">swap_add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">yp</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">xp</span><span class="p">;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">yp</span><span class="p">;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="o">*</span><span class="n">xp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="o">*</span><span class="n">yp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kt">int</span><span class="w"> </span><span class="nf">caller</span><span class="p">()</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">{</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">arg1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">534</span><span class="p">;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">arg2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1057</span><span class="p">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">swap_add</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">arg2</span><span class="p">);</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arg1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">arg2</span><span class="p">;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">diff</span><span class="p">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
+</span></code></pre></div>
+首先，程序从<code>caller</code>开始运行，为了详细说明每一行程序都做了什么操作，我们将<code>caller</code>函数的C代码编译成汇编码，并给每一句附上注释。</p>
+<p>进入<code>caller</code>函数后，先调整两个指针的值，第2行保存旧的帧指针到当前的栈顶位置，第3行将当前栈指针的值赋值给帧指针，此时，帧指针和栈指针都指向栈顶。第4行将栈指针减小24，意思是从栈中申请24字节的空间作为当前帧空间（即<code>caller</code>函数所用的帧空间，至于为什么是24字节，我们最后再说）。现在，刚刚完成了预处理工作，接下来就要实现函数体要完成的功能。</p>
+<p>分析下一步代码之前，我们先回过头来对照一下前面的栈帧结构图，将<code>caller</code>视为调用者的帧，预处理工作完成后，此时的帧指针指向调用者的帧的底部（在图中以我们的视角来看是上面），而栈指针指向调用者的帧的顶部。</p>
+<p>在C代码中，我们给两个整型变量分别赋了值。对应的汇编代码为第5行，将<code>534</code>存入栈的<code>-4(%ebp)</code>位置，这是一个基址+偏移量寻址，即<code>%ebp</code>中的数减4的地址。第6行同理。对应栈帧结构图，<code>534</code>和<code>1057</code>就保存在调用者的帧的底部和参数n之间的某个位置。接下来计算两个整型变量的地址，并将其作为<code>swap_add</code>的参数。在汇编代码中，函数调用的参数传递是通过把参数依次放在靠近调用者的帧的顶部来实现的。那么这两个参数就应该放在相对于当前栈顶指针<code>%esp</code>的+4和+0位置，第7~10行就在做这个操作。放置好参数后，就可以正式调用函数<code>swap_add</code>了，如第11行的指令。<code>call</code>指令不仅仅是跳转到子函数的位置，而且还要为子函数的正确返回做准备。事实上，<code>call</code>指令可以分为两步，第一步将当前程序段的下一行代码的地址入栈，第二步才是跳转到子函数的代码段，相当于如下两行指令。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pushl [下一句代码的地址]
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>jmp swap_add
+</span></code></pre></div>
+至此，在<code>swap_add</code>函数代码执行前，调用者的帧已经准备完毕。可以注意到，栈帧结构图中调用者的帧的栈顶正是<code>call</code>指令压入的下一行代码的地址，后面将会介绍这个地址的用途。</p>
+<p>接下来看<code>swap_add</code>函数的汇编代码。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1    swap_add:
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>2        pushl %ebp              #Save old %ebp
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>3        movl %esp, %ebp         #Set %ebp as frame pointer
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>4        pushl %ebx              #Save %ebx
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>5        movl 8(%ebp), %edx      #Get xp
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>6        movl 12(%ebp), %ecx     #Get yp
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>7        movl (%edx), %ebx       #Get x
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>8        movl (%ecx), %eax       #Get y
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>9        movl %eax, (%edx)       #Store y at xp
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>10       movl %ebx, (%ecx)       #Store x at yp
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>11       addl %ebx, %eax         #Return value = x+y
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>12       popl %ebx               #Restore %ebx
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>13       popl %ebp               #Restore %ebp
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>14       ret                     #Return
+</span></code></pre></div>
+这段代码被我人为地分割成了三部分。2~4行为预处理部分，同前面分析过的预处理相似，保存旧的帧指针，设置新的帧指针。但多了一步，在第4行将<code>%ebx</code>寄存器入栈。该操作是为了保存<code>%ebx</code>寄存器的值，以便在函数结束时恢复原值，即第12行的<code>popl %ebx</code>。</p>
+<p>5~11行为<code>swap_add</code>函数的功能实现代码。首先第5、6行从调用者的帧中取出之前保存的两个参数，可以看到，这两个参数相对于当前帧指针的偏移量为+8和+12。然后第7、8行将参数的值作为地址取出对应的两个数（这两个数实际上是<code>caller</code>代码中第5、6行存入的数），存入<code>%ebx</code>和<code>%eax</code>寄存器。第9、10行将两个数交换放回原来的地址。第11行将两个数相加，和作为返回值保存在<code>%eax</code>寄存器。</p>
+<p>12~14行为结束代码，做一些函数的收尾工作。首先第12行恢复<code>%ebx</code>寄存器的值，接着第13行恢复<code>%ebp</code>寄存器的值，最后<code>ret</code>返回。而<code>ret</code>指令也分为两步，第一步取出当前栈顶的值，第二步将这个值作为跳转指令的地址跳转，相当于下面两行代码。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>popl %edx
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>jmp %edx
+</span></code></pre></div>
+现在可以回收前面的伏笔了。想想看这里弹出的地址是哪来的？不错，正是<code>call</code>指令自动压栈的下一行代码的地址。因此，<code>ret</code>之后将会执行<code>call swap_add</code>指令紧跟着的下一行代码。好的，接下来给出<code>caller</code>函数剩下的汇编代码。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>12       movl -4(%ebp), %edx
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>13       subl -8(%ebp), %edx
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>14       imull %edx, %eax
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>15       leave
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>16       ret
+</span></code></pre></div>
+12~14行都是在完成之后的一些运算而已，不必追究。奇怪的是15行用了一个没见过的指令<code>leave</code>，这又是什么意思呢？</p>
+<p>我们来分析一下，这段代码和<code>swap_add</code>最后三行代码相比，少了两句<code>popl %ebx</code>和<code>popl %ebp</code>，多了一句<code>leave</code>。首先，<code>popl %ebx</code>不用考虑了，因为在<code>caller</code>的开头并没有<code>pushl %ebx</code>，因此也就没必要<code>popl %ebx</code>。那么我猜测<code>leave</code>是否替代了<code>popl %ebp</code>的功能呢？要想弄明白这个问题，首先我们得理解<code>popl %ebp</code>到底是什么功能。</p>
+<p>很简单，每个函数结束前需要将栈恢复到函数调用前的样子，其实就是恢复两个指针——帧指针和栈指针的位置。<code>popl %ebp</code>的作用就是恢复帧指针的位置。而栈指针<code>%esp</code>呢？似乎没有看到哪条指令把它恢复。让我们再仔细捋一遍。先看子函数<code>swap_add</code>运行过程中的栈指针。使栈指针变化的只有四条语句，2、4行的<code>pushl</code>指令和12、13行的<code>popl</code>指令，而且两对指令对栈指针的影响正好对消，于是栈指针在函数结束时已经回到了最初的位置，因此根本不需要额外的调整。再考虑<code>caller</code>函数，与<code>swap_add</code>不同的地方在于第4行申请了24字节的栈空间，即手动将<code>%esp</code>寄存器的值减去了24。这就导致函数结束时栈指针无法回到最初的位置，需要我们手动将它恢复，<code>leave</code>指令就是这个作用。该指令相当于下面两条指令的合成。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>movl %ebp, %esp   #Set stack pointer to the beginning of frame
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>popl %ebp         #Restore the saved %ebp and set stack pointer to the end of caller&#39;s frame
+</span></code></pre></div>
+先将栈指针恢复到当前帧的起始位置，再恢复帧指针。这样的话，在第二步恢复帧指针的时候栈指针也会自动减一，从而完全退出了当前帧。</p>
+<p>最后再来解释栈帧为什么申请了24字节的空间。在现代处理器中，栈帧必须16字节对齐，就是说栈底和栈顶的地址必须是16的整数倍。至于为什么会有这样的要求，请查看下一篇文章《联合、数据对齐和缓冲区溢出攻击》。现在，既然要求是16的整数倍，24字节肯定是不够的，仔细观察就能明白，栈帧除了这额外申请的24字节空间外，还有最初压栈的<code>%ebp</code>寄存器占用4字节，以及调用子函数前保存的返回地址占用4字节，加起来正好32字节，实现了16字节对齐。</p>
+<p>函数调用时的栈结构变化是个迷人的过程，编译器的精妙之处在此可见一斑。透过现象看本质，我们才真正接触到了程序本身。</p>
+<h2 id="_2">寄存器使用惯例</h2>
+<p>在上面的叙述中有一现象尚未解释，为什么<code>caller</code>中没有保存<code>%ebx</code>而<code>swap_add</code>中却保存了呢？这涉及到IA32指令集的寄存器使用惯例，这个惯例保证了函数调用时寄存器的值不会丢失或紊乱。</p>
+<p><code>%eax</code>、<code>%edx</code>和<code>%ecx</code>称为<strong>调用者保存</strong>寄存器，被调用者使用这三个寄存器时不必担心它们原来的值有没有保存下来，这是调用者自己应该负责的事情。</p>
+<p><code>%ebx</code>、<code>%esi</code>和<code>%edi</code>称为<strong>被调用者保存</strong>寄存器，被调用者如果想要使用它们，必须在开始时保存它们的值并在结束时恢复它们的值，一般通过压栈和出栈来实现。</p>
+<p>这就可以解释我们的疑问了。由于<code>%ebx</code>是被调用者保存寄存器，因此在<code>swap_add</code>中我们通过<code>pushl %ebx</code>和<code>popl %ebx</code>来保存该寄存器的值在函数执行前后不变。</p>
+<h2 id="_3">这段代码的含义？</h2>
+<p>下面的代码片段常常出现在库函数的汇编代码中。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    call next
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>next:
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    popl %eax
+</span></code></pre></div>
+乍看上去好像很奇怪，调用的<code>next</code>函数中并没有<code>ret</code>语句。这三行代码有什么作用呢？或者说，最后<code>%eax</code>寄存器的值会是什么呢？</p>
+<p>相信理解了本文前两部分的读者应该很容易分析出来。<code>call</code>指令执行时会把下一句代码的地址压栈，此处对应于第三行<code>popl %eax</code>的地址。之后跳转到第三行执行，正好把刚才压栈的内容弹出到<code>%eax</code>寄存器中，这个值正好是当前的程序计数器的值。</p>
+<p>这是汇编代码的一个习惯用法，结果是把<code>popl</code>指令地址放入<code>%eax</code>中——这是<strong>将程序计数器值放入寄存器的唯一方法</strong>。</p>
+<h2 id="c">为什么c语言中函数的参数是值传递？</h2>
+<p><div class="language-C highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="mi">1</span><span class="w"> </span><span class="err">#</span><span class="n">include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="mi">2</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="mi">3</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="mi">4</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="mi">5</span><span class="w">     </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="mi">6</span><span class="w">     </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="mi">7</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="mi">8</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="mi">9</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="mi">10</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="mi">11</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="mi">12</span><span class="w">     </span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="mi">13</span><span class="w">     </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;a is %d, b is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="mi">14</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+可以看到，在 swap 函数中，a 和 b 的值做了一次交换，但是在 main 函数里，打印 a和 b 的值，a 还是 2，b 还是 3。这是为什么呢？从栈帧的角度，这个问题就非常容易理解：
+<img alt="值传递" src="../assets/func-value-pass.png" />
+在 main 函数执行的时候，main 的栈帧里存在变量 a 和 b。当 main 在调用 swap 方法的时候，会在 main 的帧下面新建 swap 的栈帧。swap 的帧里也有局部变量 a 和 b，但是明显这个 a、b 与 main 函数里的 a、b 没有任何关系，不管对 swap 的帧里的 a/b 变量做任何操作都不会影响 main 函数的栈帧。</p>
+<h2 id="ia32intel-32">(IA32)Intel 32位体系结构寄存器</h2>
+<p>Intel 32位体系结构(简称IA32)处理器包含8个四字节寄存器，如下图所示：</p>
+<p><img alt="ia32-cpu-register" src="../assets/ia32-cpu-register.png" /></p>
+<p>最初的8086中寄存器是16位，每个都有特殊用途，寄存器名城反映其不同用途。由于IA32平台采用平面寻址模式，对特殊寄存器的需求大大降低，但由于历史原因，这些寄存器名称被保留下来。在大多数情况下，上图所示的前6个寄存器均可作为通用寄存器使用。某些指令可能以固定的寄存器作为源寄存器或目的寄存器，如一些特殊的算术操作指令imull/mull/cltd/idivl/divl要求一个参数必须在%eax中，其运算结果存放在%edx(higher 32-bit)和%eax (lower32-bit)中；又如函数返回值通常保存在%eax中，等等。为避免兼容性问题，ABI规范对这组通用寄存器的具体作用加以定义。</p>
+<p>对于寄存器%eax、%ebx、%ecx和%edx，各自可作为两个独立的16位寄存器使用，而低16位寄存器还可继续分为两个独立的8位寄存器使用。编译器会根据操作数大小选择合适的寄存器来生成汇编代码。在汇编语言层面，这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用，例如mov $5, %eax或mov eax, 5表示将立即数5赋值给寄存器%eax。</p>
+<p>在x86处理器中，EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。ESP(Stack Pointer)是堆栈指针寄存器，存放执行函数对应栈帧的栈顶地址(也是系统栈的顶部)，且始终指向栈顶；EBP(Base Pointer)是栈帧基址指针寄存器，存放执行函数对应栈帧的栈底地址，用于C运行库访问栈中的局部变量和参数。</p>
+<p>注意，EIP是个特殊寄存器，不能像访问通用寄存器那样访问它，即找不到可用来寻址EIP并对其进行读写的操作码(OpCode)。EIP可被jmp、call和ret等指令隐含地改变(事实上它一直都在改变)。</p>
+<p>不同架构的CPU，寄存器名称被添加不同前缀以指示寄存器的大小。例如x86架构用字母“e(extended)”作名称前缀，指示寄存器大小为32位；x86_64架构用字母“r”作名称前缀，指示各寄存器大小为64位。</p>
+<p>编译器在将C程序编译成汇编程序时，应遵循ABI所规定的寄存器功能定义。同样地，编写汇编程序时也应遵循，否则所编写的汇编程序可能无法与C程序协同工作。</p>
+<blockquote>
+<p>扩展阅读】<strong>栈帧指针寄存器</strong><br><br>为了访问函数局部变量，必须能定位每个变量。局部变量相对于堆栈指针ESP的位置在进入函数时就已确定，理论上变量可用ESP加偏移量来引用，但ESP会在函数执行期随变量的压栈和出栈而变动。尽管某些情况下编译器能跟踪栈中的变量操作以修正偏移量，但要引入可观的管理开销。而且在有些机器上(如Intel处理器)，用ESP加偏移量来访问一个变量需要多条指令才能实现。<br><br>因此，许多编译器使用帧指针寄存器FP(Frame Pointer)记录栈帧基地址。局部变量和函数参数都可通过帧指针引用，因为它们到FP的距离不会受到压栈和出栈操作的影响。有些资料将帧指针称作局部基指针(LB-local base pointer)。<br><br>在Intel CPU中，寄存器BP(EBP)用作帧指针。在Motorola CPU中，除A7(堆栈指针SP)外的任何地址寄存器都可用作FP。当堆栈向下(低地址)增长时，以FP地址为基准，函数参数的偏移量是正值，而局部变量的偏移量是负值。</p>
+</blockquote>
+<p>程序寄存器组是唯一能被所有函数共享的资源。虽然某一时刻只有一个函数在执行，但需保证当某个函数调用其他函数时，被调函数不会修改或覆盖主调函数稍后会使用到的寄存器值。因此，IA32采用一套统一的寄存器使用约定，所有函数(包括库函数)调用都必须遵守该约定。</p>
+<p>根据惯例，寄存器%eax、%edx和%ecx为主调函数保存寄存器(caller-saved registers)，当函数调用时，若主调函数希望保持这些寄存器的值，则必须在调用前显式地将其保存在栈中；被调函数可以覆盖这些寄存器，而不会破坏主调函数所需的数据。寄存器%ebx、%esi和%edi为被调函数保存寄存器(callee-saved registers)，即被调函数在覆盖这些寄存器的值时，必须先将寄存器原值压入栈中保存起来，并在函数返回前从栈中恢复其原值，因为主调函数可能也在使用这些寄存器。此外，被调函数必须保持寄存器%ebp和%esp，并在函数返回后将其恢复到调用前的值，亦即必须恢复主调函数的栈帧。</p>
+<p>当然，这些工作都由编译器在幕后进行。不过在编写汇编程序时应注意遵守上述惯例。</p>
+<h2 id="_4">栈帧结构</h2>
+<p>函数调用经常是嵌套的，在同一时刻，堆栈中会有多个函数的信息。每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。栈帧是堆栈的逻辑片段，当调用函数时逻辑栈帧被压入堆栈, 当函数返回时逻辑栈帧被从堆栈中弹出。栈帧存放着函数参数，局部变量及恢复前一栈帧所需要的数据等。</p>
+<p>编译器利用栈帧，使得函数参数和函数中局部变量的分配与释放对程序员透明。编译器将控制权移交函数本身之前，插入特定代码将函数参数压入栈帧中，并分配足够的内存空间用于存放函数中的局部变量。使用栈帧的一个好处是使得递归变为可能，因为对函数的每次递归调用，都会分配给该函数一个新的栈帧，这样就巧妙地隔离当前调用与上次调用。</p>
+<p>栈帧的边界由栈帧基地址指针EBP和堆栈指针ESP界定(指针存放在相应寄存器中)。EBP指向当前栈帧底部(高地址)，在当前栈帧内位置固定；ESP指向当前栈帧顶部(低地址)，当程序执行时ESP会随着数据的入栈和出栈而移动。因此函数中对大部分数据的访问都基于EBP进行。</p>
+<p>为更具描述性，以下称EBP为帧基指针， ESP为栈顶指针，并在引用汇编代码时分别记为%ebp和%esp。</p>
+<p>函数调用栈的典型内存布局如下图所示：</p>
+<p><img alt="x86-32-stack-frame" src="../assets/x86-32-stack-frame.png" /></p>
+<p>图中给出主调函数(caller)和被调函数(callee)的栈帧布局，”m(%ebp)”表示以EBP为基地址、偏移量为m字节的内存空间(中的内容)。
+该图基于两个假设：
+第一，函数返回值不是结构体或联合体，否则第一个参数将位于”12(%ebp)” 处；
+第二，每个参数都是4字节大小(栈的粒度为4字节)。
+此外，函数可以没有参数和局部变量，故图中“Argument(参数)”和“Local Variable(局部变量)”不是函数栈帧结构的必需部分。</p>
+<p>从图中可以看出，函数调用时入栈顺序为：
+<pre class="mermaid"><code>flowchart LR
+实参N-1 --&gt; 主调函数返回地址 --&gt; 主调函数帧基地址EBP --&gt; 被调函数局部变量1-N</code></pre></p>
+<p>其中，主调函数将参数按照调用约定依次入栈(图中为从右到左)，然后将指令指针EIP入栈以保存主调函数的返回地址(下一条待执行指令的地址)。进入被调函数时，被调函数将主调函数的帧基指针EBP入栈，并将主调函数的栈顶指针ESP值赋给被调函数的EBP(作为被调函数的栈底)，接着改变ESP值来为函数局部变量预留空间。此时被调函数帧基指针指向被调函数的栈底。以该地址为基准，向上(栈底方向)可获取主调函数的返回地址、参数值，向下(栈顶方向)能获取被调函数的局部变量值，而该地址处又存放着上一层主调函数的帧基指针值。本级调用结束后，将EBP指针值赋给ESP，使ESP再次指向被调函数栈底以释放局部变量；再将已压栈的主调函数帧基指针弹出到EBP，并弹出返回地址到EIP。ESP继续上移越过参数，最终回到函数调用前的状态，即恢复原来主调函数的栈帧。如此递归便形成函数调用栈。</p>
+<p>EBP指针在当前函数运行过程中(未调用其他函数时)保持不变。在函数调用前，ESP指针指向栈顶地址，也是栈底地址。在函数完成现场保护之类的初始化工作后，ESP会始终指向当前函数栈帧的栈顶，此时，若当前函数又调用另一个函数，则会将此时的EBP视为旧EBP压栈，而与新调用函数有关的内容会从当前ESP所指向位置开始压栈。</p>
+<p>若需在函数中保存被调函数保存寄存器(如ESI、EDI)，则编译器在保存EBP值时进行保存，或延迟保存直到局部变量空间被分配。在栈帧中并未为被调函数保存寄存器的空间指定标准的存储位置。包含寄存器和临时变量的函数调用栈布局可能如下图所示：</p>
+<p><img alt="包含寄存器和临时变量的" src="../assets/stack-frame-with-register.png" /></p>
+<p>在多线程(任务)环境，栈顶指针指向的存储器区域就是当前使用的堆栈。切换线程的一个重要工作，就是将栈顶指针设为当前线程的堆栈栈顶地址。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="mi">1</span><span class="w"> </span><span class="c1">//StackFrame.c</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="err">#</span><span class="n">include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="err">#</span><span class="n">include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">string</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w"> </span><span class="mi">4</span><span class="w"> </span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Strt</span><span class="p">{</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w"> </span><span class="mi">6</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">member1</span><span class="p">;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w"> </span><span class="mi">7</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">member2</span><span class="p">;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w"> </span><span class="mi">8</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">member3</span><span class="p">;</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="mi">10</span><span class="w"> </span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="mi">11</span><span class="w"> </span><span class="err">#</span><span class="n">define</span><span class="w"> </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">     </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;&amp;&quot;</span><span class="err">#</span><span class="n">x</span><span class="s">&quot; = %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="mi">12</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">StackFrameContent</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">para1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">para2</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">para3</span><span class="p">){</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="mi">13</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">locVar1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="mi">14</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">locVar2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="mi">15</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">locVar3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="mi">16</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x11</span><span class="p">,</span><span class="mh">0x22</span><span class="p">,</span><span class="mh">0x33</span><span class="p">};</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="mi">17</span><span class="w">     </span><span class="k">struct</span><span class="w"> </span><span class="nc">Strt</span><span class="w"> </span><span class="n">tStrt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="mi">18</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">para1</span><span class="p">);</span><span class="w"> </span><span class="c1">//若para1为char或short型，则打印para1所对应的栈上整型临时变量地址！</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="mi">19</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">para2</span><span class="p">);</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="mi">20</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">para3</span><span class="p">);</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="mi">21</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">locVar1</span><span class="p">);</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="mi">22</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">locVar2</span><span class="p">);</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="mi">23</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">locVar3</span><span class="p">);</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="mi">24</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="mi">25</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a><span class="mi">26</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a><span class="mi">27</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a><span class="mi">28</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">tStrt</span><span class="p">);</span>
+</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a><span class="mi">29</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">tStrt</span><span class="p">.</span><span class="n">member1</span><span class="p">);</span>
+</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a><span class="mi">30</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">tStrt</span><span class="p">.</span><span class="n">member2</span><span class="p">);</span>
+</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a><span class="mi">31</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">tStrt</span><span class="p">.</span><span class="n">member3</span><span class="p">);</span>
+</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a><span class="mi">32</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="mi">33</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a><span class="mi">34</span><span class="w"> </span>
+</span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a><span class="mi">35</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+</span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a><span class="mi">36</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">locMain1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">locMain2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">locMain3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a><span class="mi">37</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">locMain1</span><span class="p">);</span>
+</span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a><span class="mi">38</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">locMain2</span><span class="p">);</span>
+</span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a><span class="mi">39</span><span class="w">     </span><span class="n">PRINT_ADDR</span><span class="p">(</span><span class="n">locMain3</span><span class="p">);</span>
+</span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a><span class="mi">40</span><span class="w">     </span><span class="n">StackFrameContent</span><span class="p">(</span><span class="n">locMain1</span><span class="p">,</span><span class="w"> </span><span class="n">locMain2</span><span class="p">,</span><span class="w"> </span><span class="n">locMain3</span><span class="p">);</span>
+</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a><span class="mi">41</span><span class="w">     </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[locMain1,2,3] = [%d, %d, %d]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">locMain1</span><span class="p">,</span><span class="w"> </span><span class="n">locMain2</span><span class="p">,</span><span class="w"> </span><span class="n">locMain3</span><span class="p">);</span>
+</span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a><span class="mi">42</span><span class="w">     </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">locMain2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a><span class="mi">43</span><span class="w">     </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[locMain1,2,3] = [%d, %d, %d]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">locMain1</span><span class="p">,</span><span class="w"> </span><span class="n">locMain2</span><span class="p">,</span><span class="w"> </span><span class="n">locMain3</span><span class="p">);</span>
+</span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a><span class="mi">44</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a><span class="mi">45</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a>
+</span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a><span class="n">StackFrame</span>
+</span></code></pre></div></p>
+<p>编译链接并执行后，输出打印如下：</p>
+<p><img alt="stack-frame-output" src="../assets/stack-frame-output.png" /></p>
+<p>函数栈布局示例如下图所示。为直观起见，低于起始高地址0xbfc75a58的其他地址采用点记法，如0x.54表示0xbfc75a54，以此类推。</p>
+<p><img alt="" src="../assets/stack-frame-2.png" /></p>
+<p>内存地址从栈底到栈顶递减，压栈就是把ESP指针逐渐往地低址移动的过程。而结构体tStrt中的成员变量memberX地址=tStrt首地址+(memberX偏移量)，即越靠近tStrt首地址的成员变量其内存地址越小。因此，结构体成员变量的入栈顺序与其在结构体中声明的顺序相反。</p>
+<p>函数调用以值传递时，传入的实参(locMain1<sub>3)与被调函数内操作的形参(para1</sub>3)两者存储地址不同，因此被调函数无法直接修改主调函数实参值(对形参的操作相当于修改实参的副本)。为达到修改目的，需要向被调函数传递实参变量的指针(即变量的地址)。</p>
+<p>此外，"[locMain1,2,3] = [0, 0, 3]"是因为对四字节参数locMain2调用memset函数时，会从低地址向高地址连续清零8个字节，从而误将位于高地址locMain1清零。</p>
+<p>注意，局部变量的布局依赖于编译器实现等因素。因此，当StackFrameContent函数中删除打印语句时，变量locVar3、locVar2和locVar1可能按照从高到低的顺序依次存储！而且，局部变量并不总在栈中，有时出于性能(速度)考虑会存放在寄存器中。数组/结构体型的局部变量通常分配在栈内存中。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>【扩展阅读】**函数局部变量布局方式**
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>与函数调用约定规定参数如何传入不同，局部变量以何种方式布局并未规定。编译器计算函数局部变量所需要的空间总数，并确定这些变量存储在寄存器上还是分配在程序栈上(甚至被优化掉)——某些处理器并没有堆栈。局部变量的空间分配与主调函数和被调函数无关，仅仅从函数源代码上无法确定该函数的局部变量分布情况。
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>基于不同的编译器版本(gcc3.4中局部变量按照定义顺序依次入栈，gcc4及以上版本则不定)、优化级别、目标处理器架构、栈安全性等，相邻定义的两个变量在内存位置上可能相邻，也可能不相邻，前后关系也不固定。若要确保两个对象在内存上相邻且前后关系固定，可使用结构体或数组定义。
+</span></code></pre></div>
+<h2 id="_5">堆栈操作</h2>
+<p>函数调用时的具体步骤如下：</p>
+<p>1) 主调函数将被调函数所要求的参数，根据相应的函数调用约定，保存在运行时栈中。该操作会改变程序的栈指针。</p>
+<p>注：x86平台将参数压入调用栈中。而x86_64平台具有16个通用64位寄存器，故调用函数时前6个参数通常由寄存器传递，其余参数才通过栈传递。</p>
+<p>2) 主调函数将控制权移交给被调函数(使用call指令)。函数的返回地址(待执行的下条指令地址)保存在程序栈中(压栈操作隐含在call指令中)。</p>
+<p>3) 若有必要，被调函数会设置帧基指针，并保存被调函数希望保持不变的寄存器值。</p>
+<p>4) 被调函数通过修改栈顶指针的值，为自己的局部变量在运行时栈中分配内存空间，并从帧基指针的位置处向低地址方向存放被调函数的局部变量和临时变量。</p>
+<p>5) 被调函数执行自己任务，此时可能需要访问由主调函数传入的参数。若被调函数返回一个值，该值通常保存在一个指定寄存器中(如EAX)。</p>
+<p>6) 一旦被调函数完成操作，为该函数局部变量分配的栈空间将被释放。这通常是步骤4的逆向执行。</p>
+<p>7) 恢复步骤3中保存的寄存器值，包含主调函数的帧基指针寄存器。</p>
+<p>8) 被调函数将控制权交还主调函数(使用ret指令)。根据使用的函数调用约定，该操作也可能从程序栈上清除先前传入的参数。</p>
+<p>9) 主调函数再次获得控制权后，可能需要将先前的参数从栈上清除。在这种情况下，对栈的修改需要将帧基指针值恢复到步骤1之前的值。</p>
+<p>步骤3与步骤4在函数调用之初常一同出现，统称为函数序(prologue)；步骤6到步骤8在函数调用的最后常一同出现，统称为函数跋(epilogue)。函数序和函数跋是编译器自动添加的开始和结束汇编代码，其实现与CPU架构和编译器相关。除步骤5代表函数实体外，其它所有操作组成函数调用。</p>
+<p>以下介绍函数调用过程中的主要指令。</p>
+<p>压栈(push)：栈顶指针ESP减小4个字节；以字节为单位将寄存器数据(四字节，不足补零)压入堆栈，从高到低按字节依次将数据存入ESP-1、ESP-2、ESP-3、ESP-4指向的地址单元。</p>
+<p>出栈(pop)：栈顶指针ESP指向的栈中数据被取回到寄存器；栈顶指针ESP增加4个字节。</p>
+<p><img alt="" src="../assets/stack-in-out-flowable.png" /></p>
+<p>可见，压栈操作将寄存器内容存入栈内存中(寄存器原内容不变)，栈顶地址减小；出栈操作从栈内存中取回寄存器内容(栈内已存数据不会自动清零)，栈顶地址增大。栈顶指针ESP总是指向栈中下一个可用数据。</p>
+<p>调用(call)：将当前的指令指针EIP(该指针指向紧接在call指令后的下条指令)压入堆栈，以备返回时能恢复执行下条指令；然后设置EIP指向被调函数代码开始处，以跳转到被调函数的入口地址执行。</p>
+<p>离开(leave)： 恢复主调函数的栈帧以准备返回。等价于指令序列movl %ebp, %esp(恢复原ESP值，指向被调函数栈帧开始处)和popl %ebp(恢复原ebp的值，即主调函数帧基指针)。</p>
+<p>返回(ret)：与call指令配合，用于从函数或过程返回。从栈顶弹出返回地址(之前call指令保存的下条指令地址)到EIP寄存器中，程序转到该地址处继续执行(此时ESP指向进入函数时的第一个参数)。若带立即数，ESP再加立即数(丢弃一些在执行call前入栈的参数)。使用该指令前，应使当前栈顶指针所指向位置的内容正好是先前call指令保存的返回地址。</p>
+<p>基于以上指令，使用C调用约定的被调函数典型的函数序和函数跋实现如下：</p>
+<p>函数序(prologue)</p>
+<p><code>push %ebp</code> 将主调函数的帧基指针<code>%ebp</code>压栈，即保存旧栈帧中的帧基指针以便函数返回时恢复旧栈帧</p>
+<p><code>mov %esp, %ebp</code> 将主调函数的栈顶指针%esp赋给被调函数帧基指针%ebp。此时，%ebp指向被调函数新栈帧的起始地址(栈底)，亦即旧%ebp入栈后的栈顶|</p>
+<p><code>sub &lt;n&gt;, %esp</code> 将栈顶指针%esp减去指定字节数(栈顶下移)，即为被调函数局部变量开辟栈空间。<code>&lt;n&gt;</code>为立即数且通常为16的整数倍(可能大于局部变量字节总数而稍显浪费，但gcc采用该规则保证数据的严格对齐以有效运用各种优化编译技术)</p>
+<p><code>push &lt;r&gt;</code> 可选。如有必要，被调函数负责保存某些寄存器(%edi/%esi/%ebx)值</p>
+<p>函数跋(epilogue)</p>
+<p><code>pop &lt;r&gt;</code> 可选。如有必要，被调函数负责恢复某些寄存器(%edi/%esi/%ebx)值
+mov %ebp, %esp<em> 恢复主调函数的栈顶指针%esp，将其指向被调函数栈底。此时，局部变量占用的栈空间被释放，但变量内容未被清除(跳过该处理)
+pop %ebp</em> 主调函数的帧基指针%ebp出栈，即恢复主调函数栈底。此时，栈顶指针%esp指向主调函数栈顶(espßesp-4)，亦即返回地址存放处
+ret 从栈顶弹出主调函数压在栈中的返回地址到指令指针寄存器%eip中，跳回主调函数该位置处继续执行。再由主调函数恢复到调用前的栈</p>
+<p>这两条指令序列也可由leave指令实现，具体用哪种方式由编译器决定。</p>
+<p>若主调函数和调函数均未使用局部变量寄存器EDI、ESI和EBX，则编译器无须在函数序中对其压栈，以便提高程序的执行效率。</p>
+<p>参数压栈指令因编译器而异，如下两种压栈方式基本等效：</p>
+<p>extern CdeclDemo(int w, int x, int y, intz);  //调用CdeclDemo函数</p>
+<p>CdeclDemo(1, 2, 3, 4);  //调用CdeclDemo函数</p>
+<p><strong>压栈方式一</strong>
+pushl 4  //压入参数z</p>
+<p>pushl 3  //压入参数y</p>
+<p>pushl 2  //压入参数x</p>
+<p>pushl 1  //压入参数w</p>
+<p>call CdeclDemo  //调用函数</p>
+<p>addl $16, %esp  //恢复ESP原值，使其指向调用前保存的返回地址</p>
+<p><strong>压栈方式二</strong></p>
+<p><em>subl   $16, %esp</em> //多次调用仅执行一遍</p>
+<p>movl  $4, 12(%esp) //传送参数z至堆栈第四个位置</p>
+<p>movl  $3, 8(%esp) //传送参数y至堆栈第三个位置</p>
+<p>movl  $2, 4(%esp) //传送参数x至堆栈第二个位置</p>
+<p>movl  $1, (%esp) //传送参数w至堆栈栈顶</p>
+<p>call CdeclDemo  //调用函数</p>
+<p>两种压栈方式均遵循C调用约定，但方式二中主调函数在调用返回后并未显式清理堆栈空间。因为在被调函数序阶段，编译器在栈顶为函数参数预先分配内存空间(sub指令)。函数参数被复制到栈中(而非压入栈中)，并未修改栈顶指针，故调用返回时主调函数也无需修改栈顶指针。gcc3.4(或更高版本)编译器采用该技术将函数参数传递至栈上，相比栈顶指针随每次参数压栈而多次下移，一次性设置好栈顶指针更为高效。设想连续调用多个函数时，方式二仅需预先分配一次参数内存(大小足够容纳参数尺寸和最大的函数即可)，后续调用无需每次都恢复栈顶指针。注意，函数被调用时，两种方式均使栈顶指针指向函数最左边的参数。本文不再区分两种压栈方式，"压栈"或"入栈"所提之处均按相应汇编代码理解，若无汇编则指方式二。</p>
+<p>某些情况下，编译器生成的函数调用进入/退出指令序列并不按照以上方式进行。例如，若C函数声明为static(只在本编译单元内可见)且函数在编译单元内被直接调用，未被显示或隐式取地址(即没有任何函数指针指向该函数)，此时编译器确信该函数不会被其它编译单元调用，因此可随意修改其进/出指令序列以达到优化目的。</p>
+<p>尽管使用的寄存器名字和指令在不同处理器架构上有所不同，但创建栈帧的基本过程一致。</p>
+<p>注意，栈帧是运行时概念，若程序不运行，就不存在栈和栈帧。但通过分析目标文件中建立函数栈帧的汇编代码(尤其是函数序和函数跋过程)，即使函数没有运行，也能了解函数的栈帧结构。通过分析可确定分配在函数栈帧上的局部变量空间准确值，函数中是否使用帧基指针，以及识别函数栈帧中对变量的所有内存引用。</p>
+<p>程序寄存器组是唯一能被所有函数共享的资源。虽然某一时刻只有一个函数在执行，但需保证当某个函数调用其他函数时，被调函数不会修改或覆盖主调函数稍后会使用到的寄存器值。因此，IA32采用一套统一的寄存器使用约定，所有函数(包括库函数)调用都必须遵守该约定。
+寄存器 %eax、%edx、%ecx 为主调函数保存寄存器(caller-saved registers)，当函数调用时，若主调函数希望保持这些寄存器的值，则必须在调用前显式地将其保存在栈中；被调函数可以覆盖这些寄存器，而不会破坏主调函数所需的数据。
+寄存器%ebx、%esi和%edi为被调函数保存寄存器(callee-saved registers)，即被调函数在覆盖这些寄存器的值时，必须先将寄存器原值压入栈中保存起来，并在函数返回前从栈中恢复其原值，因为主调函数可能也在使用这些寄存
+在x86处理器中，EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。
+ESP(Stack Pointer)是堆栈指针寄存器，存放执行函数对应栈帧的栈顶地址(也是系统栈的顶部)，且始终指向栈顶；
+EBP(Base Pointer)是栈帧基址指针寄存器，存放执行函数对应栈帧的栈底地址，用于C运行库访问栈中的局部变量和参数。</p>
+<h2 id="_6">函数调用栈过程分析</h2>
+<p>函数在调用的时候都是在栈空间上开辟一段空间以供函数使用，所以，我们先来了解一下通用栈帧的结构。
+<img alt="" src="../assets/func-call-stack-procedure.png" />
+如图所示，栈是由高地址向低地址的方向生长的，而且栈有其栈顶和栈底，入栈出栈的地方就叫做栈顶。</p>
+<p>在x86系统的CPU中，rsp是栈指针寄存器，这个寄存器中存储着栈顶的地址。rbp中存储着栈底的地址。函数栈空间主要是由这两个寄存器来确定的。</p>
+<p>当程序运行时，栈指针rsp可以移动，栈指针和帧指针rbp一次只能存储一个地址，所以，任何时候，这一对指针指向的是同一个函数的栈帧结构。</p>
+<p>而帧指针rbp是不移动的，访问栈中的元素可以用-4(%rbp）或者8(%rbp)访问%rbp指针下面或者上面的元素。</p>
+<p>在明白了这些之后，下面我们来看一个具体的例子：</p>
+<p><div class="language-c highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="c1">  </span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">sum</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w">  </span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">}</span><span class="w">  </span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">;</span><span class="w">  </span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">     </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span><span class="w">  </span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">     </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">z</span><span class="p">);</span><span class="w">  </span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="p">;</span><span class="w">  </span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="p">}</span>
+</span></code></pre></div>
+反汇编如下，下面我们就对照汇编代码一步一步分析下函数调用过程中栈的变化。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="mo">0000000000000000</span><span class="w"> </span><span class="o">&lt;</span><span class="n">sum</span><span class="o">&gt;:</span><span class="w">  </span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="mi">55</span><span class="w">                    </span><span class="n">push</span><span class="w">   </span><span class="o">%</span><span class="n">rbp</span><span class="w">   </span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">   </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="mi">48</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="n">e5</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">rsp</span><span class="p">,</span><span class="o">%</span><span class="n">rbp</span><span class="w">  </span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">   </span><span class="mi">4</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="mi">7</span><span class="n">d</span><span class="w"> </span><span class="n">ec</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">edi</span><span class="p">,</span><span class="o">-</span><span class="n">x14</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w">  </span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">   </span><span class="mi">7</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="mi">75</span><span class="w"> </span><span class="n">e8</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">esi</span><span class="p">,</span><span class="o">-</span><span class="n">x18</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w">  </span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">   </span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="n">b</span><span class="w"> </span><span class="mi">55</span><span class="w"> </span><span class="n">ec</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">-</span><span class="n">x14</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">edx</span><span class="w">  </span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">   </span><span class="n">d</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="n">b</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">e8</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">-</span><span class="n">x18</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w">  </span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="mi">10</span><span class="o">:</span><span class="w"> </span><span class="mo">01</span><span class="w"> </span><span class="n">d0</span><span class="w">                 </span><span class="n">add</span><span class="w">    </span><span class="o">%</span><span class="n">edx</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span><span class="w">   </span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span><span class="mi">12</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">fc</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">-</span><span class="n">x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">局部变量</span><span class="w">  </span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="mi">15</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="n">b</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">fc</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">-</span><span class="n">x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">存储结果</span><span class="w">  </span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="mi">18</span><span class="o">:</span><span class="w"> </span><span class="mi">5</span><span class="n">d</span><span class="w">                    </span><span class="n">pop</span><span class="w">    </span><span class="o">%</span><span class="n">rbp</span><span class="w">  </span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span><span class="mi">19</span><span class="o">:</span><span class="w"> </span><span class="n">c3</span><span class="w">                    </span><span class="n">retq</span><span class="w">     </span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="mo">000000000000001</span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="n">main</span><span class="o">&gt;:</span><span class="w">  </span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">  </span><span class="mi">1</span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="mi">55</span><span class="w">                    </span><span class="n">push</span><span class="w">   </span><span class="o">%</span><span class="n">rbp</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">保存</span><span class="o">%</span><span class="n">rbp</span><span class="err">。</span><span class="n">rbp</span><span class="err">，</span><span class="n">栈底的地址</span><span class="w">  </span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">  </span><span class="mi">1</span><span class="n">b</span><span class="o">:</span><span class="w"> </span><span class="mi">48</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="n">e5</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">rsp</span><span class="p">,</span><span class="o">%</span><span class="n">rbp</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">设置新的栈指针</span><span class="err">。</span><span class="n">rsp</span><span class="w"> </span><span class="n">栈指针</span><span class="err">，</span><span class="n">指向栈顶的地址</span><span class="w">  </span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">  </span><span class="mi">1</span><span class="n">e</span><span class="o">:</span><span class="w"> </span><span class="mi">48</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">ec</span><span class="w"> </span><span class="mi">10</span><span class="w">           </span><span class="n">sub</span><span class="w">    </span><span class="n">$x10</span><span class="p">,</span><span class="o">%</span><span class="n">rsp</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">分配</span><span class="w"> </span><span class="mi">16</span><span class="n">字节栈空间</span><span class="err">。</span><span class="o">%</span><span class="n">rsp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">rsp</span><span class="mi">-16</span><span class="w">  </span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">  </span><span class="mi">22</span><span class="o">:</span><span class="w"> </span><span class="n">c7</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">f4</span><span class="w"> </span><span class="mo">05</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">  </span><span class="n">movl</span><span class="w">   </span><span class="n">$x5</span><span class="p">,</span><span class="o">-</span><span class="n">xc</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">赋值</span><span class="w">  </span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">  </span><span class="mi">29</span><span class="o">:</span><span class="w"> </span><span class="n">c7</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">f8</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">  </span><span class="n">movl</span><span class="w">   </span><span class="n">$xa</span><span class="p">,</span><span class="o">-</span><span class="n">x8</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">赋值</span><span class="w">  </span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">  </span><span class="mi">30</span><span class="o">:</span><span class="w"> </span><span class="n">c7</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">fc</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">  </span><span class="n">movl</span><span class="w">   </span><span class="n">$x0</span><span class="p">,</span><span class="o">-</span><span class="n">x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">赋值</span><span class="w">  </span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">  </span><span class="mi">37</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="n">b</span><span class="w"> </span><span class="mi">55</span><span class="w"> </span><span class="n">f8</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">-</span><span class="n">x8</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">edx</span><span class="w">    </span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">  </span><span class="mi">3</span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="n">b</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">f4</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">-</span><span class="n">xc</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w">   </span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">  </span><span class="mi">3</span><span class="n">d</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="n">d6</span><span class="w">                 </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">edx</span><span class="p">,</span><span class="o">%</span><span class="n">esi</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w"> </span><span class="err">，</span><span class="n">从右向左</span><span class="w">  </span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">  </span><span class="mf">3f</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="n">c7</span><span class="w">                 </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">%</span><span class="n">edi</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w">  </span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">  </span><span class="mi">41</span><span class="o">:</span><span class="w"> </span><span class="n">e8</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">        </span><span class="n">callq</span><span class="w">  </span><span class="mi">46</span><span class="w"> </span><span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="n">x2c</span><span class="o">&gt;</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">调用sum</span><span class="w">  </span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">  </span><span class="mi">46</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">fc</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">-</span><span class="n">x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w">   </span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">  </span><span class="mi">49</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="n">b</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="n">fc</span><span class="w">              </span><span class="n">mov</span><span class="w">    </span><span class="o">-</span><span class="n">x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">存储计算结果</span><span class="w">  </span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">  </span><span class="mi">4</span><span class="n">c</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="n">c6</span><span class="w">                 </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">%</span><span class="n">esi</span><span class="w">  </span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">  </span><span class="mi">4</span><span class="n">e</span><span class="o">:</span><span class="w"> </span><span class="mi">48</span><span class="w"> </span><span class="mi">8</span><span class="n">d</span><span class="w"> </span><span class="mi">3</span><span class="n">d</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">  </span><span class="n">lea</span><span class="w">    </span><span class="n">x0</span><span class="p">(</span><span class="o">%</span><span class="n">rip</span><span class="p">),</span><span class="o">%</span><span class="n">rdi</span><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="mi">55</span><span class="w"> </span><span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="n">x3b</span><span class="o">&gt;</span><span class="w">  </span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="w">  </span><span class="mi">55</span><span class="o">:</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">        </span><span class="n">mov</span><span class="w">    </span><span class="n">$x0</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span><span class="w">  </span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">  </span><span class="mi">5</span><span class="n">a</span><span class="o">:</span><span class="w"> </span><span class="n">e8</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">        </span><span class="n">callq</span><span class="w">  </span><span class="mf">5f</span><span class="w"> </span><span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="n">x45</span><span class="o">&gt;</span><span class="w">  </span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">  </span><span class="mf">5f</span><span class="o">:</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w"> </span><span class="mo">00</span><span class="w">        </span><span class="n">mov</span><span class="w">    </span><span class="n">$x0</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span><span class="w">   </span>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="w">  </span><span class="mi">64</span><span class="o">:</span><span class="w"> </span><span class="n">c9</span><span class="w">                    </span><span class="n">leaveq</span><span class="w">   </span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a><span class="w">  </span><span class="mi">65</span><span class="o">:</span><span class="w"> </span><span class="n">c3</span><span class="w">                    </span><span class="n">retq</span>
+</span></code></pre></div>
+在函数被调用之前，调用者会为调用函数做准备。首先，函数栈上开辟了16字节的空间，存储定义的3个int型变量，建立了main函数的栈。
+<img alt="" src="../assets/fun-call-stack-1.png" />
+接着，会给三个变量进行赋值。
+<img alt="" src="../assets/fun-call-stack-2.png" />
+以下4行代码是进行参数传递。我们可以看到是函数参数是倒序传入的：先传入第N个参数，再传入第N-1个参数（CDECL约定）。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">mov</span><span class="w">    </span><span class="mh">-0x8</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">edx</span><span class="w">    </span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">mov</span><span class="w">    </span><span class="mh">-0xc</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w">   </span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">edx</span><span class="p">,</span><span class="o">%</span><span class="n">esi</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w"> </span><span class="err">，</span><span class="n">从右向左</span><span class="w">  </span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">%</span><span class="n">edi</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span>
+</span></code></pre></div>
+后，会执行到call指令处，调用sum函数。</p>
+<p><div class="language-c highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">callq</span><span class="w">  </span><span class="mi">46</span><span class="w"> </span><span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mh">0x2c</span><span class="o">&gt;</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">调用sum</span><span class="w"> </span>
+</span></code></pre></div>
+进入sum函数后，我们看到函数的前两行：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">push</span><span class="w">   </span><span class="o">%</span><span class="n">rbp</span><span class="w">   </span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">rsp</span><span class="p">,</span><span class="o">%</span><span class="n">rbp</span>
+</span></code></pre></div>
+这两条汇编指令的含义是：首先将rbp寄存器入栈，然后将栈顶指针rsp赋值给rbp。</p>
+<p>“mov rbp rsp”这条指令表面上看是用rsp覆盖rbp原来的值，其实不然。</p>
+<p>因为给rbp赋值之前，原rbp值已经被压栈（位于栈顶），而新的rbp又恰恰指向栈顶。此时rbp寄存器就已经处于一个非常重要的地位。</p>
+<p>该寄存器中存储着栈中的一个地址（原rbp入栈后的栈顶），从该地址为基准，向上（栈底方向）能获取返回地址、参数值，向下（栈顶方向）能获取函数局部变量值，而该地址处又存储着上一层函数调用时的rbp值。</p>
+<p>一般而言，%rbp+4处为返回地址，%rbp+8处为个参数值（后一个入栈的参数值，此处假设其占用4字节内存），%rbp-4处为个局部变量，%rbp处为上一层rbp值。
+<img alt="" src="../assets/fun-call-stack-3.png" />
+由于rbp中的地址处总是“上一层函数调用时的rbp值”，而在每一层函数调用中，都能通过当时的%rbp值“向上（栈底方向）”能获取返回地址、参数值，“向下（栈顶方向）”能获取函数局部变量值。</p>
+<p>紧接着执行的四条指令。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">edi</span><span class="p">,</span><span class="mh">-0x14</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w">  </span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">esi</span><span class="p">,</span><span class="mh">-0x18</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">参数传递</span><span class="w">  </span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">mov</span><span class="w">    </span><span class="mh">-0x14</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">edx</span><span class="w">  </span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">mov</span><span class="w">    </span><span class="mh">-0x18</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w">  </span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">add</span><span class="w">    </span><span class="o">%</span><span class="n">edx</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span><span class="w">  </span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="mh">-0x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span>
+</span></code></pre></div>
+上述指令通过rbp加偏移量的方式将main传递给sum的两个参数保存在当前栈帧的合适位置，然后又取出来放入寄存器，看着有点儿多此一举，这是因为在编译时未给gcc指定优化级别，而gcc编译程序时，默认不做任何优化，所以看起来比较啰嗦。</p>
+<p>需要说明的是，sum的两个参数和返回值都是int，在内存中只占4个字节，而图中每个栈内存单元按8字节地址边界进行了对齐，所以才是下图中这个样子。</p>
+<p><img alt="" src="../assets/fun-call-stack-4.png" /></p>
+<p>再来看紧接着的三条指令。</p>
+<p><div class="language-c highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">add</span><span class="w">    </span><span class="o">%</span><span class="n">edx</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span><span class="w"> </span><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="mh">-0x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">局部变量mov</span><span class="w">    </span><span class="mh">-0x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">存储结果</span>
+</span></code></pre></div>
+上述条指令负责执行加法运算并将并将结果存入eax中，第二条指令将eax中的值存入局部变量c所在的内存，第三条指令将局部变量c的值读取到eax中，可以看到，局部变量c被编译器安排到了%rbp -0x4这个地址对应的内存中。
+<img alt="" src="../assets/fun-call-stack-5.png" />
+接下来继续执行
+<div class="language-c highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">pop</span><span class="w"> </span><span class="o">%</span><span class="n">rbp</span><span class="w">  </span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">retq</span>
+</span></code></pre></div>
+这两条指令的功能相当于下面的指令：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">mov</span><span class="w"> </span><span class="o">%</span><span class="n">rbp</span><span class="p">,</span><span class="o">%</span><span class="n">rsp</span><span class="w">  </span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">pop</span><span class="w"> </span><span class="o">%</span><span class="n">rbp</span><span class="w">  </span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">pop</span><span class="w"> </span><span class="o">%</span><span class="n">rip</span>
+</span></code></pre></div>
+即在操作上面两条指令的时候，首先把rsp赋值，它的值是存储调用函数rbp的值的地址，所以可以通过出栈操作，来给rbp赋值，来找回调用函数的rbp。</p>
+<p>通过栈的结构，可以知道，rbp上面就是调用函数调用被调用函数的下一条指令的执行地址，所以需要赋值给rip，来找回调用函数里的指令执行地址。</p>
+<p>整个函数跳转回main的时候，他的rsp,rbp都会变回原来的main函数的栈指针，C语言程序就是用这种方式来确保函数的调用之后，还能继续执行原来的程序。</p>
+<p>函数后返回的时候，继续执行下面这条指令：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="mh">-0x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">把sum函数的返回值赋给变量z</span>
+</span></code></pre></div>
+上述指令将eax中的结果放入rbp  -0x4所指的内存中，这里也是main的局部变量z所在位置。</p>
+<p>再往后的指令如下：</p>
+<p><div class="language-c highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="mh">-0x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span><span class="w">   </span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">mov</span><span class="w">    </span><span class="mh">-0x4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">),</span><span class="o">%</span><span class="n">eax</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">计算结果</span><span class="w">  </span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">%</span><span class="n">esi</span><span class="w">  </span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">mov</span><span class="w">    </span><span class="o">%</span><span class="n">eax</span><span class="p">,</span><span class="o">%</span><span class="n">esi</span><span class="w">  </span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="n">lea</span><span class="w">    </span><span class="mh">0x0</span><span class="p">(</span><span class="o">%</span><span class="n">rip</span><span class="p">),</span><span class="o">%</span><span class="n">rdi</span><span class="w">    </span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="n">mov</span><span class="w">    </span><span class="n">$0x0</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span><span class="w">  </span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="n">callq</span><span class="w">  </span><span class="mf">5f</span><span class="w"> </span><span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mh">0x45</span><span class="o">&gt;</span>
+</span></code></pre></div>
+上述指令首先为printf准备参数，然后调用printf，具体过程和调用sum的过程相似，让CPU直接执行到main倒数第二条leave指令处。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">mov</span><span class="w">    </span><span class="n">$0x</span><span class="p">,</span><span class="o">%</span><span class="n">eax</span>
+</span></code></pre></div>
+指令作用是将main返回值0放到寄存器eax，等main返回后调用main可拿到这个值。</p>
+<p>执行leave指令相当于执行如下两条指令：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">mov</span><span class="w"> </span><span class="o">%</span><span class="n">rbp</span><span class="p">,</span><span class="w"> </span><span class="o">%</span><span class="n">rsp</span><span class="w">  </span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">pop</span><span class="w"> </span><span class="o">%</span><span class="n">rbp</span>
+</span></code></pre></div>
+leave指令首先将rbp的值复制给rsp，rsp就指向rbp所指的栈单元。之后leave指令将该栈单元的值pop给rbp，如此，rsp和rbp就恢复成刚进入main时的状态。</p>
+<p>CALL指令内部其实还暗含了一个将返回地址（即CALL指令下一条指令的地址）压栈的动作（由硬件完成）。</p>
+<p>具体来说，call指令执行时，先把下一条指令的地址入栈，再跳转到对应函数执行的起始处。</p>
+<p><a href="https://z.itpub.net/article/detail/50503CAA1CDDA808A925D5758BD1B0A4">c语言调用栈</a>
+<a href="https://zhuanlan.zhihu.com/p/376988726">函数调用栈分析</a>
+<a href="https://www.cnblogs.com/clover-toeic/p/3755401.html">c语言调用栈</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
