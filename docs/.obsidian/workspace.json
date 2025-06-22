@@ -4,17 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "4b00728177bc1dc1",
+        "id": "9a3ed5d12d0d5e0e",
         "type": "tabs",
         "children": [
           {
-            "id": "8cc02aca5602f97a",
+            "id": "588fe4e01343a44b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "docs/.obsidian/workspace.json",
+                "bFile": "docs/.obsidian/workspace.json",
+                "aRef": "HEAD",
+                "bRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: workspace.json"
             }
           }
         ]
@@ -176,10 +181,10 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "f55ac23df70e476a",
+  "active": "588fe4e01343a44b",
   "lastOpenFiles": [
-    "概率论.md",
     "数学/概率与数理统计.md",
+    "概率论.md",
     "数学/assets/Pasted image 20250608230938.png",
     "数学/assets/Pasted image 20250608230930.png",
     "数学/assets/Pasted image 20250608230105.png",
