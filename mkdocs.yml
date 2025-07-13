@@ -43,6 +43,8 @@ plugins:
       categories_allowed:
         - Holidays
         - News
+        - 机器学习
+        - 算法
   - tags:  # 文档中使用 tags: [tag1, tag2]
       # tags_file: tags.md  # 自定义标签索引页
       sort: alphabetical  # 按字母排序标签
@@ -139,6 +141,7 @@ nav:
       - ABOUT: "./Home/about.md"
   - 人工智能: 
     - AI 总览: "AI/index.md"
+    - 隐马尔可夫模型: "AI/hmm.md"
     - 机器学习:
         - 1 监督学习与非监督学习: "AI/机器学习/1 监督学习与非监督学习.md"
         - 2 线性回归模型: "AI/机器学习/2 线性回归模型.md"
@@ -146,6 +149,7 @@ nav:
         - 4 特征缩放与学习率: "AI/机器学习/4 特征缩放与学习率.md"
         - 5 逻辑回归: "AI/机器学习/5 逻辑回归.md"
         - 6 过拟合与正则化: "AI/机器学习/6 过拟合与正则化.md"
+    
   - 数学:
       - 微积分: "数学/微积分.md"
       - 线性代数: "数学/线性代数.md"

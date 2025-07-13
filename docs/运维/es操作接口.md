@@ -27,7 +27,7 @@ curl -H "Content-Type:application/json" -X PUT -d '{
         "location": "24m3d430",
         "compress": "true"
     }
-}' http://10.201.21.197:9200/_snapshot/24m3d430
+}' http://localhost:9200/_snapshot/24m3d430
 ```
 
 
@@ -35,7 +35,7 @@ curl -H "Content-Type:application/json" -X PUT -d '{
 查询快照仓库
 
 ```bash
-curl -H "Content-Type:application/json"  http://10.201.21.197:9200/_snapshot
+curl -H "Content-Type:application/json"  http://localhost:9200/_snapshot
 ```
 
 
@@ -67,9 +67,9 @@ curl -u <username>:<password> -H "Content-Type:application/json" -X POST -d '{
     "indices": "navinfo-*", 
     "ignore_unavailable": true,
     "rename_pattern": "navinfo-(.+)",          
-    "rename_replacement": "navinfo-$1-<后缀名称>",
+    "rename_replacement": "navinfo-$1",
     "include_aliases": false
-}' http://<ip>:<port>/_snapshot/<快照仓库名>/search/_restore?wait_for_completion=true
+}' http://<ip>:<port>/_snapshot/DEPLOY_25m3d0623/search/_restore?wait_for_completion=true
 ```
 
 ```bash
@@ -77,9 +77,9 @@ curl -H "Content-Type:application/json" -X POST -d '{
     "indices": "navinfo-*", 
     "ignore_unavailable": true,
     "rename_pattern": "navinfo-(.+)",          
-    "rename_replacement": "navinfo-$1-24m3d430",
+    "rename_replacement": "navinfo-$1-25m3d0623",
     "include_aliases": false
-}' http://10.201.21.197:9200/_snapshot/24m3d430/search/_restore?wait_for_completion=true
+}' http://localhost:9200/_snapshot/DEPLOY_25m3d0623/search/_restore?wait_for_completion=true
 ```
 
 
@@ -101,7 +101,7 @@ curl -H "Content-Type:application/json" -X PUT -d '{
 查询索引别名
 
 ```bash
-curl -H "Content-Type:application/json"  http://10.201.21.197:9200/_alias
+curl -H "Content-Type:application/json"  http://localhost:9200/_alias
 ```
 
 删除索引别名
@@ -113,33 +113,23 @@ curl -H "Content-Type:application/json" -X DELETE  http://10.201.21.197:9200/<�
 创建索引别名
 
 ```bash
-curl -H "Content-Type:application/json" -X PUT http://10.201.21.197:9200/<索引名称>/_alias/<索引别名>
+curl -H "Content-Type:application/json" -X PUT http://127.0.0.1:9200/navinfo-cityanalyzer-index-25m3d0624/_alias/navinfo-cityanalyzer-index
+curl -H "Content-Type:application/json" -X PUT http://127.0.0.1:9200/navinfo-suggest-index-25m3d0624/_alias/navinfo-suggest-index
+curl -H "Content-Type:application/json" -X PUT http://127.0.0.1:9200/navinfo-search-index-25m3d0624/_alias/navinfo-search-index
 ```
 
 ```bash
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.4:9200/navinfo-cityanalyzer-index-24m9d51/_alias/navinfo-cityanalyzer-index
-
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.4:9200/navinfo-search-index-24m9d51/_alias/navinfo-search-index
-
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.4:9200/navinfo-suggest-index-24m9d51/_alias/navinfo-suggest-index
-```
-
-```bash
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.3:19200/navinfo-regeo-poi-index-24m9d0403/_alias/navinfo-regeo-poi-index
-
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.3:19200/navinfo-regeo-admin-index-24m9d0403/_alias/navinfo-regeo-admin-index
-
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.3:19200/navinfo-regeo-aoi-index-24m9d0403/_alias/navinfo-regeo-aoi-index
-
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.3:19200/navinfo-regeo-road-index-24m9d0403/_alias/navinfo-regeo-road-index
-
-curl -H "Content-Type:application/json" -X PUT http://192.168.113.3:19200/navinfo-regeo-cross-index-24m9d0403/_alias/navinfo-regeo-cross-index
+curl -H "Content-Type:application/json" -X PUT http://localhost:9200/navinfo-regeo-poi-index-25m3d0623/_alias/navinfo-regeo-poi-index
+curl -H "Content-Type:application/json" -X PUT http://localhost:9200/navinfo-regeo-admin-index-25m3d0623/_alias/navinfo-regeo-admin-index
+curl -H "Content-Type:application/json" -X PUT http://localhost:9200/navinfo-regeo-aoi-index-25m3d0623/_alias/navinfo-regeo-aoi-index
+curl -H "Content-Type:application/json" -X PUT http://localhost:9200/navinfo-regeo-road-index-25m3d0623/_alias/navinfo-regeo-road-index
+curl -H "Content-Type:application/json" -X PUT http://localhost:9200/navinfo-regeo-cross-index-25m3d0623/_alias/navinfo-regeo-cross-index
 ```
 
 查询索引
 
 ```bash
-curl -H "Content-Type:application/json"  http://10.201.21.197:9200/_cat/indices/*?v
+curl -H "Content-Type:application/json"  http://127.0.0.1:9200/_cat/indices/*?v
 ```
 
 删除历史索引

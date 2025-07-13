@@ -11,15 +11,14 @@
             "id": "588fe4e01343a44b",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "docs/.obsidian/workspace.json",
-                "bFile": "docs/.obsidian/workspace.json",
-                "aRef": "HEAD",
-                "bRef": ""
+                "file": "AI/hmm.md",
+                "mode": "preview",
+                "source": true
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json"
+              "icon": "lucide-file",
+              "title": "hmm"
             }
           }
         ]
@@ -143,12 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "AI/hmm.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "hmm 的大纲"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -183,18 +183,43 @@
   },
   "active": "588fe4e01343a44b",
   "lastOpenFiles": [
+    "timescaledb超表.md",
+    "运维/系统初始化.md",
+    "运维/es操作接口.md",
+    "运维/postgres.md",
+    "运维/vscode全栈配置.md",
+    "AI/hmm.md",
+    "AI/assets/Pasted image 20250713161321.png",
+    "AI/assets/Pasted image 20250713160906.png",
+    "AI/code/dict.txt",
+    "AI/code/fenci.py",
+    "AI/code",
+    "AI/新建文件夹",
+    "AI/fenci.py",
+    "AI/assets/dict.txt",
+    "AI/assets/Pasted image 20250713152035.png",
+    "AI/assets",
+    "运维/vsftpd.md",
+    "springcloud/feign.md",
+    "qgis图层.md",
+    "关于国密.md",
+    "内存管理子系统.md",
+    "人生哲理.md",
+    "计算机.md",
+    "系统架构说明.md",
+    "es常用指令.md",
+    "assets/Pasted image 20250629193016.png",
+    "assets/Pasted image 20250629193006.png",
+    "jupyter配置说明.md",
+    "linux性能调优.md",
+    "nginx模块开发.md",
+    "assets/Pasted image 20250628231904.png",
+    "assets/Pasted image 20250628231847.png",
     "数学/概率与数理统计.md",
     "概率论.md",
     "数学/assets/Pasted image 20250608230938.png",
     "数学/assets/Pasted image 20250608230930.png",
     "数学/assets/Pasted image 20250608230105.png",
-    "数学/assets/Pasted image 20250608225942.png",
-    "数学/assets/Pasted image 20250608225929.png",
-    "数学/assets/Pasted image 20250608225919.png",
-    "数学/assets/Pasted image 20250608225909.png",
-    "数学/assets/Pasted image 20250608225836.png",
-    "数学/assets/Pasted image 20250608225827.png",
-    "数学/assets/Pasted image 20250608225343.png",
     "数学/贝叶斯定理.md",
     "数学/概率论.md",
     "数学/线性代数.md",
@@ -203,31 +228,6 @@
     "数学/assets",
     "数学",
     "cpp/基础知识.md",
-    "cpp/函数.md",
-    "cpp/容器.md",
-    "cpp/类型转换.md",
-    "cpp/静态数组 & 动态数组.md",
-    "cpp/关键字.md",
-    "cpp/指向函数的指针.md",
-    "cpp/指针 & 引用 & 常量.md",
-    "cpp/字符串.md",
-    "cpp/未命名 1.md",
-    "cpp/未命名.md",
-    "cpp/类型擦除.md",
-    "cpp",
-    "c++.md",
-    "人生哲理.md",
-    "炒股记录",
-    "贝叶斯定理.md",
-    "timescaledb超表.md",
-    "jupyter配置说明.md",
-    "index.md",
-    "markdown-examples.md",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.5 正则化logistic回归.ppt",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.4 正则化线性回归.ppt",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.3 正则化代价函数.ppt",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.2 解决过拟合.ppt",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/10.1 过拟合的问题.ppt",
-    "AI/2022-Machine-Learning-Specialization/1 Supervised Machine Learning Regression and Classification/slides/9.1 梯度下降实现.ppt"
+    "cpp"
   ]
 }
