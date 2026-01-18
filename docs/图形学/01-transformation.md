@@ -11,7 +11,7 @@ tags:
 
 ## 缩放
 
-![](assets/01.png)
+![](assets/01-01.png)
 
 缩放是指点 $(x_0, y_0)$ 经过缩放因子 $S_{x}, S_{y}$ 变换之后形成新的点 $(x_1, y_1)$，它们之间的关系是：
 
@@ -25,7 +25,7 @@ $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} S_{x} & 0 \\ 0 & S
 
 ## 旋转
 
-![](assets/02.png)
+![](assets/01-02.png)
 
 旋转是指围绕某个中心点旋转角度 $\theta$ 的变换。如图所示，一个正方形围绕原点旋转了角度 $\theta$。假设正方形的边长为 1，可以很容易地推导出以下关系。
 
@@ -83,7 +83,7 @@ $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \en
 
 ## 平移
 
-![](assets/03.png)
+![](assets/01-03.png)
 
 平移就是把 $(x, y)$ 移动一段距离 $(T_x, T_y)$ 然后得到一个新的坐标，即：
 
@@ -148,7 +148,7 @@ $$ \begin{bmatrix} x_1 \\ y_1 \\ w_1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & T_x
 
 ## 逆变换
 
-![](assets/04.png)
+![](assets/01-04.png)
 
 逆变换是指把已应用的变换还原的变换，在数学上是指变换矩阵的逆矩阵 $M^{-1}$。
 
@@ -306,11 +306,11 @@ $$ R_\theta^T = \begin{bmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\th
 
 视图变换是用来把世界空间变换成摄像机空间。如下图所示：
 
-![](assets/05.png)
+![](assets/01-05.png)
 
 世界空间
 
-![](assets/06.png)
+![](assets/01-06.png)
 
 摄像机空间
 
@@ -379,9 +379,33 @@ $$ M_{view} = R_{view} \cdot T_{view} = \begin{bmatrix} x_{g \times t} & y_{g \t
 
 #### 正交投影 (Orthographic Projection)
 
-![](assets/07.png)
+![](assets/01-07.png)
 
-正交投影是把 $[l, r] \times [b, t] \times [n, f]$ 构成的空间压缩成 $[-1, 1]^3$ 的立方体中。
+正交投影是把 $[l, r] \times [b, t] \times [f,n]$ 构成的空间压缩成 $[-1, 1]^3$ 的立方体中。
+
+> **为什么一定要压缩成 $[-1, 1]^3$ 立方体？**
+>
+> 将任意大小的视景体压缩成标准的 $[-1, 1]^3$ 立方体有以下几个重要原因：
+>
+> 1. **标准化设备坐标 (NDC - Normalized Device Coordinates)**
+>    - $[-1, 1]^3$ 是图形学中的**标准化设备坐标空间**，这是一个设备无关的坐标系
+>    - 无论原始视景体的大小如何，经过投影后都统一到这个标准空间，便于后续处理
+>
+> 2. **硬件和API的标准化要求**
+>    - OpenGL、DirectX 等图形API都使用这个标准化的坐标空间
+>    - 不同的图形硬件都遵循这个约定，确保代码在不同平台上都能正常工作
+>
+> 3. **简化视口变换 (Viewport Transformation)**
+>    - 投影后的坐标在 $[-1, 1]^3$ 中，后续只需要简单的线性映射就能将标准立方体映射到屏幕上的任意矩形区域
+>    - 视口变换只需要将 $[-1, 1]$ 映射到 $[0, width] \times [0, height]$ 即可
+>
+> 4. **深度缓冲区的统一处理**
+>    - Z坐标也被标准化到 $[-1, 1]$ 范围（或 $[0, 1]$，取决于API）
+>    - 这样深度测试和深度缓冲区的工作方式在所有平台上都是一致的
+>
+> 5. **数学上的便利性**
+>    - $[-1, 1]$ 范围对称，便于进行各种数学运算
+>    - 后续的裁剪（clipping）操作也在这个标准空间中进行，算法更加统一
 
 **参数定义：**
 - $l$ = left（左）
@@ -434,10 +458,39 @@ $$ S_{ortho} = \begin{bmatrix} \frac{2}{r-l} & 0 & 0 & 0 \\ 0 & \frac{2}{t-b} & 
 
 $$ M_{ortho} = S_{ortho} \cdot T_{ortho} = \begin{bmatrix} \frac{2}{r-l} & 0 & 0 & -\frac{r+l}{r-l} \\ 0 & \frac{2}{t-b} & 0 & -\frac{t+b}{t-b} \\ 0 & 0 & \frac{2}{n-f} & -\frac{n+f}{n-f} \\ 0 & 0 & 0 & 1 \end{bmatrix} $$
 
+> **重要理解：投影区域的形状**
+>
+> 你可能会问：一个长方体压缩成立方体后，投影区域还是长方体吗？
+>
+> **答案是：这取决于我们讨论的是哪个阶段：**
+>
+> 1. **在NDC空间（标准化设备坐标空间）中**：
+>    - 投影区域是**立方体** $[-1, 1]^3$
+>    - X、Y、Z三个方向都被压缩到 $[-1, 1]$ 范围内
+>    - 这是一个**3D空间**中的立方体
+>
+> 2. **在屏幕空间（2D显示）中**：
+>    - 投影区域是**矩形**，通常是 $[0, width] \times [0, height]$
+>    - 只有X和Y坐标被映射到屏幕空间
+>    - Z坐标虽然也在 $[-1, 1]$ 范围内，但它**不直接显示在屏幕上**，而是用于：
+>      - 深度测试（Depth Testing）
+>      - 深度缓冲区（Depth Buffer）
+>      - 确定哪些物体在前、哪些在后
+>
+> 3. **为什么会有这种区别？**
+>    - **投影变换（Projection Transformation）**：将3D视景体映射到NDC空间，此时是3D到3D的映射，结果是立方体
+>    - **实际的投影（Projection）**：从3D空间到2D屏幕的映射，此时是3D到2D的映射，结果是矩形
+>    - Z坐标在投影变换中被保留，但在最终显示时被"丢弃"（只用于深度信息）
+>
+> 4. **总结**：
+>    - 在NDC空间中：投影区域是**立方体** $[-1, 1]^3$（3D）
+>    - 在屏幕空间中：投影区域是**矩形** $[0, width] \times [0, height]$（2D）
+>    - Z坐标虽然被压缩到 $[-1, 1]$，但它主要用于深度信息，不参与2D显示
+
 
 ### 透视投影 (Perspective Projection)
 
-![](assets/08.png)
+![](assets/01-08.png)
 
 透视投影与正交投影类似，也是经过类似的步骤：
 
@@ -449,7 +502,7 @@ $$ M_{ortho} = S_{ortho} \cdot T_{ortho} = \begin{bmatrix} \frac{2}{r-l} & 0 & 0
 
 下图是 YZ 平面的截面：
 
-![](assets/09.png)
+![](assets/01-09.png)
 
 **透视投影矩阵 $M_{persp \to ortho}$ 的推导：**
 
@@ -549,13 +602,13 @@ $$ M_{persp} = M_{ortho} \cdot M_{persp \to ortho} $$
 
 对于透视投影，还有两个重要的概念，那就是 field of view(fov) 和 aspect ratio。
 
-![](assets/10.png)
+![](assets/01-10.png)
 
 fov 是指视野范围，分为 fovY 和 fovX，两者可以相互推导。
 
 aspect ratio 是指近平面的宽高比。
 
-![](assets/11.png)
+![](assets/01-11.png)
 
 根据三角函数，我们可以知道：
 

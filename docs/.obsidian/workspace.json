@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI/hmm.md",
-                "mode": "preview",
-                "source": true
+                "file": "图形学/02-rasterization.md",
+                "mode": "source",
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "hmm"
+              "title": "02-rasterization"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI/hmm.md",
+                "file": "图形学/02-rasterization.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "hmm 的大纲"
+              "title": "02-rasterization 的大纲"
             }
           },
           {
@@ -157,8 +157,8 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-ghost",
+              "title": "git-view"
             }
           }
         ],
@@ -170,34 +170,45 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
+      "markdown-importer:打开 Markdown 格式转换器": false,
       "obsidian-git:Open Git source control": false,
-      "obsidian-excalidraw-plugin:新建绘图文件": false,
-      "markdown-importer:打开 Markdown 格式转换器": false
+      "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
   "active": "588fe4e01343a44b",
   "lastOpenFiles": [
+    "图形学/assets/02-21.png",
+    "图形学/assets/image.png",
+    "图形学/assets/02-20.png",
+    "图形学/assets/02-19.png",
+    "图形学/assets/02-18.png",
+    "图形学/assets/02-17.png",
+    "图形学/assets/02-16.png",
+    "图形学/assets/02-15.png",
+    "图形学/assets/02-14.png",
+    "图形学/assets/02-13.png",
+    "图形学/assets/02-12.png",
+    "图形学/01-transformation.md",
+    "图形学/02-rasterization.md",
+    "AI/hmm.md",
     "timescaledb超表.md",
     "运维/系统初始化.md",
     "运维/es操作接口.md",
     "运维/postgres.md",
     "运维/vscode全栈配置.md",
-    "AI/hmm.md",
-    "AI/assets/Pasted image 20250713161321.png",
-    "AI/assets/Pasted image 20250713160906.png",
     "AI/code/dict.txt",
     "AI/code/fenci.py",
     "AI/code",
     "AI/新建文件夹",
     "AI/fenci.py",
     "AI/assets/dict.txt",
-    "AI/assets/Pasted image 20250713152035.png",
     "AI/assets",
     "运维/vsftpd.md",
     "springcloud/feign.md",
@@ -208,26 +219,16 @@
     "计算机.md",
     "系统架构说明.md",
     "es常用指令.md",
-    "assets/Pasted image 20250629193016.png",
-    "assets/Pasted image 20250629193006.png",
     "jupyter配置说明.md",
     "linux性能调优.md",
     "nginx模块开发.md",
-    "assets/Pasted image 20250628231904.png",
-    "assets/Pasted image 20250628231847.png",
     "数学/概率与数理统计.md",
     "概率论.md",
-    "数学/assets/Pasted image 20250608230938.png",
-    "数学/assets/Pasted image 20250608230930.png",
-    "数学/assets/Pasted image 20250608230105.png",
     "数学/贝叶斯定理.md",
     "数学/概率论.md",
     "数学/线性代数.md",
-    "数学/梯度算法的通俗理解.md",
-    "数学/微积分.md",
     "数学/assets",
     "数学",
-    "cpp/基础知识.md",
     "cpp"
   ]
 }
