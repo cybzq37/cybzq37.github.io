@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "图形学/02-rasterization.md",
+                "file": "图形学/01-transformation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02-rasterization"
+              "title": "01-transformation"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "图形学/02-rasterization.md",
+                "file": "图形学/01-transformation.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "02-rasterization 的大纲"
+              "title": "01-transformation 的大纲"
             }
           },
           {
@@ -184,6 +184,7 @@
   },
   "active": "588fe4e01343a44b",
   "lastOpenFiles": [
+    "图形学/02-rasterization.md",
     "图形学/assets/02-21.png",
     "图形学/assets/image.png",
     "图形学/assets/02-20.png",
@@ -194,9 +195,7 @@
     "图形学/assets/02-15.png",
     "图形学/assets/02-14.png",
     "图形学/assets/02-13.png",
-    "图形学/assets/02-12.png",
     "图形学/01-transformation.md",
-    "图形学/02-rasterization.md",
     "AI/hmm.md",
     "timescaledb超表.md",
     "运维/系统初始化.md",
