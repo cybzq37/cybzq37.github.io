@@ -3,16 +3,15 @@ title: 01-变换
 date: 2026-01-15
 tags:
   - 图形学
-  - 计算机图形学
-  - 计算机视觉
 ---
 
 变换的内容主要包括:
-- 线性变换(缩放,旋转)
-- 罗德里格旋转公式
-- 仿射变换
-- 视图变换
-- 投影变换
+
+- 线性变换(缩放,旋转) 
+- 罗德里格旋转公式 
+- 仿射变换 
+- 视图变换 
+- 投影变换 
 
 核心是MVP变换.
 
@@ -64,13 +63,7 @@ $$ R_\theta = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\thet
 
 ## 线性变换
 
-通过上面的例子我们可以发现，缩放和旋转都能以线性变换的形式来表示，即：
-
-$$ x_1 = A x_0 + B y_0 $$
-
-$$ y_1 = C x_0 + D y_0 $$
-
-以矩阵的形式来表示即：
+缩放和旋转都能以矩阵的形式来表示，即：
 
 $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} $$
 
@@ -82,9 +75,9 @@ $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \en
 
 平移就是把 $(x, y)$ 移动一段距离 $(T_x, T_y)$ 然后得到一个新的坐标，即：
 
-$$ x_1 = x_0 + T_x $$
+$ x_1 = x_0 + T_x $
 
-$$ y_1 = y_0 + T_y $$
+$ y_1 = y_0 + T_y $
 
 ## 齐次坐标
 
@@ -111,9 +104,10 @@ $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \en
 >- **$w = 1$**（点）：表示这是一个位置，会受到平移变换的影响
 >- **$w = 0$**（向量）：表示这是一个方向，不受平移变换的影响
 >
->例如：
->- 点 $P = (3, 4)$ 在齐次坐标中表示为 $(3, 4, 1)$
->- 向量 $\vec{v} = (2, 1)$ 在齐次坐标中表示为 $(2, 1, 0)$
+>例如：  
+>
+>- 点 $P = (3, 4)$ 在齐次坐标中表示为 $(3, 4, 1)$  
+>- 向量 $\vec{v} = (2, 1)$ 在齐次坐标中表示为 $(2, 1, 0)$  
 >
 
 通过添加 $w$ 分量，包含平移在内的所有变换都可以写成单一的矩阵乘法：
@@ -124,7 +118,7 @@ $$ \begin{bmatrix} x_1 \\ y_1 \\ w_1 \end{bmatrix} = \begin{bmatrix} A & B & T_x
 
 向量具有平移不变性。当 $w = 0$ 时，平移矩阵确保 $w$ 分量在乘法后仍然为 0。
 
-例如，对向量应用平移矩阵：
+例如，对向量应用平移矩阵：  
 
 $$ \begin{bmatrix} x_1 \\ y_1 \\ w_1 \end{bmatrix} = \begin{bmatrix} 1 & 0 & T_x \\ 0 & 1 & T_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \\ 0 \end{bmatrix} = \begin{bmatrix} x_0 + T_x \\ y_0 + T_y \\ 0 \end{bmatrix} $$
 

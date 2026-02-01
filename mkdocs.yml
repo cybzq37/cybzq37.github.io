@@ -11,8 +11,9 @@ theme:
     - header.autohide        # 当用户向下滚动页面时，自动隐藏顶部导航栏（Header），向上滚动时重新显示。
     - navigation.footer      # 导航栏底部显示额外信息（如版权声明、生成时间等）
     - navigation.indexes     # 文档直接附加到导航栏的章节（Section）下，无需创建子页面
-    - navigation.instant     # 启用无刷新导航
-    - navigation.instant.prefetch  # 预加载导航数据
+    # 本地 mkdocs serve 即时刷新需关闭 instant，否则 livereload 可能不触发整页更新
+    # - navigation.instant     # 启用无刷新导航
+    # - navigation.instant.prefetch  # 预加载导航数据
     - navigation.instant.progress  # 显示页面加载进度条
     - navigation.path        # 页面顶部面包屑导航
     - navigation.tabs        # 顶部显示导航顶层nav（一级菜单横向在顶部）
@@ -155,3 +156,9 @@ nav:
       - 线性代数: "数学/线性代数.md"
       - 概率与数理统计: "数学/概率与数理统计.md"
       - 贝叶斯定理: "数学/贝叶斯定理.md"
+        
+  - 图形学:
+      - 图形学入门:
+          - 转换: "图形学/01-transformation.md"
+          - 栅格化: "图形学/02-rasterization.md"
+          - 着色: "图形学/03-sharding.md"
