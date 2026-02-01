@@ -7,33 +7,32 @@ tags:
   - 计算机视觉
 ---
 
-二维变换是指二维在平面中进行的变换，一个二维的点经过变换后会得到变成另一个点（一个新的坐标）。
+变换的内容主要包括:
+- 线性变换(缩放,旋转)
+- 罗德里格旋转公式
+- 仿射变换
+- 视图变换
+- 投影变换
+
+核心是MVP变换.
 
 ## 缩放
 
 ![](assets/01-01.png)
 
-缩放是指点 $(x_0, y_0)$ 经过缩放因子 $S_{x}, S_{y}$ 变换之后形成新的点 $(x_1, y_1)$，它们之间的关系是：
-
-$$ x_1 = S_{x} \cdot x_0 \quad \text{和} \quad y_1 = S_{y} \cdot y_0 $$
-
-写成矩阵的形式就是：
+缩放是指点 $(x_0, y_0)$ 经过缩放因子 $S_{x}, S_{y}$ 变换之后形成新的点 $(x_1, y_1)$ , 写成矩阵的形式就是：
 
 $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} S_{x} & 0 \\ 0 & S_{y} \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} $$
-
->镜像是一个非常常见的缩放变换，只需要把缩放因子变成负数即可实现某个方向的镜像。如当缩放因子是 $(-1,1)$ 时，经过缩放变换之后的图形就是以 Y 轴为对称轴的镜像。
 
 ## 旋转
 
 ![](assets/01-02.png)
 
-旋转是指围绕某个中心点旋转角度 $\theta$ 的变换。如图所示，一个正方形围绕原点旋转了角度 $\theta$。假设正方形的边长为 1，可以很容易地推导出以下关系。
+旋转是指围绕某个中心点旋转角度 $\theta$ 的变换, 如图一个正方形围绕原点旋转了角度 $\theta$, 假设正方形的边长为 1，可以推导出以下关系: 
 
 首先，一般的二维线性变换形式为：
 
 $$ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} $$
-
-其中 $(x_0, y_0)$ 是变换前的坐标，$(x_1, y_1)$ 是变换后的坐标，$\begin{bmatrix} A & B \\ C & D \end{bmatrix}$ 是变换矩阵。
 
 **对点 (1,0) 的变换**
 
@@ -44,10 +43,6 @@ $$ \begin{bmatrix} \cos\theta \\ \sin\theta \end{bmatrix} = \begin{bmatrix} A & 
 通过矩阵乘法可以得到：
 
 $$ \cos\theta = A \times 1 + B \times 0 = A $$
-
-$$ \sin\theta = C \times 1 + D \times 0 = C $$
-
-由此确定了 $A = \cos\theta$ 和 $C = \sin\theta$。
 
 **对点 (0,1) 的变换**
 
@@ -289,14 +284,23 @@ $$ R_\theta^T = \begin{bmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\th
 
 如果一个矩阵的逆矩阵等于其转置矩阵，即 $M^{-1} = M^T$，那么这个矩阵称为**正交矩阵**。因此，旋转矩阵是一种正交矩阵。
 
-## 观测变换 (Viewing Transformation)
+## MVP变换
 
-观测变换是为了把三维空间变换成二维空间（屏幕），它由两部分组成：
-
+- **模型变换 (Model Transformation)**
 - **视图变换 (View Transformation)**
 - **投影变换 (Projection Transformation)**
     - 正交投影 (Orthographic Projection)
     - 透视投影 (Perspective Projection)
+
+> 如何理解MVP变换?
+想象一下拍照的过程,拍照就是一个把三维转化为二维的操作：
+- 找一个风景好的地方, 把人安排好
+- 确定相机的摆放, 选好角度和位置
+- 按下快门, 得到一张二维的照片
+
+### 模型变换(Model Transformation)
+
+对物体进行变换, 比如旋转, 缩放, 平移等.
 
 ### 视图变换 (View Transformation)
 

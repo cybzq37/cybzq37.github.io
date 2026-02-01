@@ -47,7 +47,7 @@ tags:
 
 因此，这个变换就是：
 
-$$ 
+$$
 \begin{bmatrix}
 \frac {width} 2 & 0 & 0 & \frac {width} 2 \\\
 0 & \frac {height} 2 & 0 & \frac {height} 2 \\\
@@ -96,7 +96,6 @@ for (int x = 0; x < xmax; ++x) {
 
 $$
 inside(triangle, x, y) =
-
 \begin{equation}
 \left\{
 \begin{array}{lr}
@@ -112,7 +111,7 @@ $$
 ![](assets/02-04.png)
 
 假设三角形的三个顶点分别是 $ P_0，P_1，P_2 $，并且三角形是以逆时针的顺序进行绘制的。那么我们可以求出：
-$$ 
+$$
 \vec {P_0 P_1} \times \vec {P_0 Q} \\\
 \vec {P_1 P_2} \times \vec {P_1 Q} \\\
 \vec {P_2 P_0} \times \vec {P_2 Q} \\\
@@ -288,6 +287,53 @@ for (each sample(x,y,z) in T)
 - 所有 GPU 都支持深度测试
 
 需要注意的是：深度缓冲并不能处理透明物体。
+
+## 透视除法
+
+
+
+## 插值矫正公式
+
+为什么需要进行插值矫正? 
+在屏幕空间，对三角形内部一点，用重心坐标插值一个属性（如 z / u / v / color）：
+
+$$ A = \alpha A_0 + \beta A_1 + \gamma A_2 $$`
+
+这是仿射插值（Affine interpolation）
+> 仿射插值与线性插值的区别
+仿射是平移 + 变换, 仿射插值在仿射变换下不变
+
+透视投影的矩阵中,有一项是  x/z 和 y/z, 除以 z 是非线性的
+
+所以：3D 空间里“线性变化”的量, 投影到屏幕后不再线性.
+
+举个极简直觉例子: 
+一条 3D 直线, 离相机近的一端: z 小, 离相机远的一端: z 大, 投影到屏幕后: 近的部分被“拉伸”, 远的部分被“压缩”, 所以你在屏幕上“走了一半”, 在 3D 空间里根本不是走了一半.
+
+透视插值真正要保证的是什么？
+属性 A 在 3D 空间中是线性变化的
+
+- 深度 z
+- 纹理坐标 u, v
+- 世界坐标
+- 法线插值前的基向量
+
+$$
+a_{corrent} =
+\frac{
+\alpha \frac{a_0}{w_0}
++
+\beta \frac{a_1}{w_1}
++
+\gamma \frac{a_2}{w_2}
+}{
+\alpha \frac{1}{w_0}
++
+\beta \frac{1}{w_1}
++
+\gamma \frac{1}{w_2}
+}
+$$
 
 ## 作业
 
