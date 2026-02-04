@@ -1,0 +1,2403 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E5%9B%BE%E5%BD%A2%E5%AD%A6/01-transformation/">
+      
+      
+        <link rel="prev" href="../../%E6%95%B0%E5%AD%A6/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86/">
+      
+      
+        <link rel="next" href="../02-rasterization/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>01-变换 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01-变换
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%95%B0%E5%AD%A6/%E5%BE%AE%E7%A7%AF%E5%88%86/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  数学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  图形学
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HOME
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HOME
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ABOUT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人工智能
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人工智能
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/hmm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    隐马尔可夫模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 监督学习与非监督学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 线性回归模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 多元线性回归模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 特征缩放与学习率
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 逻辑回归
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 过拟合与正则化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E5%BE%AE%E7%A7%AF%E5%88%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    微积分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率与数理统计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图形学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    图形学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图形学入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    图形学入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    转换
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    转换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缩放
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        旋转
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线性变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平移
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        齐次坐标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逆变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿射变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        组合变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分解复杂变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三维变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正交矩阵
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP变换
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MVP变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模型变换(Model Transformation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        视图变换 (View Transformation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="视图变换 (View Transformation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平移矩阵 \(T_{view}\) 的推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        旋转矩阵 \(R_{view}\) 的推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projection-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        投影变换 (Projection Transformation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="投影变换 (Projection Transformation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orthographic-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正交投影 (Orthographic Projection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perspective-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        透视投影 (Perspective Projection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-rasterization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    栅格化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    着色
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缩放
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        旋转
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线性变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平移
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        齐次坐标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逆变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿射变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        组合变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分解复杂变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三维变换
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正交矩阵
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVP变换
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MVP变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模型变换(Model Transformation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        视图变换 (View Transformation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="视图变换 (View Transformation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        平移矩阵 \(T_{view}\) 的推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        旋转矩阵 \(R_{view}\) 的推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projection-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        投影变换 (Projection Transformation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="投影变换 (Projection Transformation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orthographic-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正交投影 (Orthographic Projection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perspective-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        透视投影 (Perspective Projection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    图形学
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    图形学入门
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">图形学</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+  <h1>转换</h1>
+
+<p>变换的内容主要包括:</p>
+<ul>
+<li>线性变换(缩放,旋转) </li>
+<li>罗德里格旋转公式 </li>
+<li>仿射变换 </li>
+<li>视图变换 </li>
+<li>投影变换 </li>
+</ul>
+<p>核心是MVP变换.</p>
+<h2 id="_1">缩放</h2>
+<p><img alt="" src="../assets/01-01.png" /></p>
+<p>缩放是指点 <span class="arithmatex">\((x_0, y_0)\)</span> 经过缩放因子 <span class="arithmatex">\(S_{x}, S_{y}\)</span> 变换之后形成新的点 <span class="arithmatex">\((x_1, y_1)\)</span> , 写成矩阵的形式就是：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} S_{x} &amp; 0 \\ 0 &amp; S_{y} \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} \]</div>
+<h2 id="_2">旋转</h2>
+<p><img alt="" src="../assets/01-02.png" /></p>
+<p>旋转是指围绕某个中心点旋转角度 <span class="arithmatex">\(\theta\)</span> 的变换, 如图一个正方形围绕原点旋转了角度 <span class="arithmatex">\(\theta\)</span>, 假设正方形的边长为 1，可以推导出以下关系: </p>
+<p>首先，一般的二维线性变换形式为：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} \]</div>
+<p><strong>对点 (1,0) 的变换</strong></p>
+<p>对于右下角的点，变换前的坐标为 <span class="arithmatex">\((1, 0)\)</span>，变换后的坐标为 <span class="arithmatex">\((\cos\theta, \sin\theta)\)</span>，因此有：</p>
+<div class="arithmatex">\[ \begin{bmatrix} \cos\theta \\ \sin\theta \end{bmatrix} = \begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \]</div>
+<p>通过矩阵乘法可以得到：</p>
+<div class="arithmatex">\[ \cos\theta = A \times 1 + B \times 0 = A \]</div>
+<p><strong>对点 (0,1) 的变换</strong></p>
+<p>对于左上角的点，变换前的坐标为 <span class="arithmatex">\((0, 1)\)</span>，变换后的坐标为 <span class="arithmatex">\((-\sin\theta, \cos\theta)\)</span>，因此有：</p>
+<div class="arithmatex">\[ \begin{bmatrix} -\sin\theta \\ \cos\theta \end{bmatrix} = \begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix} \begin{bmatrix} 0 \\ 1 \end{bmatrix} \]</div>
+<p>通过矩阵乘法可以得到：</p>
+<div class="arithmatex">\[ -\sin\theta = A \times 0 + B \times 1 = B \]</div>
+<div class="arithmatex">\[ \cos\theta = C \times 0 + D \times 1 = D \]</div>
+<p>由此确定了 <span class="arithmatex">\(B = -\sin\theta\)</span> 和 <span class="arithmatex">\(D = \cos\theta\)</span>。</p>
+<p>因此，我们得到旋转矩阵：</p>
+<div class="arithmatex">\[ R_\theta = \begin{bmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{bmatrix} \]</div>
+<h2 id="_3">线性变换</h2>
+<p>缩放和旋转都能以矩阵的形式来表示，即：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} \]</div>
+<p>如果变换可以通过以矩阵 <span class="arithmatex">\(M\)</span> 与点相乘然后得到一个新的点的话，那么这种变换就可以称为是线性变换。</p>
+<h2 id="_4">平移</h2>
+<p><img alt="" src="../assets/01-03.png" /></p>
+<p>平移就是把 <span class="arithmatex">\((x, y)\)</span> 移动一段距离 <span class="arithmatex">\((T_x, T_y)\)</span> 然后得到一个新的坐标，即：</p>
+<p>$ x_1 = x_0 + T_x $</p>
+<p>$ y_1 = y_0 + T_y $</p>
+<h2 id="_5">齐次坐标</h2>
+<p>与缩放和旋转不同，平移不能直接用一个简单的矩阵乘法来表示。平移的一般形式为：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} + \begin{bmatrix} T_x \\ T_y \end{bmatrix} \]</div>
+<p>为了统一所有变换（包括平移、旋转、缩放），我们引入了齐次坐标。</p>
+<p>齐次坐标为点和向量添加了一个 <span class="arithmatex">\(w\)</span> 分量：</p>
+<ul>
+<li><strong>对于 2D 点</strong>：<span class="arithmatex">\((x, y)\)</span> 变为 <span class="arithmatex">\((x, y, 1)\)</span></li>
+<li><strong>对于 2D 向量</strong>：<span class="arithmatex">\((x, y)\)</span> 变为 <span class="arithmatex">\((x, y, 0)\)</span></li>
+</ul>
+<blockquote>
+<p><strong>为什么要添加 <span class="arithmatex">\(w\)</span> 分量？</strong></p>
+<p>在普通坐标中，点用 <span class="arithmatex">\((x, y)\)</span> 表示位置，向量也用 <span class="arithmatex">\((x, y)\)</span> 表示方向和大小。但它们有一个重要区别：</p>
+<ul>
+<li><strong>点</strong>：表示空间中的一个<strong>位置</strong>，平移会改变点的位置</li>
+<li><strong>向量</strong>：表示<strong>方向</strong>和<strong>大小</strong>，平移不应该改变向量</li>
+</ul>
+<p>为了区分点和向量，也为了统一所有变换（平移、旋转、缩放），我们添加第三个分量 <span class="arithmatex">\(w\)</span>：</p>
+<ul>
+<li><strong><span class="arithmatex">\(w = 1\)</span></strong>（点）：表示这是一个位置，会受到平移变换的影响</li>
+<li><strong><span class="arithmatex">\(w = 0\)</span></strong>（向量）：表示这是一个方向，不受平移变换的影响</li>
+</ul>
+<p>例如：  </p>
+<ul>
+<li>点 <span class="arithmatex">\(P = (3, 4)\)</span> 在齐次坐标中表示为 <span class="arithmatex">\((3, 4, 1)\)</span>  </li>
+<li>向量 <span class="arithmatex">\(\vec{v} = (2, 1)\)</span> 在齐次坐标中表示为 <span class="arithmatex">\((2, 1, 0)\)</span><br />
+</li>
+</ul>
+</blockquote>
+<p>通过添加 <span class="arithmatex">\(w\)</span> 分量，包含平移在内的所有变换都可以写成单一的矩阵乘法：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \\ w_1 \end{bmatrix} = \begin{bmatrix} A &amp; B &amp; T_x \\ C &amp; D &amp; T_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \\ w_0 \end{bmatrix} \]</div>
+<p>在齐次坐标下，一个矩阵可以同时表示平移、旋转和缩放。</p>
+<p>向量具有平移不变性。当 <span class="arithmatex">\(w = 0\)</span> 时，平移矩阵确保 <span class="arithmatex">\(w\)</span> 分量在乘法后仍然为 0。</p>
+<p>例如，对向量应用平移矩阵：  </p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \\ w_1 \end{bmatrix} = \begin{bmatrix} 1 &amp; 0 &amp; T_x \\ 0 &amp; 1 &amp; T_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \\ 0 \end{bmatrix} = \begin{bmatrix} x_0 + T_x \\ y_0 + T_y \\ 0 \end{bmatrix} \]</div>
+<p>由于 <span class="arithmatex">\(w = 0\)</span>，向量不会受到平移的影响，这符合向量只有方向和大小的特性。</p>
+<p>基于齐次坐标中点和向量 <span class="arithmatex">\(w\)</span> 分量的不同，我们可以总结出以下运算规律：</p>
+<ul>
+<li><strong>向量 + 向量 = 向量</strong><ul>
+<li>因为 <span class="arithmatex">\(w_1 + w_2 = 0 + 0 = 0\)</span></li>
+</ul>
+</li>
+<li><strong>点 - 点 = 向量</strong><ul>
+<li>因为 <span class="arithmatex">\(w_1 - w_2 = 1 - 1 = 0\)</span>，所以点 - 点 = 向量。</li>
+</ul>
+</li>
+<li><strong>点 + 向量 = 点</strong><ul>
+<li>因为 <span class="arithmatex">\(w_1 + w_2 = 1 + 0 = 1\)</span>，所以点 + 向量 = 点。</li>
+</ul>
+</li>
+<li><strong>点 + 点 = 两点的中点</strong><ul>
+<li>因为 <span class="arithmatex">\(w_1 + w_2 = 1 + 1 = 2\)</span>，在齐次坐标中，点的 <span class="arithmatex">\(w\)</span> 分量为 1，所以结果需要除以 2 才能得到正确的中点位置。</li>
+</ul>
+</li>
+</ul>
+<h2 id="_6">逆变换</h2>
+<p><img alt="" src="../assets/01-04.png" /></p>
+<p>逆变换是指把已应用的变换还原的变换，在数学上是指变换矩阵的逆矩阵 <span class="arithmatex">\(M^{-1}\)</span>。</p>
+<p>如果我们对一个点应用变换矩阵 <span class="arithmatex">\(M\)</span> 得到变换后的点，那么应用逆矩阵 <span class="arithmatex">\(M^{-1}\)</span> 就可以将变换后的点还原回原来的位置。</p>
+<p>例如，对于一个变换：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = M \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} \]</div>
+<p>其逆变换为：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} = M^{-1} \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} \]</div>
+<p>因此有：</p>
+<div class="arithmatex">\[ M^{-1} M = I \]</div>
+<p>其中 <span class="arithmatex">\(I\)</span> 是单位矩阵，表示不进行任何变换。</p>
+<p><strong>逆变换的应用：</strong></p>
+<ul>
+<li><strong>旋转的逆变换</strong>：如果旋转了角度 <span class="arithmatex">\(\theta\)</span>，逆变换就是旋转角度 <span class="arithmatex">\(-\theta\)</span></li>
+<li><strong>缩放的逆变换</strong>：如果缩放了 <span class="arithmatex">\(S_x, S_y\)</span>，逆变换就是缩放 <span class="arithmatex">\(1/S_x, 1/S_y\)</span></li>
+<li><strong>平移的逆变换</strong>：如果平移了 <span class="arithmatex">\((T_x, T_y)\)</span>，逆变换就是平移 <span class="arithmatex">\((-T_x, -T_y)\)</span></li>
+</ul>
+<h2 id="_7">仿射变换</h2>
+<p><strong>仿射变换 = 线性变换 + 平移</strong></p>
+<p>仿射变换是线性变换和平移的组合。在标准 2D 坐标中，仿射变换可以表示为：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \end{bmatrix} = \begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} + \begin{bmatrix} T_x \\ T_y \end{bmatrix} \]</div>
+<p>其中 <span class="arithmatex">\(\begin{bmatrix} A &amp; B \\ C &amp; D \end{bmatrix}\)</span> 是线性变换矩阵，<span class="arithmatex">\(\begin{bmatrix} T_x \\ T_y \end{bmatrix}\)</span> 是平移向量。</p>
+<p>使用齐次坐标，仿射变换可以统一表示为单一的矩阵乘法：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \\ 1 \end{bmatrix} = \begin{bmatrix} A &amp; B &amp; T_x \\ C &amp; D &amp; T_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \\ 1 \end{bmatrix} \]</div>
+<p>使用齐次坐标表示仿射变换有以下优势：</p>
+<ol>
+<li><strong>可以用一个矩阵来表示平移、旋转、缩放三种变换</strong></li>
+<li><strong>逆变换可以通过逆矩阵来表示</strong></li>
+</ol>
+<p>在齐次坐标下，各种变换的矩阵表示为：</p>
+<p><strong>平移矩阵</strong> <span class="arithmatex">\(T(T_x, T_y)\)</span>：</p>
+<div class="arithmatex">\[ T(T_x, T_y) = \begin{bmatrix} 1 &amp; 0 &amp; T_x \\ 0 &amp; 1 &amp; T_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p><strong>旋转矩阵</strong> <span class="arithmatex">\(R(\theta)\)</span>：</p>
+<div class="arithmatex">\[ R(\theta) = \begin{bmatrix} \cos\theta &amp; -\sin\theta &amp; 0 \\ \sin\theta &amp; \cos\theta &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p><strong>缩放矩阵</strong> <span class="arithmatex">\(S(S_x, S_y)\)</span>：</p>
+<div class="arithmatex">\[ S(S_x, S_y) = \begin{bmatrix} S_x &amp; 0 &amp; 0 \\ 0 &amp; S_y &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p>在仿射变换下，变换的先后顺序是<strong>先进行线性变换，然后再进行平移变换</strong>。</p>
+<p>这意味着如果我们应用变换矩阵 <span class="arithmatex">\(M\)</span>，它先对点应用线性变换部分（旋转、缩放等），然后再应用平移部分。</p>
+<h2 id="_8">组合变换</h2>
+<p>矩阵乘法没有交换律，所以两种变换是不能调换顺序的。即先平移再旋转并不等于先旋转再平移的结果。因此，<strong>应用变换的顺序很重要</strong>。</p>
+<p>而在应用变换的时候，是根据<strong>从右往左的顺序</strong>来进行的。</p>
+<p>例如：</p>
+<div class="arithmatex">\[ T \cdot R \cdot \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} \]</div>
+<p>上面这个变换表示<strong>先进行旋转，然后再进行平移</strong>。</p>
+<p>矩阵乘法满足结合律，因此有：</p>
+<div class="arithmatex">\[ A_n(\cdots A_2(A_1 \cdot \begin{bmatrix} x \\ y \\ 1 \end{bmatrix})) = A_n \cdots A_2 \cdot A_1 \cdot \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} \]</div>
+<p>观察右边的式子，我们可以预先计算 <span class="arithmatex">\(T = A_n \cdots A_2 A_1\)</span>，然后直接 <span class="arithmatex">\(T \cdot [x \; y \; 1]^T\)</span> 即可。这是一种优化计算的手段。</p>
+<h2 id="_9">分解复杂变换</h2>
+<p>有时候我们需要围绕一个不是原点的点进行旋转。例如，围绕任意点 <span class="arithmatex">\((c_x, c_y)\)</span> 旋转角度 <span class="arithmatex">\(\theta\)</span>。</p>
+<p>这可以通过三个步骤来完成：</p>
+<ol>
+<li><strong>将旋转中心平移到原点</strong>：使用平移矩阵 <span class="arithmatex">\(T(-c_x, -c_y)\)</span></li>
+<li><strong>进行旋转</strong>：使用旋转矩阵 <span class="arithmatex">\(R(\theta)\)</span></li>
+<li><strong>将旋转中心平移回原位置</strong>：使用平移矩阵 <span class="arithmatex">\(T(c_x, c_y)\)</span></li>
+</ol>
+<p>完整的变换矩阵为：</p>
+<div class="arithmatex">\[ T(c_x, c_y) \cdot R(\theta) \cdot T(-c_x, -c_y) \]</div>
+<p>这种分解方法可以让我们通过组合基本变换（平移、旋转、缩放）来实现更复杂的变换。</p>
+<h2 id="_10">三维变换</h2>
+<p>三维变换与二维变换类似，只是增加了一个 <span class="arithmatex">\(z\)</span> 维度。</p>
+<p>三维齐次坐标：</p>
+<ul>
+<li><strong>3D 点</strong>：<span class="arithmatex">\((x, y, z)\)</span> 在齐次坐标中表示为 <span class="arithmatex">\((x, y, z, 1)\)</span></li>
+<li><strong>3D 向量</strong>：<span class="arithmatex">\((x, y, z)\)</span> 在齐次坐标中表示为 <span class="arithmatex">\((x, y, z, 0)\)</span></li>
+</ul>
+<p>如果一个齐次坐标为 <span class="arithmatex">\((x, y, z, w)\)</span>，其中 <span class="arithmatex">\(w \neq 0\)</span>，那么它表示的三维点的笛卡尔坐标为 <span class="arithmatex">\((x/w, y/w, z/w)\)</span>。</p>
+<p>使用齐次坐标，三维变换可以用一个 4×4 矩阵表示：</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_1 \\ y_1 \\ z_1 \\ 1 \end{bmatrix} = \begin{bmatrix} A &amp; B &amp; C &amp; T_x \\ D &amp; E &amp; F &amp; T_y \\ G &amp; H &amp; I &amp; T_z \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \begin{bmatrix} x_0 \\ y_0 \\ z_0 \\ 1 \end{bmatrix} \]</div>
+<p>其中：
+- 左上角的 3×3 子矩阵 <span class="arithmatex">\(\begin{bmatrix} A &amp; B &amp; C \\ D &amp; E &amp; F \\ G &amp; H &amp; I \end{bmatrix}\)</span> 表示线性变换（旋转、缩放等）
+- 第四列的前三个元素 <span class="arithmatex">\((T_x, T_y, T_z)\)</span> 表示平移
+- 最后一行 <span class="arithmatex">\((0, 0, 0, 1)\)</span> 是齐次坐标的标准形式</p>
+<h2 id="_11">正交矩阵</h2>
+<p>在研究旋转矩阵时，我们发现了一个有趣的性质。</p>
+<p>对于旋转角度 <span class="arithmatex">\(\theta\)</span> 的旋转矩阵：</p>
+<div class="arithmatex">\[ R_\theta = \begin{bmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{bmatrix} \]</div>
+<p>其逆矩阵（旋转角度 <span class="arithmatex">\(-\theta\)</span>）为：</p>
+<div class="arithmatex">\[ R_{-\theta} = \begin{bmatrix} \cos(-\theta) &amp; -\sin(-\theta) \\ \sin(-\theta) &amp; \cos(-\theta) \end{bmatrix} = \begin{bmatrix} \cos\theta &amp; \sin\theta \\ -\sin\theta &amp; \cos\theta \end{bmatrix} \]</div>
+<p>旋转矩阵 <span class="arithmatex">\(R_\theta\)</span> 的转置为：</p>
+<div class="arithmatex">\[ R_\theta^T = \begin{bmatrix} \cos\theta &amp; \sin\theta \\ -\sin\theta &amp; \cos\theta \end{bmatrix} \]</div>
+<p>我们注意到：<span class="arithmatex">\(R_{-\theta} = R_\theta^T\)</span>，即<strong>旋转矩阵的逆矩阵等于其转置矩阵</strong>。</p>
+<p>这个性质可以用来求旋转矩阵的逆矩阵：只需要计算转置即可，这比一般的矩阵求逆运算要简单得多。</p>
+<p>如果一个矩阵的逆矩阵等于其转置矩阵，即 <span class="arithmatex">\(M^{-1} = M^T\)</span>，那么这个矩阵称为<strong>正交矩阵</strong>。因此，旋转矩阵是一种正交矩阵。</p>
+<h2 id="mvp">MVP变换</h2>
+<ul>
+<li><strong>模型变换 (Model Transformation)</strong></li>
+<li><strong>视图变换 (View Transformation)</strong></li>
+<li><strong>投影变换 (Projection Transformation)</strong><ul>
+<li>正交投影 (Orthographic Projection)</li>
+<li>透视投影 (Perspective Projection)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如何理解MVP变换?
+想象一下拍照的过程,拍照就是一个把三维转化为二维的操作：
+- 找一个风景好的地方, 把人安排好
+- 确定相机的摆放, 选好角度和位置
+- 按下快门, 得到一张二维的照片</p>
+</blockquote>
+<h3 id="model-transformation">模型变换(Model Transformation)</h3>
+<p>对物体进行变换, 比如旋转, 缩放, 平移等.</p>
+<h3 id="view-transformation">视图变换 (View Transformation)</h3>
+<p>摄像机与物体的相对距离，会影响最终图像的效果。换句话说，无论是移动物体还是移动摄像机，只要保持两者的相对距离不变，那么我们就能得到相同的图像。</p>
+<p>因此，我们可以把摄像机放到原点位置，朝向 <span class="arithmatex">\(-Z\)</span> 方向，其他物体与摄像机保持相对位置不变，我们就能得到与世界空间下拍摄到的一样的图像了。</p>
+<p>视图变换是用来把世界空间变换成摄像机空间。如下图所示：</p>
+<p><img alt="" src="../assets/01-05.png" /></p>
+<p>世界空间</p>
+<p><img alt="" src="../assets/01-06.png" /></p>
+<p>摄像机空间</p>
+<p>要确定视图变换，需要三个变量：</p>
+<ol>
+<li><strong>摄像机的位置</strong> (Camera position)</li>
+<li><strong>目标位置</strong> (Target position)</li>
+<li><strong>摄像机的上方向</strong> (Camera's up direction)</li>
+</ol>
+<p>将摄像机从世界空间变换到视图空间的步骤如下：</p>
+<ol>
+<li><strong>把摄像机移动到原点</strong>：使用平移矩阵</li>
+<li><strong>把摄像机的 上方向 调整成与 Y 一致，并让摄像机往 -Z 方向看</strong>：使用旋转矩阵</li>
+</ol>
+<p>视图变换矩阵表示为：</p>
+<div class="arithmatex">\[ M_{view} = R_{view} \cdot T_{view} \]</div>
+<h4 id="t_view">平移矩阵 <span class="arithmatex">\(T_{view}\)</span> 的推导</h4>
+<p>假设摄像机在世界坐标系中的位置为 <span class="arithmatex">\((x, y, z)\)</span>，则平移矩阵为：</p>
+<div class="arithmatex">\[ T_{view} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -x \\ 0 &amp; 1 &amp; 0 &amp; -y \\ 0 &amp; 0 &amp; 1 &amp; -z \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p>这个矩阵将摄像机从世界空间的原点移动到坐标原点。</p>
+<h4 id="r_view">旋转矩阵 <span class="arithmatex">\(R_{view}\)</span> 的推导</h4>
+<p>假设摄像机的上方向为 <span class="arithmatex">\(\hat{t}\)</span>，看向方向为 <span class="arithmatex">\(\hat{g}\)</span>。</p>
+<p>由于 <span class="arithmatex">\(\hat{e}\)</span>、<span class="arithmatex">\(\hat{t}\)</span>、<span class="arithmatex">\(\hat{g}\)</span> 构成摄像机的局部坐标系且相互正交，我们定义 <span class="arithmatex">\(\hat{e} = \hat{g} \times \hat{t}\)</span>（其中 <span class="arithmatex">\(\hat{e}\)</span> 是右向量）。</p>
+<p><span class="arithmatex">\(R_{view}\)</span> 是将摄像机的局部坐标系旋转到标准笛卡尔坐标系的变换，直接计算比较复杂。</p>
+<p>由于旋转矩阵是正交矩阵，我们可以利用其性质：先求 <span class="arithmatex">\(R_{view}\)</span> 的逆矩阵，然后通过转置得到 <span class="arithmatex">\(R_{view}\)</span>。</p>
+<p><strong>逆矩阵 <span class="arithmatex">\(R_{view}^{-1}\)</span>：</strong></p>
+<p>逆矩阵的列向量是摄像机局部坐标系的基向量在世界坐标系中的表示：</p>
+<div class="arithmatex">\[ R_{view}^{-1} = \begin{bmatrix} x_{g \times t} &amp; x_t &amp; x_{-g} &amp; 0 \\ y_{g \times t} &amp; y_t &amp; y_{-g} &amp; 0 \\ z_{g \times t} &amp; z_t &amp; z_{-g} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p>其中：
+- 第一列 <span class="arithmatex">\((x_{g \times t}, y_{g \times t}, z_{g \times t})\)</span> 是 <span class="arithmatex">\(\hat{e} = \hat{g} \times \hat{t}\)</span> 的分量
+- 第二列 <span class="arithmatex">\((x_t, y_t, z_t)\)</span> 是上方向向量 <span class="arithmatex">\(\hat{t}\)</span> 的分量
+- 第三列 <span class="arithmatex">\((x_{-g}, y_{-g}, z_{-g})\)</span> 是负的看向方向 <span class="arithmatex">\(-\hat{g}\)</span> 的分量</p>
+<p><strong>转置得到 <span class="arithmatex">\(R_{view}\)</span>：</strong></p>
+<p>由于旋转矩阵是正交矩阵，<span class="arithmatex">\(R_{view} = (R_{view}^{-1})^T\)</span>，因此：</p>
+<div class="arithmatex">\[ R_{view} = \begin{bmatrix} x_{g \times t} &amp; y_{g \times t} &amp; z_{g \times t} &amp; 0 \\ x_t &amp; y_t &amp; z_t &amp; 0 \\ x_{-g} &amp; y_{-g} &amp; z_{-g} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p>将 <span class="arithmatex">\(R_{view}\)</span> 和 <span class="arithmatex">\(T_{view}\)</span> 相乘，得到最终的视图变换矩阵：</p>
+<div class="arithmatex">\[ M_{view} = R_{view} \cdot T_{view} = \begin{bmatrix} x_{g \times t} &amp; y_{g \times t} &amp; z_{g \times t} &amp; -x \\ x_t &amp; y_t &amp; z_t &amp; -y \\ x_{-g} &amp; y_{-g} &amp; z_{-g} &amp; -z \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p>其中最后一列的前三个元素是经过旋转后的摄像机位置的负值。</p>
+<h3 id="projection-transformation">投影变换 (Projection Transformation)</h3>
+<p>投影矩阵的作用是把三维空间变换成二维空间，即图片。常见的投影有两种：</p>
+<ul>
+<li>正交投影（不会出现近大远小的现象）</li>
+<li>透视投影（会出现近大远小的现象，透视投影下的平行线最终会汇聚在一点）</li>
+</ul>
+<h4 id="orthographic-projection">正交投影 (Orthographic Projection)</h4>
+<p><img alt="" src="../assets/01-07.png" /></p>
+<p>正交投影是把 <span class="arithmatex">\([l, r] \times [b, t] \times [f,n]\)</span> 构成的空间压缩成 <span class="arithmatex">\([-1, 1]^3\)</span> 的立方体中。</p>
+<blockquote>
+<p><strong>为什么一定要压缩成 <span class="arithmatex">\([-1, 1]^3\)</span> 立方体？</strong></p>
+<p>将任意大小的视景体压缩成标准的 <span class="arithmatex">\([-1, 1]^3\)</span> 立方体有以下几个重要原因：</p>
+<ol>
+<li><strong>标准化设备坐标 (NDC - Normalized Device Coordinates)</strong></li>
+<li><span class="arithmatex">\([-1, 1]^3\)</span> 是图形学中的<strong>标准化设备坐标空间</strong>，这是一个设备无关的坐标系</li>
+<li>
+<p>无论原始视景体的大小如何，经过投影后都统一到这个标准空间，便于后续处理</p>
+</li>
+<li>
+<p><strong>硬件和API的标准化要求</strong></p>
+</li>
+<li>OpenGL、DirectX 等图形API都使用这个标准化的坐标空间</li>
+<li>
+<p>不同的图形硬件都遵循这个约定，确保代码在不同平台上都能正常工作</p>
+</li>
+<li>
+<p><strong>简化视口变换 (Viewport Transformation)</strong></p>
+</li>
+<li>投影后的坐标在 <span class="arithmatex">\([-1, 1]^3\)</span> 中，后续只需要简单的线性映射就能将标准立方体映射到屏幕上的任意矩形区域</li>
+<li>
+<p>视口变换只需要将 <span class="arithmatex">\([-1, 1]\)</span> 映射到 <span class="arithmatex">\([0, width] \times [0, height]\)</span> 即可</p>
+</li>
+<li>
+<p><strong>深度缓冲区的统一处理</strong></p>
+</li>
+<li>Z坐标也被标准化到 <span class="arithmatex">\([-1, 1]\)</span> 范围（或 <span class="arithmatex">\([0, 1]\)</span>，取决于API）</li>
+<li>
+<p>这样深度测试和深度缓冲区的工作方式在所有平台上都是一致的</p>
+</li>
+<li>
+<p><strong>数学上的便利性</strong></p>
+</li>
+<li><span class="arithmatex">\([-1, 1]\)</span> 范围对称，便于进行各种数学运算</li>
+<li>后续的裁剪（clipping）操作也在这个标准空间中进行，算法更加统一</li>
+</ol>
+</blockquote>
+<p><strong>参数定义：</strong>
+- <span class="arithmatex">\(l\)</span> = left（左）
+- <span class="arithmatex">\(r\)</span> = right（右）
+- <span class="arithmatex">\(b\)</span> = bottom（底）
+- <span class="arithmatex">\(t\)</span> = top（顶）
+- <span class="arithmatex">\(n\)</span> = near（近）
+- <span class="arithmatex">\(f\)</span> = far（远）</p>
+<blockquote>
+<p><strong>注意</strong>：因为摄像机是朝 -Z 方向的，所以 <span class="arithmatex">\(n &gt; f\)</span>。</p>
+</blockquote>
+<p><strong>变换步骤：</strong></p>
+<p>要确定正交投影矩阵，需要经过以下步骤：</p>
+<ol>
+<li><strong>把空间平移到原点</strong>（空间的中心与原点重合）</li>
+<li><strong>把空间压缩成 <span class="arithmatex">\([-1, 1]^3\)</span></strong></li>
+</ol>
+<p>整体的正交投影矩阵表示为：</p>
+<div class="arithmatex">\[ M_{ortho} = S_{ortho} \cdot T_{ortho} \]</div>
+<p><strong>平移矩阵 <span class="arithmatex">\(T_{ortho}\)</span> 的推导：</strong></p>
+<p>由于我们知道空间的六个面，因此这个空间的中心就是：<span class="arithmatex">\(\left(\frac{l+r}{2}, \frac{b+t}{2}, \frac{n+f}{2}\right)\)</span>，那么平移矩阵为：</p>
+<div class="arithmatex">\[ T_{ortho} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -\frac{r+l}{2} \\ 0 &amp; 1 &amp; 0 &amp; -\frac{t+b}{2} \\ 0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2} \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p><strong>缩放矩阵 <span class="arithmatex">\(S_{ortho}\)</span> 的推导：</strong></p>
+<p>下一步就是压缩空间了，这一步骤相当于进行一次缩放，把当前空间缩放到大小为 2 的立方体。</p>
+<p>以空间的 X 方向为例，其长度为 <span class="arithmatex">\(r-l\)</span>，因此 X 方向的缩放因子就是：</p>
+<div class="arithmatex">\[ (r-l) \times S_x = 2 \]</div>
+<p>解得：<span class="arithmatex">\(S_x = \frac{2}{r-l}\)</span></p>
+<p>同理可求出 <span class="arithmatex">\(S_y\)</span> 和 <span class="arithmatex">\(S_z\)</span>：</p>
+<div class="arithmatex">\[ S_y = \frac{2}{t-b} \]</div>
+<div class="arithmatex">\[ S_z = \frac{2}{n-f} \]</div>
+<p>然后得到缩放矩阵：</p>
+<div class="arithmatex">\[ S_{ortho} = \begin{bmatrix} \frac{2}{r-l} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \frac{2}{t-b} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \frac{2}{n-f} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<p><strong>最终的正交投影矩阵：</strong></p>
+<div class="arithmatex">\[ M_{ortho} = S_{ortho} \cdot T_{ortho} = \begin{bmatrix} \frac{2}{r-l} &amp; 0 &amp; 0 &amp; -\frac{r+l}{r-l} \\ 0 &amp; \frac{2}{t-b} &amp; 0 &amp; -\frac{t+b}{t-b} \\ 0 &amp; 0 &amp; \frac{2}{n-f} &amp; -\frac{n+f}{n-f} \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]</div>
+<blockquote>
+<p><strong>重要理解：投影区域的形状</strong></p>
+<p>你可能会问：一个长方体压缩成立方体后，投影区域还是长方体吗？</p>
+<p><strong>答案是：这取决于我们讨论的是哪个阶段：</strong></p>
+<ol>
+<li><strong>在NDC空间（标准化设备坐标空间）中</strong>：</li>
+<li>投影区域是<strong>立方体</strong> <span class="arithmatex">\([-1, 1]^3\)</span></li>
+<li>X、Y、Z三个方向都被压缩到 <span class="arithmatex">\([-1, 1]\)</span> 范围内</li>
+<li>
+<p>这是一个<strong>3D空间</strong>中的立方体</p>
+</li>
+<li>
+<p><strong>在屏幕空间（2D显示）中</strong>：</p>
+</li>
+<li>投影区域是<strong>矩形</strong>，通常是 <span class="arithmatex">\([0, width] \times [0, height]\)</span></li>
+<li>只有X和Y坐标被映射到屏幕空间</li>
+<li>
+<p>Z坐标虽然也在 <span class="arithmatex">\([-1, 1]\)</span> 范围内，但它<strong>不直接显示在屏幕上</strong>，而是用于：</p>
+<ul>
+<li>深度测试（Depth Testing）</li>
+<li>深度缓冲区（Depth Buffer）</li>
+<li>确定哪些物体在前、哪些在后</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么会有这种区别？</strong></p>
+</li>
+<li><strong>投影变换（Projection Transformation）</strong>：将3D视景体映射到NDC空间，此时是3D到3D的映射，结果是立方体</li>
+<li><strong>实际的投影（Projection）</strong>：从3D空间到2D屏幕的映射，此时是3D到2D的映射，结果是矩形</li>
+<li>
+<p>Z坐标在投影变换中被保留，但在最终显示时被"丢弃"（只用于深度信息）</p>
+</li>
+<li>
+<p><strong>总结</strong>：</p>
+</li>
+<li>在NDC空间中：投影区域是<strong>立方体</strong> <span class="arithmatex">\([-1, 1]^3\)</span>（3D）</li>
+<li>在屏幕空间中：投影区域是<strong>矩形</strong> <span class="arithmatex">\([0, width] \times [0, height]\)</span>（2D）</li>
+<li>Z坐标虽然被压缩到 <span class="arithmatex">\([-1, 1]\)</span>，但它主要用于深度信息，不参与2D显示</li>
+</ol>
+</blockquote>
+<h3 id="perspective-projection">透视投影 (Perspective Projection)</h3>
+<p><img alt="" src="../assets/01-08.png" /></p>
+<p>透视投影与正交投影类似，也是经过类似的步骤：</p>
+<ol>
+<li>把空间平移到原点</li>
+<li>把空间压缩成长方体（近平面不变，压缩远平面）</li>
+<li>把空间压缩成 <span class="arithmatex">\([-1, 1]^3\)</span> 的立方体（进行一次正交投影）</li>
+</ol>
+<p>相比正交投影，透视投影多了一个步骤，就是把视锥体变换成长方体，这个变换暂且叫做 <span class="arithmatex">\(M_{p \rightarrow o}\)</span> （<span class="arithmatex">\(p\)</span> 表示透视投影，<span class="arithmatex">\(o\)</span> 表示正交投影）。</p>
+<p>下图是 YZ 平面的截面：</p>
+<p><img alt="" src="../assets/01-09.png" /></p>
+<p><strong>透视投影矩阵 <span class="arithmatex">\(M_{persp \to ortho}\)</span> 的推导：</strong></p>
+<p>经过压缩后，对于 y 坐标，空间中的一点 <span class="arithmatex">\((x, y, z)\)</span>，会变换成 <span class="arithmatex">\((x, y', z)\)</span>。</p>
+<p>根据相似三角形的性质，有：</p>
+<div class="arithmatex">\[ \frac{n}{z} = \frac{y'}{y} \]</div>
+<p>因此：</p>
+<div class="arithmatex">\[ y' = \frac{n}{z} \cdot y \]</div>
+<p>类似地，对于 <span class="arithmatex">\(x\)</span> 坐标，有：</p>
+<div class="arithmatex">\[ x' = \frac{n}{z} \cdot x \]</div>
+<p><strong>矩阵形式的表示：</strong></p>
+<p>初步的矩阵乘法形式为：</p>
+<div class="arithmatex">\[ M_{persp \to ortho} \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} = \begin{bmatrix} \frac{nx}{z} \\ \frac{ny}{z} \\ \text{unknown} \\ 1 \end{bmatrix} \]</div>
+<p>为了在齐次坐标中表示，我们将结果乘以 <span class="arithmatex">\(z\)</span>（这样 <span class="arithmatex">\(w\)</span> 分量变为 <span class="arithmatex">\(z\)</span>，用于后续的透视除法）：</p>
+<div class="arithmatex">\[ M_{persp \to ortho} \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} = \begin{bmatrix} nx \\ ny \\ \text{unknown} \\ z \end{bmatrix} \]</div>
+<p>计算 <span class="arithmatex">\(M_{persp \to ortho}\)</span> 矩阵的第一行，设第一行为 <span class="arithmatex">\([a \; b \; c \; d]\)</span>，则有：</p>
+<div class="arithmatex">\[ ax + by + cz + d = nx \]</div>
+<p>比较系数可以得到：</p>
+<ul>
+<li><span class="arithmatex">\(a = n\)</span></li>
+<li><span class="arithmatex">\(b = 0\)</span></li>
+<li><span class="arithmatex">\(c = 0\)</span></li>
+<li><span class="arithmatex">\(d = 0\)</span></li>
+</ul>
+<p>我们可以用同样的方法去计算矩阵的其它行，于是就能得到矩阵的雏形：</p>
+<div class="arithmatex">\[ M_{persp \to ortho} = \begin{bmatrix} n &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; n &amp; 0 &amp; 0 \\ ? &amp; ? &amp; ? &amp; ? \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix} \]</div>
+<p>矩阵的第三行是表示 z 方向的变换的，而我们知道有两个事实：</p>
+<p><strong>事实 1：</strong> 任何在近平面的点，都不会发生变化，即：</p>
+<div class="arithmatex">\[ \begin{bmatrix} ? &amp; ? &amp; ? &amp; ? \end{bmatrix} \begin{bmatrix} x \\ y \\ n \\ 1 \end{bmatrix} = \begin{bmatrix} x \\ y \\ n \\ 1 \end{bmatrix} = \begin{bmatrix} nx \\ ny \\ n^2 \\ n \end{bmatrix} \]</div>
+<p>和刚才一样代入计算（因为刚才乘以过 <span class="arithmatex">\(z\)</span>，所以右边要用 <span class="arithmatex">\(n^2\)</span>，下面的 <span class="arithmatex">\(f^2\)</span> 同理）：</p>
+<p>设第三行为 <span class="arithmatex">\([a \; b \; c \; d]\)</span>，则有：</p>
+<div class="arithmatex">\[ ax + by + cn + d = n^2 \]</div>
+<p>根据透视投影的特性，第三行的形式为 <span class="arithmatex">\([0 \; 0 \; A \; B]\)</span>（因为 Z 坐标的变换不依赖于 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(y\)</span>），于是得到矩阵第三行的四个元素分别是：<span class="arithmatex">\([0 \; 0 \; A \; B]\)</span></p>
+<p>因此：</p>
+<div class="arithmatex">\[ An + B = n^2 \]</div>
+<p><strong>事实 2：</strong> 任何在远平面上的点，<span class="arithmatex">\(z\)</span> 都不会发生变化。我们取远平面中的一个中心点 <span class="arithmatex">\((0, 0, f, 1)\)</span>，它在空间压缩前后都不会发生变化，那么：</p>
+<div class="arithmatex">\[ \begin{bmatrix} 0 &amp; 0 &amp; A &amp; B \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ f \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ f \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ f^2 \\ f \end{bmatrix} \]</div>
+<p>因此：</p>
+<div class="arithmatex">\[ Af + B = f^2 \]</div>
+<p><strong>联立方程组：</strong></p>
+<div class="arithmatex">\[ \begin{cases} An + B = n^2 \\ Af + B = f^2 \end{cases} \]</div>
+<p><strong>解得：</strong></p>
+<p>从第一个方程减去第二个方程：
+$$ An + B - (Af + B) = n^2 - f^2 $$
+$$ A(n - f) = n^2 - f^2 = (n - f)(n + f) $$</p>
+<p>因此：
+$$ A = n + f $$</p>
+<p>代入第一个方程：
+$$ (n + f)n + B = n^2 $$
+$$ n^2 + nf + B = n^2 $$
+$$ B = -nf $$</p>
+<p><strong>因此，我们要求的矩阵为：</strong></p>
+<div class="arithmatex">\[ M_{persp \to ortho} = \begin{bmatrix} n &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; n &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; n+f &amp; -nf \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix} \]</div>
+<p><strong>所以，投影矩阵为：</strong></p>
+<div class="arithmatex">\[ M_{persp} = M_{ortho} \cdot M_{persp \to ortho} \]</div>
+<p>最后的问题就是 <span class="arithmatex">\(M_{ortho}\)</span> 了。对于这个正交投影，我们只知道 <span class="arithmatex">\([f, n]\)</span>，还缺少 <span class="arithmatex">\([l, r]\)</span> 和 <span class="arithmatex">\([b, t]\)</span>，但我们可以通过其他途径来计算出这些需要的值。</p>
+<p>对于透视投影，还有两个重要的概念，那就是 field of view(fov) 和 aspect ratio。</p>
+<p><img alt="" src="../assets/01-10.png" /></p>
+<p>fov 是指视野范围，分为 fovY 和 fovX，两者可以相互推导。</p>
+<p>aspect ratio 是指近平面的宽高比。</p>
+<p><img alt="" src="../assets/01-11.png" /></p>
+<p>根据三角函数，我们可以知道：</p>
+<div class="arithmatex">\[ \tan \frac{fovY}{2} = \frac{t}{|n|} \]</div>
+<p>另外，根据宽高比的定义，我们可以得出：</p>
+<div class="arithmatex">\[ \text{aspect} = \frac{\text{width}}{\text{height}} = \frac{2r}{2t} = \frac{r}{t} \]</div>
+<p>联立方程可得：</p>
+<div class="arithmatex">\[ t = |n| \cdot \tan \frac{fovY}{2} \]</div>
+<div class="arithmatex">\[ r = \text{aspect} \cdot t \]</div>
+<div class="arithmatex">\[ b = -t \]</div>
+<div class="arithmatex">\[ l = -r \]</div>
+<p>这样，我们就把所需要的值都计算出来了，直接带入上面的正交矩阵公式即可得到完整的透视投影矩阵。</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// main.cpp</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">MY_PI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.1415926</span><span class="p">;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">DEG_TO_RAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MY_PI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">180.0</span><span class="p">;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="w"> </span><span class="nf">get_model_matrix</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">rotation_angle</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">{</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="o">::</span><span class="n">Identity</span><span class="p">();</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rotation_angle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DEG_TO_RAD</span><span class="p">;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sin_theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">rad</span><span class="p">);</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cos_theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cos</span><span class="p">(</span><span class="n">rad</span><span class="p">);</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">model</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cos_theta</span><span class="p">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">model</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">sin_theta</span><span class="p">;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">model</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sin_theta</span><span class="p">;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">model</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cos_theta</span><span class="p">;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">}</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="w"> </span><span class="nf">get_projection_matrix</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">eye_fov</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">aspect_ratio</span><span class="p">,</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">                                      </span><span class="kt">float</span><span class="w"> </span><span class="n">zNear</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">zFar</span><span class="p">)</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="p">{</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="w"> </span><span class="n">projection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="o">::</span><span class="n">Identity</span><span class="p">();</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="w"> </span><span class="n">ortho</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="o">::</span><span class="n">Identity</span><span class="p">();</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="w"> </span><span class="n">persp_to_ortho</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4f</span><span class="o">::</span><span class="n">Identity</span><span class="p">();</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zNear</span><span class="p">;</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zFar</span><span class="p">;</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tan</span><span class="p">((</span><span class="n">eye_fov</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DEG_TO_RAD</span><span class="p">);</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aspect_ratio</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="p">;</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="p">;</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="n">ortho</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="n">ortho</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="n">ortho</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">f</span><span class="p">);</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="n">ortho</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="n">ortho</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="n">ortho</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="n">persp_to_ortho</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">    </span><span class="n">persp_to_ortho</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">    </span><span class="n">persp_to_ortho</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">;</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">    </span><span class="n">persp_to_ortho</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">);</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">    </span><span class="n">persp_to_ortho</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">    </span><span class="n">persp_to_ortho</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">    </span><span class="n">projection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ortho</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">persp_to_ortho</span><span class="p">;</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">projection</span><span class="p">;</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="p">}</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../%E6%95%B0%E5%AD%A6/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 贝叶斯定理">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                贝叶斯定理
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-rasterization/" class="md-footer__link md-footer__link--next" aria-label="下一页: 栅格化">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                栅格化
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

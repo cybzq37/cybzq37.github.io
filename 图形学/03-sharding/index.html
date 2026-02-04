@@ -1,0 +1,2237 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="独立思考，终身学习。">
+      
+      
+        <meta name="author" content="左丘">
+      
+      
+        <link rel="canonical" href="https://cybzq37.github.io/%E5%9B%BE%E5%BD%A2%E5%AD%A6/03-sharding/">
+      
+      
+        <link rel="prev" href="../02-rasterization/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../statics/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>01-光栅化 - 左丘的杂货铺</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../statics/css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#blinn-phong" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="左丘的杂货铺" class="md-header__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            左丘的杂货铺
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01-光栅化
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  HOME
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  人工智能
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%95%B0%E5%AD%A6/%E5%BE%AE%E7%A7%AF%E5%88%86/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  数学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-transformation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  图形学
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="左丘的杂货铺" class="md-nav__button md-logo" aria-label="左丘的杂货铺" data-md-component="logo">
+      
+  <img src="../../statics/img/logo.svg" alt="logo">
+
+    </a>
+    左丘的杂货铺
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cybzq37/cybzq37.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HOME
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HOME
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Home/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ABOUT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AI/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人工智能
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人工智能
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/hmm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    隐马尔可夫模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1%20%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 监督学习与非监督学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 线性回归模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3%20%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 多元线性回归模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4%20%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 特征缩放与学习率
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 逻辑回归
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6%20%E8%BF%87%E6%8B%9F%E5%90%88%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 过拟合与正则化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E5%BE%AE%E7%A7%AF%E5%88%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    微积分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率与数理统计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%A6/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图形学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    图形学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图形学入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    图形学入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    转换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-rasterization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    栅格化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    着色
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    着色
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#blinn-phong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blinn-Phong 着色模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blinn-Phong 着色模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        点光源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ambient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境光（Ambient）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        漫反射 （Diffuse）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高光（Specular）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        着色频率
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#texture-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹理映射（Texture Mapping）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#barycentric-coordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重心坐标（Barycentric Coordinates）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        插值矫正
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应用纹理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="应用纹理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#texel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹素（Texel）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texture-magnification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹理放大（Texture Magnification）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texture-minification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹理缩小（Texture Minification）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        走样问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mipmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mipmap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anisotropic-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各向异性过滤（Anisotropic Filtering）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各式各样的纹理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="各式各样的纹理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spherical-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        球面贴图（Spherical Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cube-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        立方体贴图（Cube Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bump-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凹凸贴图（Bump Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        法线贴图（Normal Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#blinn-phong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blinn-Phong 着色模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blinn-Phong 着色模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        点光源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ambient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境光（Ambient）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        漫反射 （Diffuse）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高光（Specular）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        着色频率
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#texture-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹理映射（Texture Mapping）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#barycentric-coordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重心坐标（Barycentric Coordinates）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        插值矫正
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应用纹理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="应用纹理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#texel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹素（Texel）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texture-magnification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹理放大（Texture Magnification）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texture-minification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        纹理缩小（Texture Minification）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        走样问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mipmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mipmap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anisotropic-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各向异性过滤（Anisotropic Filtering）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各式各样的纹理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="各式各样的纹理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spherical-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        球面贴图（Spherical Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cube-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        立方体贴图（Cube Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bump-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凹凸贴图（Bump Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        法线贴图（Normal Map）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../01-transformation/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    图形学
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../01-transformation/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    图形学入门
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">图形学</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+  <h1>着色</h1>
+
+<h2 id="blinn-phong">Blinn-Phong 着色模型</h2>
+<p>Blinn-Phong 着色模型主要有三部分组成：</p>
+<ul>
+<li>Specular （高光）：由观察角度与光线反射角度共同决定，两者夹角越小，高光越明显</li>
+<li>Diffuse （漫反射）：由物体本身的颜色决定</li>
+<li>Ambient （环境光）：由环境决定</li>
+</ul>
+<p><img alt="" src="../assets/03-02.png" /></p>
+<p>对于每个着色点，我们可以简化成如下图所示：
+- <span class="arithmatex">\(n\)</span> 表示表面法线方向
+- <span class="arithmatex">\(l\)</span> 表示入射光方向
+- <span class="arithmatex">\(v\)</span> 表示观察方向</p>
+<blockquote>
+<p>注意：所有向量都是单位向量，所以确保向量进行过 normalize 操作。</p>
+</blockquote>
+<h3 id="_1">点光源</h3>
+<p><img alt="" src="../assets/03-03.png" /></p>
+<p>假设一个光源为点光源, 传播过程能量守恒，这意味着在半径为 1 时的能量等于半径为 <span class="arithmatex">\(r\)</span> 时的能量，均为 <span class="arithmatex">\(E\)</span>。</p>
+<p>然而，随着半径的增大，球面的表面积也在增大，相当于球面中单位面积的能量减少了。</p>
+<p>球面的面积公式: <span class="arithmatex">\(S = 4\pi r^2\)</span></p>
+<p>假设单位面积的能量为 <span class="arithmatex">\(I_1\)</span>，那么半径为 1 时的能量为：<span class="arithmatex">\(E = I_1 \times 4\pi\)</span></p>
+<p>半径为 <span class="arithmatex">\(r\)</span> 时的能量为：<span class="arithmatex">\(E = I_r \times 4\pi r^2\)</span></p>
+<p>那么, 半径为 <span class="arithmatex">\(r\)</span> 时的单位面积的能量为：<span class="arithmatex">\(I_r = \frac{E}{4\pi r^2} = \frac{I_1 \times 4\pi}{4\pi r^2} = \frac{I_1}{r^2}\)</span></p>
+<h3 id="ambient">环境光（Ambient）</h3>
+<p>对于没有光线直接照射的平面（如最开始的茶杯的背光位置），该平面依旧会受到环境中各种光照的反射，这就是环境光对场景的影响。</p>
+<p>我们可以近似地认为场景中的环境光是个常量，它表示来自场景中各个方向的光线的总和，并且不受视角方向的影响，于是有：</p>
+<div class="arithmatex">\[ L_a = k_a \odot I_a \]</div>
+<ul>
+<li><span class="arithmatex">\(L_a\)</span> 表示着色点的环境光分量</li>
+<li><span class="arithmatex">\(k_a\)</span> 表示材质的环境光系数，可调节</li>
+<li><span class="arithmatex">\(I_a\)</span> 表示场景的环境光强度</li>
+</ul>
+<blockquote>
+<p>这里既不是点乘, 也不是叉乘, 而是分量积 (Component-wise Product)</p>
+</blockquote>
+<h3 id="diffuse">漫反射 （Diffuse）</h3>
+<p><img alt="" src="../assets/03-04.png" /></p>
+<p>漫反射是指光线照射在物体表面后会往四周反射的现象。</p>
+<p>细心的同学会发现，上图中的入射光线和反射光线的颜色是不同的，这是因为当入射光线到达物体表面时，物体表面会吸收一部分能量，然后反射它没有吸收的能量（暂时不考虑折射），也就是物体本身的颜色。</p>
+<p>从能量的角度考虑，只有当有能量到达物体表面时，物体才能发生漫反射，那么接下来的问题是，怎么知道有多少能量到达物体表面呢？</p>
+<p><img alt="" src="../assets/03-05.png" /></p>
+<p>观察上图，假设光线是离散的。</p>
+<p>左图中的光线与平面法线平行，平面接受了所有光线的能量（6根光线）。</p>
+<p>中图中的光线与平面法线夹角为 60度，平面只接受了一半光线的能量（3根光线）。</p>
+<p>推广到一般情况下，平面能接受的能量与该平面的法线和入射光的角度有关。其关系是：</p>
+<div class="arithmatex">\[ \cos \theta = \frac{n \cdot l}{|n| |l|} = n \cdot l \]</div>
+<p>那么, 平面能接受的能量为：<span class="arithmatex">\(E_{diffuse} = I_{in} \times n \cdot l\)</span></p>
+<p>漫反射公式为:</p>
+<p>到达着色点的能量 <span class="arithmatex">\(I_r = \frac{I_1}{r^2}\)</span>
+着色点能接收的能量 <span class="arithmatex">\(max(0, n \cdot l)\)</span>
+因此, 漫反射公式为:
+$$ L_d = k_d \cdot I_d \cdot max(0, n \cdot l) $$
+其中:
+- <span class="arithmatex">\(L_d\)</span> 表示着色点的漫反射分量
+- <span class="arithmatex">\(k_d\)</span> 表示材质的漫反射系数，可调节</p>
+<h3 id="specular">高光（Specular）</h3>
+<p><img alt="" src="../assets/03-06.png" /></p>
+<p>当光线发生反射时，如果当前视角方向与反射方向接近时，我们就能看到高光了。</p>
+<p>和漫反射公式类似，我们也需要知道有多少能量到达了平面，有多少能量被反射出去了，不同的地方是我们需要求视角方向与反射方向的夹角。</p>
+<p><img alt="" src="../assets/03-07.png" /></p>
+<p>观察上图，我们能通过向量的几何意义得出：</p>
+<p><span class="arithmatex">\(\vec{OR} = \vec{IR} + \vec{IO}\)</span>
+<span class="arithmatex">\(\vec{OR} = 2\vec{P} - \vec{IO}\)</span>
+<span class="arithmatex">\(\vec{P} = \vec{IO} + \vec{S}\)</span></p>
+<p>接下来计算 <span class="arithmatex">\(\vec{S}\)</span>, 为 <span class="arithmatex">\(\vec{OI}\)</span> 在 <span class="arithmatex">\(\vec{ON}\)</span> 上的投影, 即: <span class="arithmatex">\(\vec{S} = \frac {\vec{OI} \cdot \vec{ON} } {\|\vec{ON}\|^2} \vec{ON}\)</span></p>
+<p>把 <span class="arithmatex">\(\vec{S}\)</span> 代入上面的式子, 得到:</p>
+<p><span class="arithmatex">\(\vec{OR} = 2(\vec{IO} + \vec{S}) - \vec{IO} = \vec{IO} + 2\vec{S}\)</span></p>
+<p><span class="arithmatex">\(\vec{OR} = \vec{IO} + 2\frac {\vec{OI} \cdot \vec{ON} } {\|\vec{ON}\|^2} \vec{ON}\)</span></p>
+<p>由于 <span class="arithmatex">\(\vec{ON}\)</span> 是单位向量, 所以 <span class="arithmatex">\(\|\vec{ON}\|^2 = 1\)</span>, 因此:</p>
+<p><span class="arithmatex">\(\vec{OR} = \vec{IO} + 2(\vec{OI} \cdot \vec{ON}) \vec{ON}\)</span></p>
+<p><span class="arithmatex">\(\vec{OR} = \vec{IO} - 2(\vec{IO} \cdot \vec{ON}) \vec{ON} = \vec{IO} - 2\vec{ON}(\vec{IO} \cdot \vec{ON})\)</span></p>
+<p>调整一下入射光 <span class="arithmatex">\(\vec{IO}\)</span> 的方向，使之朝外，并使 <span class="arithmatex">\(\vec{OR}=\vec{r}\)</span> <span class="arithmatex">\(\vec{OI}=\vec{l}\)</span> <span class="arithmatex">\(\vec{ON}=n\)</span> , 得到：</p>
+<p><span class="arithmatex">\(\vec{r} = 2(\vec{l} \cdot \vec{n}) \vec{n} - \vec{l}\)</span></p>
+<p>推出 Specular 公式：</p>
+<div class="arithmatex">\[ L_s = k_s \cdot \frac{I_s}{r^2} \cdot max(0, (\vec{r} \cdot \vec{v})) \]</div>
+<p>由于 Phong 着色模型只是经验模型，并没有考虑太多的物理意义，因此在计算高光的时候并没有像漫反射公式那样考虑有多少能量被吸收了，因此就舍弃了 <span class="arithmatex">\(max(0, (\vec{l} \cdot \vec{n}))\)</span> 部分。</p>
+<p>然而，上面公式计算反射光与视角夹角时会得到一个 0~90 度的范围，这意味着在这个范围中都能看到高光，这显然不符合高光的定义。因此需要对该部分进行修正：</p>
+<p><img alt="" src="../assets/03-08.png" /></p>
+<p>可以看到，如果对 cos 进行指数运算，我们能很容易的调整高光可视范围的阈值，因此可以把该公式修正成：</p>
+<div class="arithmatex">\[ L_s = k_s \cdot \frac{I_s}{r^2} \cdot max(0, (\vec{r} \cdot \vec{v}))^p \]</div>
+<ul>
+<li><span class="arithmatex">\(L_s\)</span> 表示着色点的高光分量</li>
+<li><span class="arithmatex">\(k_s\)</span> 表示材质的高光系数，可调节</li>
+<li><span class="arithmatex">\(p\)</span> 用来调节高光的可视范围的阈值</li>
+<li><span class="arithmatex">\(max(0, (\vec{r} \cdot \vec{v}))\)</span> 表示反射光与视角夹角的余弦值</li>
+</ul>
+<p>Blinn Phong 着色模型在这基础上进行了优化：当反射向量与视角向量相近时，这相当于视角与入射光的 <strong>半程向量</strong> 与法线的夹角相近：</p>
+<p><img alt="" src="../assets/03-09.png" /></p>
+<p>于是我们可以用半程向量与法线的夹角，可以代替反射向量与视角的夹角，并且半程向量的计算也非常简单：</p>
+<div class="arithmatex">\[ \vec{h} = \frac{\vec{l} + \vec{v}}{\|\vec{l} + \vec{v}\|} \]</div>
+<p>这样就能对刚才的高光公式调整成：</p>
+<div class="arithmatex">\[ L_s = k_s \cdot \frac{I_s}{r^2} \cdot max(0, (\vec{h} \cdot \vec{n}))^p \]</div>
+<p>当我们计算出漫反射、高光、环境光之后，把它们加起来，就能得到 Blinn Phong 着色模型的结果了：</p>
+<p><img alt="" src="../assets/03-10.png" /></p>
+<div class="arithmatex">\[ L = L_a + L_d + L_s \]</div>
+<div class="arithmatex">\[ L = k_a \cdot I_a + k_d \cdot I_d \cdot max(0, n \cdot l) + k_s \cdot \frac{I_s}{r^2} \cdot max(0, (\vec{r} \cdot \vec{v})) \]</div>
+<h2 id="_2">着色频率</h2>
+<p><img alt="" src="../assets/03-11.png" /></p>
+<p>着色频率指的是发生着色的频率，如上图所示，上面三个球都拥有相同的几何形状，但应用了不同的着色频率，分别是：平面着色（左）、高洛德着色（中）、冯氏着色（右）。</p>
+<p>平面着色（Flat）
+平面着色是指整个三角面中共用一个方向的法线，因此表现为整个三角面的颜色都是一样的。</p>
+<p>高洛德着色（Gouraud）
+高洛德着色是指三角面中三个顶点分别拥有自己的法线，然后在着色时先计算出这三个顶点的颜色，然后其他像素就以插值的方式去计算出其对应的颜色。</p>
+<p>冯氏着色（Phong）
+冯氏着色是指三角面的三个顶点分别拥有自己的法线，然后其他像素也通过插值的方式计算出其对应的法线，然后每个像素都能进行着色。</p>
+<p>如图所示，着色频率对结果的影响，取决于模型的复杂度。模型的复杂度越低，着色结果区别越大，但随着模型复杂度的提高，平面着色也可以达到冯氏着色的效果。因此我们不能迷信冯氏着色一定比平面着色好。</p>
+<h2 id="texture-mapping">纹理映射（Texture Mapping）</h2>
+<p>根据着色公示，我们能计算出每个像素的颜色。但如果我们想要模型显示出更加复杂的颜色呢？例如把一张图片贴到物体表面，如上图中的球和地面那样，它们并不是简单的光照颜色，而是复杂的颜色，这种复杂的颜色看起来是来自于某张纹理的。</p>
+<p>回顾漫反射公式中，我们可以通过改变 <span class="arithmatex">\(k_d\)</span> 来调整漫反射分量，当这个 <span class="arithmatex">\(k_d\)</span> 包含了纹理中某个区域的颜色时，这其实就相当于把该纹理应用到着色公式中了。</p>
+<p>事实上，我们的确是通过某种方式找到物体表面与纹理的关系的，物体表面的某一个三角面对应了纹理中的个区域：</p>
+<p><img alt="" src="../assets/03-13.png" /></p>
+<p>如上图所示，在屏幕空间中的任意一点，我们都能找到它在贴图空间中对应的位置，这个对应关系就是 纹理映射。</p>
+<p>由于任意一个三维物体它都是由二维的三角面构成的，因此我们可以利用这个性质，来建立空间中的三角形与二维纹理中的映射关系。 这项工作通常是在建模软件中完成的。</p>
+<p><img alt="" src="../assets/03-14.png" /></p>
+<p>接下来的问题是，如何表示这个对应关系呢？答案是 UV坐标。</p>
+<p>UV 坐标是指以纹理左下角为原点来建立的二维坐标系，横坐标为 U，纵坐标为 V，它们的取值范围都是 <span class="arithmatex">\([0, 1]\)</span>
+，这个取值范围与贴图尺寸无关，即纹理最大宽高在 UV 中都是表示为 1。</p>
+<p><img alt="" src="../assets/03-15.png" /></p>
+<p>只要三角形中的每个顶点都保存了一个 UV 坐标的信息，那么在着色的时候就可以通过 UV 坐标找到该纹理对应的区域，这样就可以实现应用纹理的效果了。</p>
+<p>现在，我们知道了三角形的三个顶点中都包含了 UV 坐标，但三角形中的任意一点的 UV 坐标又应该怎么计算呢？这时候就需要引入一个新的概念：重心坐标。</p>
+<h2 id="barycentric-coordinates">重心坐标（Barycentric Coordinates）</h2>
+<p><img alt="" src="../assets/03-16.png" /></p>
+<p>重心坐标是以三角形的其中一个顶点为原点，分别以另外两个顶点作为基向量作为一个新的坐标系，如上图所示就是以 <span class="arithmatex">\(a\)</span> 为原点，以 <span class="arithmatex">\(\vec{ab}\)</span> 和 <span class="arithmatex">\(\vec{ac}\)</span> 作为基的坐标系。</p>
+<p>在这个坐标系中，任意一个点 <span class="arithmatex">\(p\)</span> 可以表示成：</p>
+<div class="arithmatex">\[ p = a + \beta (b-a) + \gamma (c-a) \]</div>
+<p>移项得：</p>
+<div class="arithmatex">\[ p = (1-\beta-\gamma)a + \beta b + \gamma c \]</div>
+<p>令 <span class="arithmatex">\(\alpha = 1-\beta-\gamma\)</span>，于是我们就能得到 p 点的表示方式：</p>
+<div class="arithmatex">\[ p = \alpha a + \beta b + \gamma c \]</div>
+<p>其中，<span class="arithmatex">\(\alpha\)</span>、<span class="arithmatex">\(\beta\)</span>、<span class="arithmatex">\(\gamma\)</span> 就是 p 点的重心坐标，它们的取值范围都是 <span class="arithmatex">\([0, 1]\)</span>，并且满足 <span class="arithmatex">\(\alpha + \beta + \gamma = 1\)</span>。</p>
+<p>当 <span class="arithmatex">\(\alpha\)</span>、<span class="arithmatex">\(\beta\)</span>、<span class="arithmatex">\(\gamma\)</span> 同时为非负数的时候，<span class="arithmatex">\(p\)</span> 点会位于三角形内部。</p>
+<p>重心坐标还有另一种表示方式，即每一个分量等于该顶点所对应的面积与整个三角形面积的比值：</p>
+<p><img alt="" src="../assets/03-17.png" /></p>
+<p>如图所示，A 所对应的面积为 <span class="arithmatex">\(S_A\)</span>，B 所对应的面积为 <span class="arithmatex">\(S_B\)</span>，C 所对应的面积为 <span class="arithmatex">\(S_C\)</span>，于是重心坐标的三个分量就是：</p>
+<div class="arithmatex">\[ \alpha = \frac{S_A}{S_A + S_B + S_C} \]</div>
+<div class="arithmatex">\[ \beta = \frac{S_B}{S_A + S_B + S_C} \]</div>
+<div class="arithmatex">\[ \gamma = \frac{S_C}{S_A + S_B + S_C} \]</div>
+<p>根据重心坐标的定义，我们能得到几个很特殊的重心坐标：</p>
+<ul>
+<li>顶点 A 的坐标：<span class="arithmatex">\((1, 0, 0)\)</span></li>
+<li>顶点 B 的坐标：<span class="arithmatex">\((0, 1, 0)\)</span></li>
+<li>
+<p>顶点 C 的坐标：<span class="arithmatex">\((0, 0, 1)\)</span></p>
+</li>
+<li>
+<p>三角形的重心：<span class="arithmatex">\((1/3, 1/3, 1/3)\)</span></p>
+</li>
+</ul>
+<p>最后，我们可以把二维平面中的三角形的任意一点 <span class="arithmatex">\((x, y)\)</span> 转化成重心坐标 <span class="arithmatex">\((\alpha, \beta, \gamma)\)</span>，这里有一个通用公式：</p>
+<div class="arithmatex">\[ \alpha = \frac {-(x - x_B)(y_C - y_B) + (y - y_B)(x_C - x_B)} {-(x_A - x_B)(y_C - y_B) + (y_A - y_B)(x_C - x_B)} \]</div>
+<div class="arithmatex">\[ \beta = \frac {-(x - x_C)(y_A - y_C) + (y - y_C)(x_A - x_C)} {-(x_B - x_C)(y_A - y_C) + (y_B - y_C)(x_A - x_C)} \]</div>
+<div class="arithmatex">\[ \gamma = 1 - \alpha - \beta \]</div>
+<p>有了重心坐标之后，我们就能计算出三角形中任意一点的属性了：</p>
+<p><img alt="" src="../assets/03-18.png" /></p>
+<p>无论是位置、法线、颜色、UV 等等其他的属性，我们都能通过重心坐标计算出三角形中任意一点的属性。</p>
+<blockquote>
+<p>需要注意的是，由于三角形在投影前后的重心坐标（形状）会发生变化，因此并不能用投影后的三角形的重心坐标来计算，必须把它还原成投影前的三角形，然后计算其重心坐标，再计算对应的属性。</p>
+</blockquote>
+<h2 id="_3">插值矫正</h2>
+<p>为什么需要进行插值矫正? 在屏幕空间，对三角形内部一点，用重心坐标插值一个属性（如 z / u / v / color），这个公式叫做仿射插值（Affine interpolation）：</p>
+<p>$$ A = \alpha A_0 + \beta A_1 + \gamma A_2 $$`</p>
+<p>这是仿射插值（Affine interpolation）</p>
+<blockquote>
+<p>仿射插值与线性插值的区别
+仿射是平移 + 变换, 仿射插值在仿射变换下不变</p>
+</blockquote>
+<p>透视投影的矩阵中,有一项是  x/z 和 y/z, 除以 z 是非线性的</p>
+<p>所以：3D 空间里“线性变化”的量, 投影到屏幕后不再线性.</p>
+<p>举个极简直觉例子: 
+一条 3D 直线, 离相机近的一端: z 小, 离相机远的一端: z 大, 投影到屏幕后: 近的部分被“拉伸”, 远的部分被“压缩”, 所以你在屏幕上“走了一半”, 在 3D 空间里根本不是走了一半.</p>
+<p>透视插值真正要保证的是什么？
+属性 A 在 3D 空间中是线性变化的</p>
+<ul>
+<li>深度 z</li>
+<li>纹理坐标 u, v</li>
+<li>世界坐标</li>
+<li>法线插值前的基向量</li>
+</ul>
+<div class="arithmatex">\[
+a_{corrent} =
+\frac{
+\alpha \frac{a_0}{w_0}
++
+\beta \frac{a_1}{w_1}
++
+\gamma \frac{a_2}{w_2}
+}{
+\alpha \frac{1}{w_0}
++
+\beta \frac{1}{w_1}
++
+\gamma \frac{1}{w_2}
+}
+\]</div>
+<h2 id="_4">应用纹理</h2>
+<p>有了重心坐标之后，我们能计算出任意一个像素对应 UV 坐标了，然后就能为每个像素应用纹理了。应用纹理的逻辑非常简单，只要遍历就可以了：</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="o">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">uv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUv</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">texColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sample2D</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span><span class="w"> </span><span class="n">uv</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">kd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">texColor</span><span class="w"> </span>
+</span></code></pre></div>
+<p>然而在应用纹理的时候，我们会遇到一些问题，这些问题的都与纹素有关。</p>
+<h3 id="texel">纹素（Texel）</h3>
+<p>纹素与像素非常相似，像素是组成屏幕的基本单位，而纹素则是组成纹理的基本单位，它和像素一样都是有面积的。</p>
+<p>每个像素的尺寸为  <span class="arithmatex">\(\frac 1 {屏幕宽度} \times \frac 1 {屏幕高度}\)</span> </p>
+<p>每个纹素的尺寸为  <span class="arithmatex">\(\frac 1 {纹理宽度} \times \frac 1 {纹理高度}\)</span> </p>
+<p>显然，根据重心坐标计算出来的 UV 坐标是一个浮点数，它会落在纹理中的任意位置。当我们尝试在该位置采样的时候，就会遇到一个问题：我们应该取什么颜色？</p>
+<p><img alt="" src="../assets/03-19.png" /></p>
+<p>如图所示，虚线框表示纹素，黑色点表示纹素的中心，红色点表示要采样的位置。显然，我们需要一个采样策略去决定应该获得什么颜色，常见的策略有：</p>
+<ul>
+<li>
+<p>Nearest 取该采样点所在的纹素的颜色（会发生一次采样）</p>
+</li>
+<li>
+<p>Linear 取该采样点周围四个纹素的颜色，然后进行加权平均（会发生四次采样）</p>
+</li>
+</ul>
+<p>还有一个问题，当纹理尺寸与显示区域尺寸不同的时候，应该怎么办呢？</p>
+<p>假设我们的显示区域的尺寸是 4x4，当我们要把一张 2x2 的纹理铺满整个显示区域时，我们就需要对它进行放大。当我们要把一张 8x8 的纹理铺满整个显示区域时，我们就需要对它进行缩小。这时候就涉及到纹理放大和纹理缩小。</p>
+<h3 id="texture-magnification">纹理放大（Texture Magnification）</h3>
+<p><img alt="" src="../assets/03-20.png" /></p>
+<h3 id="texture-minification">纹理缩小（Texture Minification）</h3>
+<p><img alt="" src="../assets/03-21.png" /></p>
+<h3 id="_5">走样问题</h3>
+<p><img alt="" src="../assets/03-22.png" /></p>
+<p>当我们尝试渲染在一个面片上面贴一张网格图的时候，我们期望得到左边的结果，但实际上得到的是右边的结果，近距离出现锯齿，远距离出现摩尔纹。</p>
+<p>这是因为每个像素对应的纹素区域不同导致的。</p>
+<p><img alt="" src="../assets/03-23.png" /></p>
+<p>对于近距离的像素来说，它所覆盖的纹素范围较少，纹理发生了放大。</p>
+<p>对于远距离的像素来说，它所覆盖的纹理范围较大，纹理发生了缩小。</p>
+<p>这背后的问题就是，对于每个像素来说，它们表示的要表示的区域各不相同，但最终要以一个颜色来填充整个像素。</p>
+<p>这是一个典型的走样问题，我们可以通过之前学到的超采样来实现反走样，下面是 512 倍超采样的结果：</p>
+<p><img alt="" src="../assets/03-24.png" /></p>
+<p>可以看到，超采样的效果比较明显，但它有一个致命的问题：性能消耗巨大。而且对于远距离的像素来说，超采样明显是浪费的，有没有一种更好的方案去解决这种由纹理采样带来的问题呢？</p>
+<p>细心想想，我们刚刚对纹理采样是一种点查询，也就是通过一个 UV 坐标去获取一个纹素的颜色的，如果有一种方式可以实现范围查询，也就是通过一个 UV 坐标去获取一个范围（任意大小）的平均颜色，那么就能完美解决这个问题了。</p>
+<p>而这个方案就是Mipmap。</p>
+<h3 id="mipmap">Mipmap</h3>
+<p>Mipmap 是指根据一张纹理去生成一系列更小的纹理的技术。</p>
+<p><img alt="" src="../assets/03-25.png" /></p>
+<p>如图所示：</p>
+<p>第 0 级是纹理的原尺寸
+第 1 级由第 0 级纹理缩放 1/2 所得
+…
+第 n 级由第 n - 1 级纹理缩放 1/2 所得
+最后一级的纹理尺寸为 1x1</p>
+<p>每一级 mipmap 中的每一个像素，都是由上一级 mipmap 相邻的四个像素求平均所得。</p>
+<p>最后，我们就能得到这个金字塔形状的贴图链：</p>
+<p><img alt="" src="../assets/03-26.png" /></p>
+<p><strong>这个 mipmap 有什么用呢？</strong></p>
+<p>在采样的时候，我们可以先计算出这个像素覆盖了多大范围的纹素，然后再计算出这个范围应该对应到第几层 mipmap，再对该层 mipmap 进行采样，这样就相当于得到了原区域纹素的平均颜色了。 例如：</p>
+<p>当一个像素覆盖了 1 个纹素的时候，采样时应该访问第 0 层 mipmap
+当一个像素覆盖了 2 个纹素的时候，采样时应该访问第 1 层 mipmap
+当一个像素覆盖了 4 个纹素的时候，采样时应该访问第 2 层 mipmap
+…
+当一个像素覆盖了 128 个纹素的时候，采样时应该访问第 7 层 mipmap
+那要怎么计算一个像素覆盖了多少纹素呢？其实有很多方法可以计算的，这里只介绍一个简单的做法：</p>
+<p><img alt="" src="../assets/03-27.png" /></p>
+<p>要根据该像素的四个角的 UV 坐标，计算出它们映射到纹理上的位置，然后把它们连起来就可以了。 实际上，我们在采样 mipmap 的时候，会把这个查询区域近似看成正方形，而这个过程中有更复杂的算法去实现，具体可以查阅相关资料。</p>
+<p>假设一个像素覆盖了 N 个纹素，应该采样的层数为 L，那么它们的关系就是：$ L = log_2(N) $</p>
+<p>显然，L 有可能是一个浮点数，如 1.5，这时候应该怎么办呢？很简单，先采样第1 层，然后采样第 2 层，再对两个值进行插值即可。</p>
+<p>需要注意的是，由于 mipmap 通过原尺寸的纹理生成了一系列更小的纹理，这样会导致存储体积增大，增大了多少呢？显然，这是一个等比数列求和问题， 于是我们可以套用一下公式：</p>
+<div class="arithmatex">\[S_n = a_1 \frac {1 - q^n} {1 - q}\]</div>
+<p>由于它的公比是 1/4（因为宽高都为上一级的一半），而首项可以看作是 1，于是代入公式可得：</p>
+<div class="arithmatex">\[S_n = 1 \frac {1 - (1/4)^n} {1 - 1/4} = 4/3 (1 - (1/4)^n)\]</div>
+<p>当 n 趋近于无穷大时，$ (1/4)^n $ 趋近于 0，于是我们可以得到：</p>
+<div class="arithmatex">\[S_n = 4/3\]</div>
+<p>因此，使用 mipmap 之后，存储体积会比原来增大 1/3 倍。</p>
+<p><img alt="" src="../assets/03-28.png" /></p>
+<h3 id="anisotropic-filtering">各向异性过滤（Anisotropic Filtering）</h3>
+<p><img alt="" src="../assets/03-29.png" /></p>
+<p>这是因为对于远处的像素来说，它们覆盖的纹素实际上并不是一个正方形，而是一个扁矩形，采样 mipmap 的时候以正方形区域来采样会带来比较大的误差。</p>
+<p>因此这里需要一种新的策略，这就是各向异性过滤的作用了。</p>
+<p>和 mipmap 类似，各向异性过滤也是利用原纹理去生成更小尺寸的纹理的技术，mipmap 生成的是宽高比例不变的纹理，而各向异性过滤生成的是宽高比例会发生变化的纹理。如下图所示：</p>
+<p><img alt="" src="../assets/03-30.png" /></p>
+<p>左上角的是原纹理，顺着左上角往右下角方向生成的是 mipmap，它们与原纹理是等比例的，此外的其他纹理都是由各向异性过滤而生成的纹理。</p>
+<p>和 mipmap 一样，各向异性过滤和也是有层级的，对于上面的那张图，层级如下图所示，相同颜色的区域表示相同层级下的各向异性过滤：</p>
+<p><img alt="" src="../assets/03-31.png" /></p>
+<p>我们可以在各种图形 API 中去控制应该生成哪些层级的各向异性过滤的纹理。</p>
+<p>有了各向异性过滤之后，在对于扁矩形区域，我们就可以找到对应的纹理中查询颜色了。我们来看看使用了各向异性过滤之后的效果：</p>
+<p><img alt="" src="../assets/03-32.png" /></p>
+<p>可以看到，使用了各向异性过滤之后，远处的摩尔纹问题得到了解决。</p>
+<h3 id="_6">各式各样的纹理</h3>
+<p>上面的例子中，我们通过使用纹理去改变了着色公式中的<span class="arithmatex">\(K_d\)</span>项，显然，着色公式中的其他项也可以利用纹理去改变的。</p>
+<p>正是这个原因，我们会看到各种各样的纹理，如表示环境光的 sphereMap 和 cubeMap，表示法线的 normalMap 等等。下面介绍几种常见的纹理。</p>
+<h4 id="spherical-map">球面贴图（Spherical Map）</h4>
+<p>环境贴图可以用来表示环境光照。由于环境光是来自四面八方的，因此在采样环境光的时候可以把其看成是一个球面。</p>
+<p><img alt="" src="../assets/03-33.png" /></p>
+<p>上图中左图是把环境贴图应用在球面上，然后右图的场景中则是利用该环境贴图进行采样得到的结果。</p>
+<p>但球面贴图有一个缺点，就是容易发生变形，特别是靠近北极南极的区域，变形非常严重。</p>
+<p><img alt="" src="../assets/03-34.png" /></p>
+<p>这种现象就导致了如果用球面贴图提供光照信息，那么北极南极方向的光照信息会变得不准确。</p>
+<h4 id="cube-map">立方体贴图（Cube Map）</h4>
+<p><img alt="" src="../assets/03-35.png" />
+!
+立方体贴图是另一种环境贴图，它是利用六张图来构建成一个立方体，然后再根据法线方向去判断采样哪一个面。</p>
+<p><img alt="" src="../assets/03-36.png" /></p>
+<p>这种方案比球面贴图更少变形，但需要把一张环境贴图去成六张尺寸相同的图。</p>
+<h4 id="bump-map">凹凸贴图（Bump Map）</h4>
+<p><img alt="" src="../assets/03-37.png" /></p>
+<p>凹凸贴图是一种为模型添加细节的贴图。凹凸贴图是一张灰度图，它保存了着色点与原始表面的高度差，以此来影响光照信息。</p>
+<h4 id="normal-map">法线贴图（Normal Map）</h4>
+<p><img alt="" src="../assets/03-38.png" /></p>
+<p>法线贴图是凹凸贴图的另一种实现，原理是改变着色点的法线方向，从而影响光照结果。</p>
+<p>从上面可以看到，我们可以用低模加法线贴图，来模拟高模的效果。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../02-rasterization/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 栅格化">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                栅格化
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 ZuoQiu All rights reserved.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest", "toc.follow", "content.tabs.link", "content.tooltips", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../statics/js/katex.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/katex.min.js"></script>
+      
+        <script src="https://cdn.bytedance.com/cdn/KaTeX/0.15.2/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
